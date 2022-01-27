@@ -15,7 +15,7 @@
           </Key>
           <Property Name="fOrderID" Type="int" Nullable="false" />
           <Property Name="fTentID" Type="int" Nullable="false" />
-          <Property Name="fOrderDate" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="fOrderDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="tCampFavorite">
           <Key>
@@ -59,7 +59,7 @@
           <Property Name="fCampsiteID" Type="int" Nullable="false" />
           <Property Name="fComment" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="fCommentScore" Type="int" Nullable="false" />
-          <Property Name="fCommentTime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fCommentTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="tCommentLike">
           <Key>
@@ -90,7 +90,7 @@
           </Key>
           <Property Name="fOptionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="fCampsiteID" Type="int" Nullable="false" />
-          <Property Name="fOptionName" Type="int" Nullable="false" />
+          <Property Name="fOptionName" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="fOptionPrice" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tOrder">
@@ -105,7 +105,7 @@
           <Property Name="fOrderPrice" Type="int" Nullable="false" />
           <Property Name="fOrderComment" Type="nvarchar" MaxLength="255" />
           <Property Name="fOrderIsPaid" Type="bit" Nullable="false" />
-          <Property Name="fOrderCreatedTime" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="fOrderCreatedTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="tRent">
           <Key>
@@ -476,7 +476,7 @@
           <Property Name="fCampsiteID" Type="Int32" Nullable="false" />
           <Property Name="fComment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fCommentScore" Type="Int32" Nullable="false" />
-          <Property Name="fCommentTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fCommentTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="tCampsite" Relationship="Self.FK__tComment__fCamps__7D439ABD" FromRole="tComment" ToRole="tCampsite" />
           <NavigationProperty Name="tMember" Relationship="Self.FK__tComment__fMembe__7C4F7684" FromRole="tComment" ToRole="tMember" />
           <NavigationProperty Name="tMember1" Relationship="Self.tCommentLike" FromRole="tComment" ToRole="tMember" />
@@ -507,7 +507,7 @@
           </Key>
           <Property Name="fOptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="fCampsiteID" Type="Int32" Nullable="false" />
-          <Property Name="fOptionName" Type="Int32" Nullable="false" />
+          <Property Name="fOptionName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fOptionPrice" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tCampsite" Relationship="Self.FK__tOptionCa__fCamp__03F0984C" FromRole="tOptionCase" ToRole="tCampsite" />
           <NavigationProperty Name="tRent" Relationship="Self.FK__tRent__fOptionID__07C12930" FromRole="tOptionCase" ToRole="tRent" />
@@ -524,7 +524,7 @@
           <Property Name="fOrderPrice" Type="Int32" Nullable="false" />
           <Property Name="fOrderComment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="fOrderIsPaid" Type="Boolean" Nullable="false" />
-          <Property Name="fOrderCreatedTime" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fOrderCreatedTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="tMember" Relationship="Self.FK__tOrder__fMemberI__693CA210" FromRole="tOrder" ToRole="tMember" />
           <NavigationProperty Name="tBooked" Relationship="Self.FK__tBooked__fOrderI__6B24EA82" FromRole="tOrder" ToRole="tBooked" />
           <NavigationProperty Name="tRent" Relationship="Self.FK__tRent__fOrderID__06CD04F7" FromRole="tOrder" ToRole="tRent" />
@@ -583,7 +583,7 @@
           </Key>
           <Property Name="fOrderID" Type="Int32" Nullable="false" />
           <Property Name="fTentID" Type="Int32" Nullable="false" />
-          <Property Name="fOrderDate" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fOrderDate" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="tOrder" Relationship="Self.FK__tBooked__fOrderI__6B24EA82" FromRole="tBooked" ToRole="tOrder" />
           <NavigationProperty Name="tTent" Relationship="Self.FK__tBooked__fTentID__6C190EBB" FromRole="tBooked" ToRole="tTent" />
         </EntityType>

@@ -17,16 +17,24 @@ namespace CampWebsite.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Register(tMember m)
+        public ActionResult Register(string fName, string fEmail, string fPassword )
         {
             if (ModelState.IsValid == false)
             {
                 return View();
             }
-            var member = db.tMember.Where(i => i.fEmail == m.fEmail).FirstOrDefault();
+            var member = db.tMember.Where(i => i.fEmail == fEmail).FirstOrDefault();
             if (member == null)
             {
-                db.tMember.Add(m);
+                tMember newUser = new tMember();
+                newUser.fName = fName;
+                newUser.fEmail = fEmail;
+                newUser.fPassword = fPassword;
+                newUser.fSex = 0;
+                newUser.fGroup = "gCustomer";
+                newUser.fVerified = false;
+                newUser.fAvailable = false;
+                db.tMember.Add(newUser);
                 db.SaveChanges();
                 return RedirectToAction("List");
             }

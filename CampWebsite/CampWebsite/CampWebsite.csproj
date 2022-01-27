@@ -187,6 +187,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
+    <Content Include="Fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Fonts\glyphicons-halflings-regular.woff2" />
     <EntityDeploy Include="Models\dbCamp.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbCamp.Designer.cs</LastGenOutput>
@@ -194,10 +198,6 @@
     <Content Include="Models\dbCamp.edmx.diagram">
       <DependentUpon>dbCamp.edmx</DependentUpon>
     </Content>
-    <Content Include="Fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Fonts\glyphicons-halflings-regular.woff2" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

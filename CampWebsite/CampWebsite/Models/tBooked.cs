@@ -16,7 +16,7 @@ namespace CampWebsite.Models
     {
         public int fOrderID { get; set; }
         public int fTentID { get; set; }
-        public string fOrderDate { get; set; }
+        public System.DateTime fOrderDate { get; set; }
     
         public virtual tOrder tOrder { get; set; }
         public virtual tTent tTent { get; set; }

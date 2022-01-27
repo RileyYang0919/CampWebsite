@@ -22,7 +22,7 @@ namespace CampWebsite.Models
     
         public int fOptionID { get; set; }
         public int fCampsiteID { get; set; }
-        public int fOptionName { get; set; }
+        public string fOptionName { get; set; }
         public int fOptionPrice { get; set; }
     
         public virtual tCampsite tCampsite { get; set; }

@@ -29,7 +29,7 @@ namespace CampWebsite.Models
         public int fOrderPrice { get; set; }
         public string fOrderComment { get; set; }
         public bool fOrderIsPaid { get; set; }
-        public string fOrderCreatedTime { get; set; }
+        public System.DateTime fOrderCreatedTime { get; set; }
     
         public virtual tMember tMember { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
