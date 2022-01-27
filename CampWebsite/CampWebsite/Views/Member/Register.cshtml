@@ -1,0 +1,60 @@
+﻿@model CampWebsite.Models.tMember
+
+@{
+    ViewBag.Title = "Register";
+}
+
+
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>註冊帳號</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div style="max-width:500px" class=" m-auto">
+        <div class="modal-header align-items-center">
+            <h3>註冊帳號</h3>
+        </div>
+         @*Body*@ 
+        <div class="modal-body1">
+            <div class="form-group">
+                <input type="text" class="form-control text-box single-line" id="fName" name="fName" placeholder="姓名">
+            </div>
+            <div class="form-group">
+                <input type="email" class="account form-control" id="fEmail" name="fEmail" placeholder="example@mail.com" />
+            </div>
+            <div class="form-group">
+                <input type="password" class="password form-control" id="fPassword" name="fPassword" placeholder="Password" />
+            </div>
+            <div class="form-group"><input type="checkbox" class="remember" /> 記住我</div>
+             @*送出資料*@ 
+            <div class="form-group">
+                <div class="btn btn-info col">
+                    <input type="submit" value="創建帳號" class="btn btn-default" />
+                </div>
+                <p class="text-danger">@ViewBag.Message</p>
+            </div>
+        </div>
+         @*Footer*@ 
+        <div class="modal-footer">
+            <div class="toSignup">
+                <span>已經是會員?</span>
+                <a href="/Member/Login" type="button" class="member">登入</a>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

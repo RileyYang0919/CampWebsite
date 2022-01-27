@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>請登入</h2>
+
+<form action="@Url.Action("Login")" method="post">
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            <span class="control-label col-md-2">Email</span>
+            <div class="col-md-5 w-md-50">
+                <input type="text" name="fEmail" id="fEmail" required="required" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <span class="control-label col-md-2">Password</span>
+            <div class="col-md-5 w-md-50">
+                <input type="password" name="fPassword" id="fPassword" required="required" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <input type="submit" value="登入" required="required" class=" btn-default " />
+            </div>
+            <div class="toSignup text">
+                <p>尚未成為會員</p>
+                <span>登記註冊代表你接受我們的條款和隱私政策。</span>
+                <a href="/Member/Register" type="button" class="member">註冊</a>
+            </div>
+            @ViewBag.Message
+        </div>
+
+    </div>
+</form>
+

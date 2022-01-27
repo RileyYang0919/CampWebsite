@@ -1,0 +1,436 @@
+﻿html {
+    font-size: 10px;
+    font-family: "微軟正黑體";
+    box-sizing: border-box;
+}
+
+@media screen and (min-width:576px) {
+    html {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (min-width:768px) {
+    html {
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (min-width:992px) {
+    html {
+        font-size: 1.6rem;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    html {
+        font-size: 1.8rem;
+    }
+}
+
+.fs-sm {
+    font-size: 0.65rem;
+}
+
+.fs-md {
+    font-size: 0.8rem;
+}
+
+.fs-lg {
+    font-size: 1.2rem;
+}
+
+.fs-xl {
+    font-size: 1.4rem;
+}
+
+/* 漢堡選單 */
+
+.menu-md {
+    right: 5%;
+    top: 1.7rem;
+}
+
+    .menu-md ul {
+        max-height: 0;
+        overflow: hidden;
+    }
+
+.menu li {
+    margin-right: 1rem;
+}
+
+nav input {
+    display: none;
+}
+
+    nav input:checked ~ .menu-md ul {
+        max-height: 200px;
+    }
+
+/* ============== */
+.dir-block {
+    height: 1.5rem;
+}
+
+    .dir-block a,
+    span {
+        margin-right: 0.25rem;
+        padding: 0.15rem;
+    }
+
+.primary-color {
+    background-color: #95a59d;
+}
+
+.dir-block a:hover {
+    background-color: #95a59d;
+}
+
+/* 營區照片 */
+.img-selected {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 22rem;
+    width: 70%;
+}
+
+.img-list {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 3.5rem;
+    width: 80%;
+}
+
+    .img-selected img,
+    .img-list li,
+    img {
+        height: 100%;
+        width: 100%;
+    }
+
+    .img-list li {
+        position: relative;
+    }
+
+        .img-list li img {
+            transition: .5s ease;
+            object-fit: cover;
+        }
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: .5s ease;
+    opacity: 0;
+}
+
+.img-list li:hover img {
+    filter: blur(2px);
+}
+
+.img-list li:hover .overlay {
+    opacity: 1;
+}
+
+.link {
+    font-size: 0.5rem;
+    color: blue;
+}
+
+    .link:hover {
+        color: black;
+    }
+
+/* ============= */
+.star-container i {
+    margin-right: 0.15rem;
+}
+
+.elevator-container {
+    border-bottom: 1px #95a59d solid;
+    padding-bottom: 5px;
+}
+
+.elevator {
+    flex: auto;
+    text-align: center;
+    border-radius: 0.25rem 0.25rem 0 0;
+    background-color: #95a59d;
+    color: black;
+}
+
+    .elevator:hover {
+        color: white;
+        background-color: #e5c45b;
+    }
+
+.bubble-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-top: 2px solid #95a59d;
+}
+
+.bubble {
+    /* border: 2px solid #95a59d; */
+    border-radius: 0.8rem;
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.3rem;
+    font-size: 0.65rem;
+    background-color: #95a59d;
+    color: #fff;
+}
+
+/* ============= */
+.w-85 {
+    width: 85%;
+}
+
+    .w-85 div {
+        flex: auto;
+    }
+
+.w-15 {
+    width: 15%;
+}
+
+.po-rel {
+    position: relative;
+}
+
+.po-abs {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+
+.c-blue {
+    color: blue;
+}
+
+.c-red {
+    color: #b95159;
+}
+
+.button {
+    font-weight: bold;
+    color: white;
+    background-color: #234A63;
+    border-radius: 0.25rem;
+    padding: 0.1rem 0.5rem 0.1rem 0.5rem;
+    text-align: center;
+    font-size: 0.65rem;
+}
+
+    .button:hover {
+        color: black;
+        background-color: #e5c45b;
+    }
+
+.star-container i {
+    color: #FFCC22;
+}
+
+.service-block i,
+.information-block i,
+.note-block i {
+    width: 1rem;
+    text-align: center;
+    margin-right: 0.2rem;
+}
+
+.information-main-block .d-flex,
+.note-block .d-flex,
+.alert-main-block p {
+    margin-bottom: 0.5rem;
+}
+
+.fa-check {
+    font-size: 0.3rem;
+}
+
+.information-block span,
+.service-block span,
+.note-block span,
+.alert-block .col-12 p,
+.review-block .d-flex p,
+span {
+    font-size: 0.65rem;
+}
+
+.service-block span {
+    margin-right: 1rem;
+}
+
+.information-main-block p,
+.service-block .col-6 p,
+.note-block .col-12 p {
+    font-weight: bold;
+    display: inline;
+}
+
+
+.block-header {
+    display: block;
+    font-weight: bold;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.text-indent {
+    text-indent: 1.5rem;
+}
+
+.information-main-block,
+.note-main-block,
+.alert-main-block {
+    background-color: #e6e6e6;
+    padding: 1rem;
+    border-radius: 0.25rem;
+}
+
+.review-head-block {
+    background-color: #e6e6e6;
+    height: 3rem;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+    .review-head-block .col-9 p {
+        font-style: italic;
+    }
+
+.review-main-block {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border: 2px solid #95a59d;
+    border-radius: 0.25rem;
+}
+
+    .review-main-block div {
+        margin-bottom: 0.25rem;
+    }
+
+    .review-main-block .text-indent {
+        background-color: #e6e6e6;
+        padding: 1rem;
+        border-radius: 5px;
+    }
+
+.camp-type-head {
+    background-color: #234A63;
+    color: white;
+    height: 1.5rem;
+    text-indent: 1rem;
+}
+
+.camp-type-container tr {
+    height: 1.5rem;
+}
+
+.camp-type-container td {
+    text-indent: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #95a59d;
+}
+
+.camp-type-container-foot {
+    background-color: #95a59d;
+    font-weight: bold;
+}
+
+nav {
+    height: 1.75rem;
+}
+
+    nav i {
+        opacity: 0.5;
+    }
+
+        nav i:hover {
+            opacity: 1;
+        }
+
+.logo {
+    height: 1.3rem;
+}
+
+footer {
+    height: 8rem;
+}
+
+/*月曆*/
+.calendar {
+    background-color: #e6e6e6;
+    height: 80%;
+}
+
+.year {
+    display: flex;
+    justify-content: center;
+}
+
+    .year span {
+        margin: 10px 10px;
+    }
+
+#pre_year,
+#next_year {
+    cursor: pointer;
+}
+
+.month {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.day ul {
+    display: flex;
+    background-color: #234A63;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+    .day ul li {
+        flex: auto;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+    }
+
+.date {
+    height: 80%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+    .date div {
+        width: 14.285714%;
+        height: 3rem;
+        text-align: center;
+        border: 1px solid black;
+    }
+
+        .date div:hover {
+            background-color: #e5c45b;
+        }
+
+.preMonth,
+.nextMonth {
+    color: white;
+    background-color: #95a59d;
+}
+*{
+/*    outline:1px pink solid*/
+}

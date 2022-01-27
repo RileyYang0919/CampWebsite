@@ -1,0 +1,81 @@
+﻿@model IEnumerable<CampWebsite.Models.tMember>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fPassword)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fSex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fBirthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fPhoto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fGroup)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fVerified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fAvailable)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.fName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fPassword)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fSex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fBirthday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fPhoto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fGroup)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fVerified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fAvailable)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.fMemberID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.fMemberID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.fMemberID })
+        </td>
+    </tr>
+}
+
+</table>

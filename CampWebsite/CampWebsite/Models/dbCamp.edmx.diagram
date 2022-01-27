@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e6b817f01b2a4932a9310e9302c228d8" Name="Diagram1">
+        <EntityTypeShape EntityType="dbCampModel.tCampsite" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tComment" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tMember" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tOptionCase" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tOrder" Width="1.5" PointX="7.5" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tRent" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tTag" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tTent" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tTentPhoto" Width="1.5" PointX="5.25" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tBooked" Width="1.5" PointX="9.75" PointY="10.125" IsExpanded="true" />
+        <AssociationConnector Association="dbCampModel.FK__tCampsite__fMemb__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="dbCampModel.FK__tComment__fCamps__7D439ABD" ManuallyRouted="false" />
+        <AssociationConnector Association="dbCampModel.FK__tOptionCa__fCamp__03F0984C" ManuallyRouted="false" />
+        <AssociationConnector Association="dbCampModel.FK__tTent__fCampsite__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="dbCampModel.FK__tComment__fMembe__7C4F7684" ManuallyRouted="false" />
+        <AssociationConnector Association="dbCampModel.FK__tOrder__fMemberI__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="dbCampModel.FK__tRent__fOptionID__07C12930" ManuallyRouted="false" />
+        <AssociationConnector Association="dbCampModel.FK__tBooked__fOrderI__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="dbCampModel.FK__tRent__fOrderID__06CD04F7" ManuallyRouted="false" />
+        <AssociationConnector Association="dbCampModel.FK__tBooked__fTentID__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="dbCampModel.FK__tTentPhot__fTent__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="dbCampModel.tCampFavorite" ManuallyRouted="false" />
+        <AssociationConnector Association="dbCampModel.tCampTag" ManuallyRouted="false" />
+        <AssociationConnector Association="dbCampModel.tCommentLike" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

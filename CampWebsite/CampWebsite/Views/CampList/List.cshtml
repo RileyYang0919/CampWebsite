@@ -1,0 +1,95 @@
+﻿@model IEnumerable<CampWebsite.Models.tCampsite>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fMemberID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsitePhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteArea)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteIntroduction)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteAltitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteClosedDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteCheckInTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteCheckOutTime)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.fCampsiteID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fMemberID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fCampsiteName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fCampsitePhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fCampsiteArea)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fCampsiteCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fCampsiteAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fCampsiteIntroduction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fCampsiteAltitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fCampsiteClosedDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fCampsiteCheckInTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fCampsiteCheckOutTime)
+            </td>
+            <td>
+                @Html.ActionLink("進到營區頁面", "Details", "CampList", new { id = item.fCampsiteID }, null)
+            </td>
+        </tr>
+    }
+
+</table>
