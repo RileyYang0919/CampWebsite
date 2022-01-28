@@ -1,0 +1,184 @@
+﻿@model IEnumerable<CampWebsite.Models.tCampsite>
+
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>露營</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/Content/AC.css" />
+
+    <style>
+    </style>
+
+    <script type="text/javascript"></script>
+</head>
+<body>
+    <!-- navbar 表示這是一個 flex-box -->
+    <!-- navbar-expand-md 負責轉手機版的寬度, lg:991以下轉手機版, md:767以下轉手機版, sm:575以下轉手機版 -->
+    <!-- navbar-dark讓文字為白色, bg-dark負責背景顏色為暗底 -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-info">
+        <!--  這是 LOGO 文字或圖片  -->
+        <a class="nalogo" href="#">
+            <img class="logoo" src="~/Images/Asset 3.png" />
+        </a>
+        <!--  這是手機版時右上角呈現的選單按鈕, 注意:data-target表示按下這個按鈕時要控制展開收合的物件ID名稱  -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <!-- 這是按鈕上呈現的icon圖案 -->
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- navbar-collapse表示這個框架區塊是可收展開的, 注意:id名稱必須跟button中的data-target一樣 -->
+        <!-- 左右二組選單要分散到二邊時, 方法(1)父層加justify-content-between的class名稱  -->
+        <!-- 左右二組選單要分散到二邊時, 方法(2)子層左側選單組加mr-auto的class名稱  -->
+        <!-- 左右二組選單要分散到二邊時, 方法(3)子層右側選單組加ml-auto的class名稱  -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- 這是一組靠右側的選單 -->
+            <ul class="navbar-nav ml-auto">
+                <!-- active在視覺上設計底色不同,表示目前在這個位置,如果不需要則刪除  -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">通知</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <!-- 加上 dropdown, 表示擁有下一層收合展開的子選單 ********** -->
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">會員</a>  <!-- a連結加上 dropdown-toggle 及相關的屬性 ********** -->
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <!-- 子選單的 div ********** -->
+                        <a class="dropdown-item" href="#">管理帳號</a>
+                        <a class="dropdown-item" href="#">預約營地</a>
+                        <a class="dropdown-item" href="#">常客優惠</a>
+                        <a class="dropdown-item" href="#">我的收藏</a>
+                        <a class="dropdown-item" href="#">登出</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">尋找營區</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">尋找營區</a>
+                </li>
+            </ul>
+
+
+        </div>
+    </nav>
+    <div class="大區塊">
+        <h1 class="containee">快速搜尋</h1>
+        <div class="containee">請選擇區域</div>
+        <div class="containee">
+            <div id="checkbox">
+                <label><input type="checkbox" name="variety" value="全部" checked="checked" /><span class="round button">全部</span></label>
+                <label><input type="checkbox" name="variety" value="北部" /><span class="round button">北部</span></label>
+                <label><input type="checkbox" name="variety" value="中部" /><span class="round button">中部</span></label>
+                <label><input type="checkbox" name="variety" value="南部" /><span class="round button">南部</span></label>
+                <label><input type="checkbox" name="variety" value="東部" /><span class="round button">東部</span></label>
+            </div>
+        </div>
+        <div class="containee">請選擇條件</div>
+        <div class="containee">
+            <div id="checkbox">
+                <label><input type="checkbox" name="variety" value="不拘" checked="checked" /><span class="round button">不拘</span></label>
+                <label><input type="checkbox" name="variety" value="玩水" /><span class="round button">玩水</span></label>
+                <label><input type="checkbox" name="variety" value="夜景" /><span class="round button">夜景</span></label>
+                <label><input type="checkbox" name="variety" value="可租裝備" /><span class="round button">可租裝備</span></label>
+                <label><input type="checkbox" name="variety" value="櫻花" /><span class="round button">櫻花</span></label>
+            </div>
+        </div>
+
+        <div class="containee">請選擇價格</div>
+        <div class="containee">
+            <div id="checkbox">
+                <label><input type="checkbox" name="variety" value="$0-$2,000" /><span class="round button">$0-$2,000</span></label>
+                <label><input type="checkbox" name="variety" value="$2,000-$4,000" /><span class="round button">$2,000-$4,000</span></label>
+                <label><input type="checkbox" name="variety" value="$4,000-$6,000" /><span class="round button">$4,000-$6,000</span></label>
+                <label><input type="checkbox" name="variety" value="$6,000-$8,000" /><span class="round button">6,000-$8,000</span></label>
+                <label><input type="checkbox" name="variety" value="$8,000+" /><span class="round button">8,000+</span></label>
+            </div>
+        </div>
+        <button type="button" class="btn btn-outline-success btn-lg containee">按我搜尋</button>
+    </div>
+    <h1 style="text-align:center;">&nbsp;</h1>
+    <h1 style="text-align:center;">&nbsp;</h1>
+    <h1 class="containee">關鍵字搜尋</h1>
+
+    <div class="containee">
+        <div class="d-flex">
+            @using (Html.BeginForm())
+            {
+<input list="browsers" class="form-control me-2 con " type="search" placeholder="請輸入營地名稱" aria-label="Search" name="txtKeyword" style="width:320px;">
+                <datalist id="browsers">
+                    <option value="CampOne">
+                    <option value="CampTwo">
+                </datalist>
+                                <input class="btn btn-outline-success ;" type="submit" value="搜尋">            }
+        </div>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.fMemberID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fCampsiteName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fCampsitePhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fCampsiteCity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fCampsiteAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fCampsiteArea)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fCampsiteIntroduction)
+                </th>
+                <th></th>
+            </tr>
+            @{ foreach (var item in Model)
+                            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fMemberID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fCampsiteName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fCampsitePhone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fCampsiteCity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fCampsiteAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fCampsiteArea)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fCampsiteIntroduction)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.營區Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.營區Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.營區Id })*@
+                    </td>
+                </tr> } }
+        </table>
+    </div>
+
+
+</body>
+</html>

@@ -17,5 +17,19 @@ namespace CampWebsite.Controllers
         {
             return View();
         }
+
+        //俊長的營區搜尋
+        public ActionResult search()
+        {
+            IEnumerable<tCampsite> products = null;
+            string keyword = Request.Form["txtKeyword"];
+            if (string.IsNullOrEmpty(keyword))
+                products = from p in (new dbCampEntities()).tCampsite select p;
+            else
+                products = from p in (new dbCampEntities()).tCampsite where p.fCampsiteName.Contains(keyword) select p;
+            //var todos = db.營區資料.OrderByDescending(m =>m.營區Id).ToList();
+
+            return View(products);
+        }
     }
 }
