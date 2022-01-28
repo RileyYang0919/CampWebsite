@@ -17,7 +17,7 @@ namespace CampWebsite.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tTent()
         {
-            this.tBooked = new HashSet<tBooked>();
+            this.tOrder = new HashSet<tOrder>();
             this.tTentPhoto = new HashSet<tTentPhoto>();
         }
     
@@ -29,11 +29,10 @@ namespace CampWebsite.Models
         public int fTentPriceWeekday { get; set; }
         public int fTentPriceWeekend { get; set; }
         public int fTendPriceHoliday { get; set; }
-        public int fTentQuantity { get; set; }
     
         public virtual tCampsite tCampsite { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tBooked> tBooked { get; set; }
+        public virtual ICollection<tOrder> tOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tTentPhoto> tTentPhoto { get; set; }
     }

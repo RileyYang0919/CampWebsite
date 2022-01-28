@@ -118,8 +118,8 @@
     <Content Include="Images\user.png" />
     <Content Include="Models\dbCamp.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>dbCamp.Context.cs</LastGenOutput>
       <DependentUpon>dbCamp.edmx</DependentUpon>
+      <LastGenOutput>dbCamp.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\dbCamp.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -152,9 +152,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dbCamp.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tBooked.cs">
-      <DependentUpon>dbCamp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tCampsite.cs">
       <DependentUpon>dbCamp.tt</DependentUpon>

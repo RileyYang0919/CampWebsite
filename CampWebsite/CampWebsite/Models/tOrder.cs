@@ -17,23 +17,23 @@ namespace CampWebsite.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tOrder()
         {
-            this.tBooked = new HashSet<tBooked>();
             this.tRent = new HashSet<tRent>();
         }
     
         public int fOrderID { get; set; }
         public int fMemberID { get; set; }
+        public int fTentID { get; set; }
         public string fClinetName { get; set; }
         public string fClinetEmail { get; set; }
         public string fClinetPhone { get; set; }
+        public System.DateTime fCheckinDate { get; set; }
         public int fOrderPrice { get; set; }
         public string fOrderComment { get; set; }
         public bool fOrderIsPaid { get; set; }
         public System.DateTime fOrderCreatedTime { get; set; }
     
         public virtual tMember tMember { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tBooked> tBooked { get; set; }
+        public virtual tTent tTent { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tRent> tRent { get; set; }
     }

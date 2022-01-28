@@ -34,6 +34,5 @@ namespace CampWebsite.Models
         public virtual DbSet<tTag> tTag { get; set; }
         public virtual DbSet<tTent> tTent { get; set; }
         public virtual DbSet<tTentPhoto> tTentPhoto { get; set; }
-        public virtual DbSet<tBooked> tBooked { get; set; }
     }
 }
