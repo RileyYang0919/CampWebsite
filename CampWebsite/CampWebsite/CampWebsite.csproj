@@ -138,6 +138,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdoSample\AdoMemberModelSample.cs" />
+    <Compile Include="Models\AdoSample\AdoQueryFactorySample.cs" />
     <Compile Include="Models\CTags.cs" />
     <Compile Include="Models\dbCamp.Context.cs">
       <AutoGen>True</AutoGen>
@@ -208,6 +210,7 @@
     <Content Include="Views\Member\List.cshtml" />
     <Content Include="Views\Member\Register.cshtml" />
     <Content Include="Views\Home\search.cshtml" />
+    <Content Include="Views\Shared\_LoginFloatPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

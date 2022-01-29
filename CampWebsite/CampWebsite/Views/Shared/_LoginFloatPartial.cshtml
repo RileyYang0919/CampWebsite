@@ -1,0 +1,65 @@
+﻿
+
+<div class="modal fade"
+     id="loginModal"
+     tabindex="-1"
+     aria-labelledby="loginModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered py-lg-3">
+        <div class="modal-content px-3 px-lg-5">
+            <div class="modal-header">
+                <h4 class="modal-title w-100 text-center">會員登入 或註冊</h4>
+            </div>
+
+            <div class="modal-body">
+                <form action="">
+                    <div class="col-12">
+                        <label for="logInEmail" class="form-label">Account</label>
+                        <input type="email"
+                               class="form-control mb-3"
+                               id="logInEmail"
+                               placeholder="login@email.com"
+                               required />
+                    </div>
+                    <div>
+                        <label for="logInPwd" class="form-label">Password</label>
+                        <input type="text"
+                               class="form-control mb-3"
+                               id="logInPwd"
+                               placeholder="Password"
+                               required />
+                    </div>
+                    <div class=""><input type="checkbox" class="mb-3" /> 記住我</div>
+                    <div class="d-grid gap2">
+                        <button id="loginBtn"
+                                type="submit"
+                                onclick=""
+                                class="btn btn-outline-primary mb-3">
+                            登入
+                        </button>
+                        <div id="g_id_onload"
+                             data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                             data-login_uri="https://your.domain/your_login_endpoint"
+                             data-auto_prompt="false">
+                </div>
+                        <div class="g_id_signin"
+                             data-type="standard"
+                             data-size="large"
+                             data-theme="outline"
+                             data-text="sign_in_with"
+                             data-shape="rectangular"
+                             data-logo_alignment="left"></div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer justify-content-center">
+                <div class="toSignup text">
+                    <p>尚未成為會員</p>
+                    <span>登記註冊代表你接受我們的條款和條件和隱私政策。</span>
+                    <a href="/regester.html" type="button" class="member">註冊</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
