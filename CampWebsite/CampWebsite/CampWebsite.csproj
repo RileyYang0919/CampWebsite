@@ -220,6 +220,7 @@
     <Content Include="Views\CampSite\Details.cshtml" />
     <Content Include="Views\CampSite\List.cshtml" />
     <Content Include="Views\CampSite\AddNewCampsite.cshtml" />
+    <Content Include="Views\Home\weatherTemp.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

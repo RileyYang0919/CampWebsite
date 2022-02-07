@@ -31,5 +31,11 @@ namespace CampWebsite.Controllers
 
             return View(products);
         }
+
+        //俊長的天氣API
+        public ActionResult weatherTemp()
+        {
+            return View();
+        }
     }
 }
