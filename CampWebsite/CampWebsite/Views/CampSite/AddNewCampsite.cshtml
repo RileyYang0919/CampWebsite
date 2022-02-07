@@ -1,0 +1,175 @@
+﻿@model CampWebsite.Models.tCampsite
+
+@{ ViewBag.Title = "註冊新營區";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<h2>新增你的營區</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" }) 
+    <!-- 問卷全部 -->
+    <div class="container bg-success" style="min-height: 100vh">
+
+        <!--section one-->
+        <div class="container justify-content-center my-3 bg-white p-3">
+            <h5>基本資料填寫</h5>
+            <div class="col-10 col-lg-8 col-xl-6">
+                <div class="card">
+                    <!--campsiteName-->
+                    <div class="card-body py-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.fCampsiteName, htmlAttributes: new { @class = "control-label card-title" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.fCampsiteName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.fCampsiteName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <!--campsiteArea-->
+                    <div class="card-body py-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.fCampsiteArea, htmlAttributes: new { @class = "control-label" })
+                            <div class="col-md-10">
+                                @Html.RadioButtonFor(model => model.fCampsiteArea, "北部")
+                                <p class="card-text">北北基桃竹</p>
+                                @Html.RadioButtonFor(model => model.fCampsiteArea, "中部")
+                                <p class="card-text">苗中彰投雲</p>
+                                @Html.RadioButtonFor(model => model.fCampsiteArea, "南部")
+                                <p class="card-text">嘉南高雄屏東</p>
+                                @Html.RadioButtonFor(model => model.fCampsiteArea, "東部")
+                                <p class="card-text">宜蘭花蓮</p>
+                                @*
+                                                @Html.EditorFor(model => model.fCampsiteArea, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.fCampsiteArea, "", new { @class = "text-danger" })
+                                *@
+                            </div>
+                        </div>
+                    </div>
+                    <!--campsiteCity-->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.fCampsiteCity, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.fCampsiteCity, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.fCampsiteCity, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <!--campsiteAddress-->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.fCampsiteAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.fCampsiteAddress, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.fCampsiteAddress, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <!--section two-->
+        <div class="container justify-content-center my-3 bg-white p-3">
+            <div class="col-10 col-lg-8 col-xl-6 p-3">
+                <div class="card">
+                    <!--Alrtitude-->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.fCampsiteAltitude, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.fCampsiteAltitude, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.fCampsiteAltitude, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <!--ClosedDay-->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.fCampsiteClosedDay, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.fCampsiteClosedDay, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.fCampsiteClosedDay, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <!--check in time-->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.fCampsiteCheckInTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.fCampsiteCheckInTime, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.fCampsiteCheckInTime, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <!--check out time-->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.fCampsiteCheckOutTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.fCampsiteCheckOutTime, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.fCampsiteCheckOutTime, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--section three-->
+        <div class="container justify-content-center my-3 bg-white p-3">
+            <div class="col-10 col-lg-8 col-xl-6">
+                <div class="card">
+                    <!--campsitePhone-->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.fCampsitePhone, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.fCampsitePhone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.fCampsitePhone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <!--Introduction-->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.fCampsiteIntroduction, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.fCampsiteIntroduction, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.fCampsiteIntroduction, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <!--新增完成-->
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>}
+
+@*<div>
+        @Html.ActionLink("Back to List", "Detail",new {id = model.f})
+    </div>
+*@
+@*//營區的Id
+    <div  type="hidden" class="form-group">
+        @Html.LabelFor(model => model.fCampsiteID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.fCampsiteID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.fCampsiteID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+*@
+
+@*How to get member Id
+    <div class="form-group">
+        @Html.LabelFor(model => model.fMemberID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.fMemberID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.fMemberID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <input type="hidden" name="fMemberId" value="@model." />
+*@
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

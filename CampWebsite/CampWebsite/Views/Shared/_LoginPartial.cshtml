@@ -5,14 +5,15 @@
     {
         @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right">
-            @Html.ActionLink("檢視", "personalProfile", "Member")
-            <li><a href="#">Welcome : @Session["currentUserName"]</a></li>
-            <li></li>
-            <li class="nav-item ml-4">
-                @Html.ActionLink("登出", "Logout", "Member")
-            </li>
-        </ul>
+<ul class="nav navbar-nav navbar-right">
+    @Html.ActionLink("新增營區", "AddNewCampsite", "CampSite")
+    @Html.ActionLink("檢視", "personalProfile", "Member")
+    <li><a href="#">Welcome : @Session["currentUserName"]</a></li>
+    <li></li>
+    <li class="nav-item ml-4">
+        @Html.ActionLink("登出", "Logout", "Member")
+    </li>
+</ul>
     }
 }
 else

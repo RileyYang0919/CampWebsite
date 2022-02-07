@@ -165,5 +165,23 @@ namespace CampWebsite.Controllers
             viewModel.NextM_TentsBooked = NextM_TentsBooked;
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
+
+        //blue
+        //AddNewCampsite
+        public ActionResult AddNewCampsite()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddNewCampsite(tCampsite campsite)
+        {
+            dbCampEntities dbCampEntities = new dbCampEntities();
+            campsite.fMemberID = Convert.ToInt32(User.Identity.Name);
+            dbCampEntities.tCampsite.Add(campsite);
+            dbCampEntities.SaveChanges();
+            //return RedirectToAction("List");
+            return RedirectToAction("Details");
+        }
+        //blue end
     }
 }

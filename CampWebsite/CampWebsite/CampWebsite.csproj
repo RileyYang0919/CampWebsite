@@ -219,6 +219,7 @@
     <Content Include="Views\Shared\_LoginFloatPartial.cshtml" />
     <Content Include="Views\CampSite\Details.cshtml" />
     <Content Include="Views\CampSite\List.cshtml" />
+    <Content Include="Views\CampSite\AddNewCampsite.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
