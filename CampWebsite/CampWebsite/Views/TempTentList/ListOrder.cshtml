@@ -1,0 +1,87 @@
+﻿@model IEnumerable<CampWebsite.Models.tOrder>
+
+@{
+    ViewBag.Title = "ListOrder";
+}
+
+<h2>ListOrder</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fClinetName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fClinetEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fClinetPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCheckinDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fOrderPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fOrderComment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fOrderIsPaid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fOrderCreatedTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tMember.fName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tTent.fTentName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.fClinetName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fClinetEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fClinetPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fCheckinDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fOrderPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fOrderComment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fOrderIsPaid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fOrderCreatedTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tMember.fName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tTent.fTentName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.fOrderID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.fOrderID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.fOrderID })
+        </td>
+    </tr>
+}
+
+</table>
