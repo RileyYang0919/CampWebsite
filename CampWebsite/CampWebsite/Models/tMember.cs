@@ -34,6 +34,7 @@ namespace CampWebsite.Models
         public string fGroup { get; set; }
         public bool fVerified { get; set; }
         public bool fAvailable { get; set; }
+        public string fPhoneNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tCampsite> tCampsite { get; set; }
