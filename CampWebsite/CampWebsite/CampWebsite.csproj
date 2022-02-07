@@ -104,14 +104,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AC.css" />
-    <Content Include="Content\PagedList.css" />
-    <Content Include="Content\SelfPage.css" />
-    <Content Include="Content\zero.css" />
+    <Content Include="Content\campsite.css" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\1.jpeg" />
+    <Content Include="Images\1.png" />
     <Content Include="Images\2.jpeg" />
+    <Content Include="Images\2.png" />
     <Content Include="Images\3.jpeg" />
+    <Content Include="Images\3.png" />
+    <Content Include="Images\4.png" />
+    <Content Include="Images\5.png" />
+    <Content Include="Images\6.png" />
     <Content Include="Images\Asset 3.png" />
     <Content Include="Images\avatars\01.svg" />
     <Content Include="Images\bell-ring.png" />
@@ -127,12 +131,12 @@
       <DependentUpon>dbCamp.edmx</DependentUpon>
       <LastGenOutput>dbCamp.cs</LastGenOutput>
     </Content>
-    <Content Include="Scripts\Details.js" />
+    <Content Include="Scripts\CampSite.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\CampListController.cs" />
+    <Compile Include="Controllers\CampSiteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Global.asax.cs">
@@ -141,6 +145,9 @@
     <Compile Include="Models\AdoSample\AdoMemberModelSample.cs" />
     <Compile Include="Models\AdoSample\AdoQueryFactorySample.cs" />
     <Compile Include="Models\CTags.cs" />
+    <Compile Include="Models\CTagsFactory.cs" />
+    <Compile Include="Models\CTents.cs" />
+    <Compile Include="Models\CTentsBooked.cs" />
     <Compile Include="Models\dbCamp.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -184,6 +191,7 @@
       <DependentUpon>dbCamp.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CampsiteDetailsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -204,13 +212,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Member\personalProfile.cshtml" />
-    <Content Include="Views\CampList\List.cshtml" />
-    <Content Include="Views\CampList\Details.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Member\List.cshtml" />
     <Content Include="Views\Member\Register.cshtml" />
     <Content Include="Views\Home\search.cshtml" />
     <Content Include="Views\Shared\_LoginFloatPartial.cshtml" />
+    <Content Include="Views\CampSite\Details.cshtml" />
+    <Content Include="Views\CampSite\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

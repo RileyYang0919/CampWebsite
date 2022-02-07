@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CampWebsite.Models.tCampsite>
+
+@{ ViewBag.Title = "List"; }
+
+<h2>List</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fMemberID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteName)
+        </th>
+        <th>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.fCampsiteID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.fMemberID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.fCampsiteName)
+    </td>
+    <td>
+        @Html.ActionLink("進到營區頁面", "Details", "CampSite", new { id = item.fCampsiteID }, null)
+    </td>
+</tr>}
+
+</table>

@@ -1,0 +1,461 @@
+﻿html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+    a:hover {
+        color: inherit;
+    }
+
+ul,
+li {
+    list-style: none;
+}
+
+body {
+    font-family: "微軟正黑體";
+}
+
+@media screen and (min-width: 768px) {
+}
+
+/*月曆*/
+.calendar {
+    background-color: #e6e6e6;
+}
+
+.year {
+    display: flex;
+    justify-content: center;
+}
+
+    .year span {
+        margin: 10px 10px;
+    }
+
+#pre_year,
+#next_year {
+    cursor: pointer;
+}
+
+.month {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.day ul {
+    display: flex;
+    background-color: #234a63;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+    .day ul li {
+        flex: auto;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+    }
+
+.date {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+    .date div {
+        width: 14.285714%;
+        height: 4rem;
+        text-align: center;
+        border: 1px solid black;
+    }
+
+        .date div:hover {
+            background-color: #e5c45b;
+        }
+
+.preMonth,
+.nextMonth {
+    color: white;
+    background-color: #95a59d;
+}
+
+    .preMonth p, .thisMonth p, .nextMonth p {
+        pointer-events: none
+    }
+/*==========月曆結束  */
+
+.star-container {
+    color: orange;
+}
+
+.introduction {
+    text-indent: 2rem;
+    line-height: 2rem;
+    letter-spacing: 0.2rem;
+}
+
+.tags-container div {
+    max-width: max-content;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.tent-container {
+    border-radius: 20px;
+    border: black 1px solid;
+}
+
+.tent-select-result-hidden {
+    display: none;
+}
+
+.tent-select-result {
+    display: block;
+}
+
+.w-95 {
+    width: 95%;
+}
+
+.review-content p {
+    text-indent: 2rem;
+    line-height: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    overflow: hidden;
+}
+
+.review-wrapper {
+    height: 18rem;
+}
+
+.review-container .w-95 {
+    border-radius: 20px;
+    border: black 1px solid;
+    height: 100%;
+    position: relative;
+}
+
+.review-container .btn {
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    transform: translateX(-50%);
+}
+
+/* 輪播圖css開始 */
+.carousel {
+    height: 550px;
+}
+
+.carousel-main {
+    height: 100%;
+}
+
+.carousel-list {
+    position: relative;
+}
+
+.carousel-sider {
+    height: 550px;
+    overflow: hidden;
+}
+
+    .carousel-sider img {
+        height: 100px;
+        width: 100%;
+    }
+
+.img-up {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    color: #e6e6e6;
+    opacity: 0.3;
+    transition: opacity 200ms ease-out;
+}
+
+.img-down {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    color: #e6e6e6;
+    opacity: 0.3;
+    transition: opacity 200ms ease-out;
+}
+
+.img-left,
+.img-right {
+    display: none;
+}
+
+@media screen and (max-width: 767px) {
+    .carousel {
+        height: 25rem;
+    }
+
+    .carousel-main {
+        height: 80%;
+    }
+
+    .carousel-list {
+        height: 20%;
+        position: relative;
+    }
+
+    .carousel-sider {
+        height: 100%;
+    }
+
+        .carousel-sider img {
+            height: 100%;
+            width: 100px;
+        }
+
+    .img-container {
+        height: 100%;
+    }
+
+    .img-up,
+    .img-down {
+        display: none;
+    }
+
+    .img-left {
+        position: absolute;
+        height: 100%;
+        z-index: 1;
+        color: #e6e6e6;
+        opacity: 0.3;
+        transition: opacity 200ms ease-out;
+        display: flex;
+        align-items: center;
+    }
+
+    .img-right {
+        position: absolute;
+        height: 100%;
+        right: 0;
+        z-index: 1;
+        color: #e6e6e6;
+        opacity: 0.3;
+        transition: opacity 200ms ease-out;
+        display: flex;
+        align-items: center;
+    }
+}
+
+@keyframes show_selected_img {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.show-img-selected {
+    animation-name: show_selected_img;
+    animation-duration: 100ms;
+}
+
+#img_selected {
+    border: 3px #e6e6e6 solid;
+}
+
+.img-transition {
+    transition: transform 200ms ease-in;
+}
+
+.original {
+    opacity: 0.3;
+}
+
+.carousel-sider img:hover {
+    cursor: pointer;
+}
+
+.img-up:hover,
+.img-down:hover,
+.img-left:hover,
+.img-right:hover {
+    text-shadow: gray 1px 1px 2px;
+    cursor: pointer;
+    opacity: 1;
+}
+/* =====輪播圖css結束 */
+
+/* 入營退營時間css開始 */
+.CheckInBar {
+    width: 264px;
+    height: 24px;
+    background-color: gray;
+    border-radius: 10px;
+}
+
+.CheckInTime,
+.CheckOutTime {
+    position: relative;
+    height: 100%;
+    background-color: pink;
+}
+
+.CheckInTime {
+    float: right;
+    border-top-right-radius: inherit;
+    border-bottom-right-radius: inherit;
+}
+
+.CheckInTimeText,
+.CheckOutTimeText {
+    position: absolute;
+    width: 90px;
+    height: 30px;
+    background-color: #e6e6e6;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    text-align: center;
+}
+
+    .CheckInTimeText::before,
+    .CheckOutTimeText::before {
+        position: absolute;
+        content: "";
+        width: 0;
+        height: 0;
+        border: 10px solid #e6e6e6;
+        border-color: transparent transparent #e6e6e6;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+.CheckOutTime {
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+}
+
+.notion {
+    width: 120px;
+}
+
+    .notion i {
+        width: 20%;
+    }
+
+.mb-50px {
+    margin-bottom: 50px;
+}
+/*=============入營退營時間css結束*/
+* {
+    /* outline: 1px pink solid; */
+}

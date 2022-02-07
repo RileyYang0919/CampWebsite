@@ -1,0 +1,484 @@
+﻿@using CampWebsite.Models
+@model Tuple<tCampsite, IEnumerable<tComment>, List<CTags>>
+@{ ViewBag.Title = "Details"; }
+
+<div class="d-md-flex carousel mt-5 w-100">
+    <div class="col-md-10 carousel-main pe-md-3">
+        <img class="w-100 h-100 px-3" id="img_selected" src="~/Images/1.png" alt="">
+    </div>
+    <div class="col-md-2 carousel-list">
+        <div class="img-up fs-3">
+            <i class="fas fa-chevron-circle-up"></i>
+        </div>
+        <div class="img-down fs-3">
+            <i class="fas fa-chevron-circle-down"></i>
+        </div>
+        <div class="img-left fs-3">
+            <i class="fas fa-chevron-circle-left"></i>
+        </div>
+        <div class="img-right fs-3">
+            <i class="fas fa-chevron-circle-right"></i>
+        </div>
+        <div class="d-md-flex flex-md-column justify-content-md-center carousel-sider">
+            <div class="img-container d-flex  justify-content-center d-md-block pt-md-3 ps-md-0 ps-2">
+                <img class="mb-md-3 me-2 opacity-25" src="~/Images/2.png" alt="">
+                <img class="mb-md-3 me-2 opacity-25" src="~/Images/3.png" alt="">
+                <img class="mb-md-3 me-2 opacity-25" src="~/Images/1.png" alt="">
+                <img class="mb-md-3 me-2 opacity-25" src="~/Images/2.png" alt="">
+                <img class="mb-md-3 me-2 opacity-25" src="~/Images/3.png" alt="">
+                <img class="mb-md-3 me-2 opacity-25" src="~/Images/1.png" alt="">
+                <img class="mb-md-3 me-2 opacity-25" src="~/Images/2.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<!-- ======= -->
+<div class="row">
+    <!-- 資訊、介紹、tags -->
+    <div class="d-xl-flex mb-3">
+        <div class="col-xl-9">
+            <div class="d-flex align-items-center mb-2">
+                <h3>@Html.DisplayFor(model => model.Item1.fCampsiteName)</h3>
+                <div class="d-flex ms-2">
+                    <div class="d-flex align-items-center star-container">
+                        @{ int star_avarage_count = 0;
+                            for (int i = 0; i < Math.Round(ViewBag.reviews_score, 0); i++)
+                            {
+                <i class="fas fa-star"></i> star_avarage_count++;
+            }
+            for (int i = star_avarage_count; i < 5; i++)
+            {
+<i class="far fa-star"></i> } }
+                    </div>
+                    <a href="" class="ms-2">顯示評論</a>
+                </div>
+            </div>
+            <div class="d-sm-flex align-items-center justify-content-between border-bottom">
+                <div class="d-sm-flex">
+                    <p>@Html.DisplayFor(model => model.Item1.fCampsiteCity)@Html.DisplayFor(model => model.Item1.fCampsiteAddress)</p>
+                    <a href="" class="ms-sm-2">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>在地圖上顯示</span>
+                    </a>
+                </div>
+                <div class="text-end">
+                    <a href="" class="fs-5 pe-2"><i class="fas fa-heart"></i></a>
+                    <a href="" class="fs-5"> <i class="fas fa-share-alt"></i></a>
+                </div>
+            </div>
+            <div class="pe-xl-5 py-3 introduction">
+                @Html.DisplayFor(model => model.Item1.fCampsiteIntroduction)
+            </div>
+        </div>
+        <div class="col-xl-3 ps-xl-5 mt-xl-0">
+            <div class="d-flex flex-wrap tags-container">
+                <div>tag1</div>
+                <div>tag2</div>
+                <div>tag333</div>
+                <div>tag7777</div>
+                <div>tag10000</div>
+                @foreach (CTags item in Model.Item3)
+                {
+    <div>@item.fTagName</div>}
+
+            </div>
+        </div>
+    </div>
+    <div class="fs-3">空位情況</div>
+    <!-- 月曆 -->
+    <div class="mb-3">
+        <div class="calendar">
+            <div class="year">
+                <span id="pre_year">＜</span>
+                <span id="t_year">2022</span>
+                <span id="next_year">＞</span>
+            </div>
+            <div class="month">
+                <select name="" id="month">
+                    <option value="0">1</option>
+                    <option value="1">2</option>
+                    <option value="2">3</option>
+                    <option value="3">4</option>
+                    <option value="4">5</option>
+                    <option value="5">6</option>
+                    <option value="6">7</option>
+                    <option value="7">8</option>
+                    <option value="8">9</option>
+                    <option value="9">10</option>
+                    <option value="10">11</option>
+                    <option value="11">12</option>
+                </select>
+                <span>月</span>
+            </div>
+            <div class="day">
+                <ul>
+                    <li>日</li>
+                    <li>一</li>
+                    <li>二</li>
+                    <li>三</li>
+                    <li>四</li>
+                    <li>五</li>
+                    <li>六</li>
+                </ul>
+            </div>
+            <div class="date"></div>
+        </div>
+    </div>
+    <!-- tent -->
+    <div class="d-xl-flex flex-wrap border-bottom tent-wrapper">
+    </div>
+    <!-- 須知 -->
+    <div class="p-3 lh-lg mb-3 border-bottom bg-light">
+        <div class="d-flex align-items-center mb-50px">
+            <div class="d-flex align-items-center notion">
+                <i class="fas fa-check"></i>
+                <p>入營時間：</p>
+            </div>
+            <div class="CheckInBar">
+                <div class="CheckInTime">
+                    <div class="CheckInTimeText">@Html.DisplayFor(model => model.Item1.fCampsiteCheckInTime)以後</div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex align-items-center mb-50px">
+            <div class="d-flex align-items-center notion">
+                <i class="fas fa-times"></i>
+                <p>退營時間：</p>
+            </div>
+            <div class="CheckInBar">
+                <div class="CheckOutTime">
+                    <div class="CheckOutTimeText">@Html.DisplayFor(model => model.Item1.fCampsiteCheckOutTime)以前</div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center notion">
+                <i class="fas fa-mountain"></i>
+                <p>海拔：</p>
+            </div>
+            <span>@Html.DisplayFor(model => model.Item1.fCampsiteAltitude)</span>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center notion">
+                <i class="far fa-calendar-times"></i>
+                <p>公休日：</p>
+            </div>
+            <span>@Html.DisplayFor(model => model.Item1.fCampsiteClosedDay)</span>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center notion">
+                <i class="far fa-calendar-times"></i>
+                <p>聯絡營主：</p>
+            </div>
+            <span>@Html.DisplayFor(model => model.Item1.fCampsitePhone)</span>
+        </div>
+    </div>
+    <!-- 評論 -->
+    <div>
+        <div class="d-md-flex flex-wrap review-wrapper">
+            <div class="col-md-4 col-lg-3 mb-3 review-container">
+                <div class="w-95">
+                    <div class="h-100 p-3 lh-lg fs-4 d-flex flex-column align-items-center justify-content-around">
+                        <p>總評價</p>
+                        <p>平均<span>@ViewBag.reviews_score</span>顆星</p>
+                        <p>總共<span>@Model.Item2.Count()</span>則評論</p>
+
+                        <div class="d-flex align-items-center star-container fs-4 py-2">
+                            @{ for (int i = 0; i < Math.Round(ViewBag.reviews_score, 0); i++)
+                                {
+                    <i class="fas fa-star"></i> }
+                for (int i = star_avarage_count; i < 5; i++)
+                {
+    <i class="far fa-star"></i> } }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 用戶評論 -->
+            @foreach (var item in Model.Item2)
+            {
+<div class="col-md-4 col-lg-3 mb-3 review-container">
+    <div class="w-95">
+        <div class="p-3 lh-lg">
+            <p>@Html.DisplayFor(model => item.tMember.fName)</p>
+            <p>@item.fCommentTime.ToString("yyyy/MM/dd")</p>
+            <div class="d-flex align-items-center star-container fs-5 py-2 border-bottom">
+                @{ int star_count = 0;
+                    for (int i = 0; i < item.fCommentScore; i++)
+                    {
+    <i class="fas fa-star"></i> star_count++;
+}
+for (int j = star_count; j < 5; j++)
+{<i class="far fa-star"></i> } }
+            </div>
+            <div class="review-content mt-4 mb-5">
+                <p>@Html.DisplayFor(model => item.fComment)</p>
+            </div>
+            <div class="col-11 btn btn-outline-secondary">看更多</div>
+        </div>
+    </div>
+</div>}
+            <!-- =====用戶評論結束 -->
+        </div>
+    </div>
+</div>
+<div id="fCampsiteID">@Html.DisplayFor(m => Model.Item1.fCampsiteID)</div>
+<div id="test"></div>
+
+<script src="~/Scripts/CampSite.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    //月曆
+    let month = document.querySelector("#month");
+    let t_year = document.querySelector("#t_year");
+    let preY = document.querySelector("#pre_year");
+    let nextY = document.querySelector("#next_year");
+    let date = document.querySelector(".date");
+    let now = new Date();
+    month.value = now.getMonth();//現在是幾月
+    t_year.textContent = now.getFullYear();//現在是幾年
+    preY.addEventListener("click", function () {
+        t_year.innerHTML = parseInt(t_year.innerHTML) - 1;
+    })
+    nextY.addEventListener("click", function () {
+        t_year.innerHTML = parseInt(t_year.innerHTML) + 1;
+    })
+    //取得當月第一天是星期幾
+    function getDay() {
+        let date = new Date(parseInt(t_year.innerHTML), parseInt(month.value), 0);
+        let first_day = date.getDay() + 1;
+        if (date.getDay() == 8) {
+            first_day = 1;
+        }
+        return first_day;
+    }
+    //取得當月最後一天是星期幾
+    function getLastDay() {
+        let date = new Date(parseInt(t_year.innerHTML), parseInt(month.value) + 1, 0);
+        let Last_day = date.getDay();
+        if (date.getDay() == 8) {
+            Last_day = 1;
+        }
+        return Last_day;
+    }
+    //取得上月最後一天是幾日
+    function getPreDate() {
+        let date = new Date(parseInt(t_year.innerHTML), parseInt(month.value), 0);
+        return date.getDate();
+    }
+
+    //取得當月有幾天
+    function getDate() {
+        let date = new Date(parseInt(t_year.innerHTML), parseInt(month.value) + 1, 0);
+        return date.getDate();
+    }
+
+    //建立日
+    function addDates() {
+        let date_count = 0;
+        document.querySelector(".date").innerHTML = ""; //清除dates
+        let i = 0;
+        let j = 1;
+        let d = getDay();
+        let PreDate = getPreDate() - d + 1;
+        //上月
+        for (i; i < getDay(); i++) {
+            if (getDay() == 7)
+                break;
+            while (d != 0) {
+                date.innerHTML += `<div class="preMonth"><p>${PreDate}</p><p class="preMonthText"></p></div>`;
+                d--;
+                PreDate++;
+                date_count++;
+            }
+        }
+        //當月
+        for (j; j <= getDate(); j++) {
+            date.innerHTML += `<div class="thisMonth"><p>${j}</p><p class= "thisMonthText"></p></div>`;
+            date_count++;
+        }
+        //下月
+        let firstDate = 1;
+        while (date_count < 42) {
+            date.innerHTML += `<div class="nextMonth"><p>${firstDate}</p><p class="nextMonthText"></p></div>`;
+            firstDate++;
+            date_count++;
+        }
+        GetAjax()
+    }
+    let id = $("#fCampsiteID").innerHTML;
+    $(function () {
+        addDates();
+    })
+    function GetAjax() {
+        //取得月曆是幾年幾月，當月有幾天
+        var nowMonth = parseInt(month.value) + 1;
+        var nowYear = t_year.textContent;
+        var nowLastDate = getDate();
+        //取得下個月有幾天
+        var nextMonthCount = document.querySelectorAll(".nextMonth").length
+        //取得上個月有幾天
+        var preMonthCount = document.querySelectorAll(".preMonth").length
+        $.ajax({
+            type: "post",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            dataType: "json",
+            url: "@Url.Action("Details","CampSite")",
+            data: {
+                "ID": id,
+                "nowYear": nowYear,
+                "nowMonth": nowMonth,
+                "nowLastDate": nowLastDate,
+                "preMonthCount": preMonthCount,
+                "preMonthLastDate":  parseInt(getPreDate()),
+                "nextMonthCount": nextMonthCount,
+            },
+            success: function (data) {
+                var thisMonthText = document.querySelectorAll(".thisMonthText");
+                var nextMonth = document.querySelectorAll(".nextMonth");
+                var nextMonthText = document.querySelectorAll(".nextMonthText");
+                var preMonth = document.querySelectorAll(".preMonth");
+                var preMonthText = document.querySelectorAll(".preMonthText");
+                var totalQuantity = 0;
+                //總數
+                for (var item in data.tents) {
+                    totalQuantity += data.tents[item].fTentQuantity;
+                }
+                //這個月
+                for (let i = 0; i < thisMonthText.length; i++) {
+                    thisMonthText[i].textContent = totalQuantity;
+                }
+                if (data.ThisM_TentsBooked.length > 0) {
+                    for (var item in data.ThisM_TentsBooked) {
+                        thisMonthText[data.ThisM_TentsBooked[item].fCheckinDate - 1].textContent
+                            = totalQuantity - parseInt(data.ThisM_TentsBooked[item].BookedCount);
+                    }
+                }
+                //上個月
+                if (data.PreM_TentsBooked.length > 0) {
+                    for (var item in data.PreM_TentsBooked) {
+                        for (let i = 0; i < preMonth.length; i++) {
+                            if (data.PreM_TentsBooked[item].fCheckinDate == parseInt(preMonth[i].textContent))
+                                preMonthText[i].textContent = totalQuantity - parseInt(data.PreM_TentsBooked[item].BookedCount)
+                        }
+                    }
+                }
+                for (let i = 0; i < preMonthText.length; i++) {
+                    if (preMonthText[i].textContent == "")
+                    preMonthText[i].textContent = totalQuantity;
+                }
+                //下個月
+                for (var item in data.NextM_TentsBooked) {
+                    for (let i = 0; i < nextMonth.length; i++) {
+                        if (data.NextM_TentsBooked[item].fCheckinDate == parseInt(nextMonth[i].textContent))
+                            nextMonthText[i].textContent = totalQuantity - parseInt(data.NextM_TentsBooked[item].BookedCount);
+                    }
+                }
+                for (let i = 0; i < nextMonthText.length; i++) {
+                    if (nextMonthText[i].textContent == "")
+                        nextMonthText[i].textContent = totalQuantity;
+                }
+                let tent_wrapper = document.querySelector(".tent-wrapper");
+                //方案點擊
+                date.addEventListener("click", (e) => {
+                    tent_wrapper.innerHTML = "";
+
+                    for (var item in data.tents) {
+                        let people_icon = "";
+                        let tent_number = "";
+                        for (let i = 0; i < data.tents[item].fTentPeople;i++) {
+                            people_icon += "<i class='fas fa-male'></i>";
+                        }
+                        if (e.target.className == "preMonth") {
+                            for (let i = 0; i <= parseInt(data.tents[item].fTentQuantity); i++)
+                                tent_number += `<option value='${i}'>${i}</option>`
+                            for (var index in data.PreM_TentsBooked) {
+                                if (data.PreM_TentsBooked[index].fCheckinDate == e.target.firstElementChild.textContent && data.PreM_TentsBooked[index].fTentName == data.tents[item].fTentName) {
+                                    tent_number = "";
+                                    for (let i = 0; i <= parseInt(data.tents[item].fTentQuantity) - parseInt(data.PreM_TentsBooked[index].BookedCount); i++)
+                                        tent_number += `<option value='${i}'>${i}</option>`;
+                                }
+                            }
+                        }
+                        else if (e.target.className == "thisMonth") {
+                            for (let i = 0; i <= parseInt(data.tents[item].fTentQuantity); i++)
+                                tent_number += `<option value='${i}'>${i}</option>`
+                            for (var index in data.ThisM_TentsBooked) {
+                                if (data.ThisM_TentsBooked[index].fCheckinDate == e.target.firstElementChild.textContent && data.ThisM_TentsBooked[index].fTentName == data.tents[item].fTentName) {
+                                    tent_number = "";
+                                    for (let i = 0; i <= parseInt(data.tents[item].fTentQuantity) - parseInt(data.ThisM_TentsBooked[index].BookedCount); i++)
+                                        tent_number += `<option value='${i}'>${i}</option>`;
+                                }
+                            }
+                        }
+                        else if (e.target.className == "nextMonth") {
+                            for (let i = 0; i <= parseInt(data.tents[item].fTentQuantity); i++)
+                                tent_number += `<option value='${i}'>${i}</option>`
+                            for (var index in data.NextM_TentsBooked) {
+                                if (data.NextM_TentsBooked[index].fCheckinDate == e.target.firstElementChild.textContent && data.NextM_TentsBooked[index].fTentName == data.tents[item].fTentName) {
+                                    tent_number = "";
+                                    for (let i = 0; i <= parseInt(data.tents[item].fTentQuantity) - parseInt(data.NextM_TentsBooked[index].BookedCount); i++)
+                                        tent_number += `<option value='${i}'>${i}</option>`;
+                                }
+                            }
+                        }
+                        tent_wrapper.innerHTML +=
+                            "<div class='col-xl-6 mb-3' >" +
+                            "<div class='w-95'>" +
+                            "<div class='tent-container p-3'>" +
+                            `<h5 class='py-2 border-bottom'>${data.tents[item].fTentName}</h5>` +
+                            `<p class='py-2 border-bottom'>${data.tents[item].fTentCategory}</p>` +
+                            "<div class='py-2 border-bottom'>" +
+                            people_icon +
+                            `<span class='ms-2'>適合人數：${data.tents[item].fTentPeople}人</span>` +
+                            "</div>" +
+                            "<p class='py-2 border-bottom' id='tent_select_cost'>1000</p>" +
+                            "<div class='pb-2'>" +
+                            "<select name='' id='tent_select_count' class='col-12'>" +
+                            tent_number +
+                            "</select>" +
+                            "</div>" +
+                            "<div class='tent-select-result-hidden' id='tent_select_result'>" +
+                            "1帳金額為$1000" +
+                            "</div>" +
+                            "<div class='d-flex'>" +
+                            "<a href='' class='col-6 btn btn-outline-success'>馬上預定</a>" +
+                            "<a href='' class='col-6 btn btn-outline-secondary'>加入購物車</a>" +
+                            "</div>" +
+                            "</div>" +
+                            "</div>";
+                    }
+                })
+            },
+            error: function () {
+                alert("Found error when using Ajax!!");
+            }
+        })
+    }
+    month.addEventListener("change", addDates)
+    t_year.addEventListener("DOMNodeInserted", addDates)
+
+
+
+    //方案
+
+
+    //月曆結束=================================
+
+
+
+
+</script>
+<!-- 入營退營時間 -->
+<script>
+    var CheckInTime = document.querySelector(".CheckInTime");
+    var CheckOutTime = document.querySelector(".CheckOutTime");
+    var CheckInTimeWidth = 264 / 12 * (18 - @Model.Item1.fCampsiteCheckInTime.Substring(0,2))
+    var CheckOutTimeWidth = 264 / 12 * (@Model.Item1.fCampsiteCheckOutTime.Substring(0,2) - 6)
+    CheckInTime.style.width = CheckInTimeWidth + "px"
+    CheckOutTime.style.width = CheckOutTimeWidth + "px";
+
+</script>
+
+
