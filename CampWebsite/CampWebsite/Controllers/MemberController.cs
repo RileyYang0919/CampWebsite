@@ -46,26 +46,27 @@ namespace CampWebsite.Controllers
         // 登入會員
         public ActionResult Login()
         {
+            //得到原先頁面的完整URL
+            string previousUrl = (Request.UrlReferrer == null) ? "" : Request.UrlReferrer.ToString();
+            ViewData["returnUrl"] = previousUrl;
             return View();
         }
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public ActionResult Login(string fEmail, string fPassword)
+        public ActionResult Login(string fEmail, string fPassword, string returnUrl)
         {
             var member = db.tMember.Where(i => i.fEmail == fEmail && i.fPassword == fPassword).FirstOrDefault();
             //if member is null,表示沒註冊
             if (member == null)
             {
                 ViewBag.Message = "帳號密碼有誤" + "\n我輸入: " + fEmail + " 密碼: " + fPassword;
+                ViewData["returnUrl"] = returnUrl;
                 return View();
             }
             string userData = (member.fGroup).ToString() + "," + member.fName;
             string userID = (member.fMemberID).ToString();
-            //Session["UserName"] = member.fName;
             SetAuthenTicket(userData, userID);
-            //指定使用者帳號通過驗證(需要using System.Web.Security)
-            //FormsAuthentication.RedirectFromLoginPage(member.Email, true);
-            return RedirectToAction("Index", "Home");
+            //另一種驗證方式FormsAuthentication.RedirectFromLoginPage(member.Email, true);
+            return Redirect(returnUrl);
         }
 
         //修改個人資料
@@ -100,7 +101,7 @@ namespace CampWebsite.Controllers
         {
             FormsAuthentication.SignOut();
             Session.Clear();
-            return RedirectToAction("Login");
+            return Redirect("/Home/Index");
         }
 
         [Authorize]
