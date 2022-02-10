@@ -1,5 +1,6 @@
 ﻿using CampWebsite.Models;
 using CampWebsite.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,35 +18,50 @@ namespace CampWebsite.Controllers
             return View();
         }
         [Authorize]
-        public ActionResult GenerateOrder(int TentID)
+        public ActionResult GenerateOrder(JsonResult test)
         {
-            PreOrderInfoViewModel newOrder = new PreOrderInfoViewModel();
-            newOrder.tTent = db.tTent.Where(t => t.fTentID == TentID).FirstOrDefault();
-            int userID = Convert.ToInt32(User.Identity.Name);
-            newOrder.tMember = db.tMember.Where(m => m.fMemberID == userID).FirstOrDefault();
-            DateTime CheckinDate = DateTime.Today;
-            newOrder.fCheckinDateBegin = CheckinDate;
-            return View(newOrder);
+            var jasonString = fakeJSON(); //this is fake data.                
+            List<PreOrderInfoViewModel> newOrderList = new COrderFactory().OrderJason2VM(jasonString, User.Identity.Name);
+            return View(newOrderList.AsEnumerable());
         }
         [HttpPost]
-        public ActionResult GenerateOrder(PreOrderInfoViewModel VM)
+        [Authorize]
+        public ActionResult GenerateOrder(IEnumerable<PreOrderInfoViewModel> newOrderList, string fClientName, string fClientEmail, string fClientPhone)
         {
-            tOrder newOrder = new tOrder();
-            newOrder.fMemberID = Convert.ToInt32(User.Identity.Name);
-            newOrder.fTentID = VM.tTent.fTentID;
-            newOrder.fClinetName = VM.tMember.fName;
-            newOrder.fClinetEmail = VM.tMember.fEmail;
-            newOrder.fClinetPhone = VM.tMember.fPhoneNumber;
-            //newOrder.fCheckinDate = VM.fCheckinDateBegin;
-            newOrder.fCheckinDate = VM.fCheckinDateBegin;
-            newOrder.fOrderPrice = VM.fOrderPrice;
-            newOrder.fOrderComment = VM.fOrderComment;
-            newOrder.fOrderIsPaid = false;
-            newOrder.fOrderCreatedTime = DateTime.Now;
-            db.tOrder.Add(newOrder);
-            db.SaveChanges();
+            new COrderFactory().SaveOrder2DB(newOrderList, User.Identity.Name, fClientName, fClientEmail, fClientPhone);
+            return RedirectToAction("ListOrder","TempTentList" );
+        }
 
-            return RedirectToAction("personalProfile", "Member");
+        public string fakeJSON()
+        {
+            List<COrderJsonModel> allBooks = new List<COrderJsonModel>();
+            allBooks.Add(new COrderJsonModel()
+            {
+                tentID = 101,
+                checkinDate = new DateTime(2022, 3, 18),
+                price = 111
+            });
+            allBooks.Add(new COrderJsonModel()
+            {
+                tentID = 102,
+                checkinDate = new DateTime(2022, 3, 18),
+                price = 2222
+            });
+            allBooks.Add(new COrderJsonModel()
+            {
+                tentID = 101,
+                checkinDate = new DateTime(2022, 3, 19),
+                price = 2111
+            });
+            allBooks.Add(new COrderJsonModel()
+            {
+                tentID = 102,
+                checkinDate = new DateTime(2022, 3, 19),
+                price = 3222
+            });
+            string jsonString = JsonConvert.SerializeObject(allBooks);
+
+            return jsonString;
         }
     }
 }

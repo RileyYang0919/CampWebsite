@@ -51,6 +51,9 @@
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
@@ -146,6 +149,8 @@
     </Compile>
     <Compile Include="Models\AdoSample\AdoMemberModelSample.cs" />
     <Compile Include="Models\AdoSample\AdoQueryFactorySample.cs" />
+    <Compile Include="Models\COrderFactory.cs" />
+    <Compile Include="Models\COrderJsonModel.cs" />
     <Compile Include="Models\CTags.cs" />
     <Compile Include="Models\CTagsFactory.cs" />
     <Compile Include="Models\CTents.cs" />

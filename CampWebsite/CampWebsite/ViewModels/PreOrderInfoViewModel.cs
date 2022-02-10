@@ -10,8 +10,8 @@ namespace CampWebsite.ViewModels
     {
         public tMember tMember { get; set; }
         public tTent tTent { get; set; }
-        public System.DateTime fCheckinDateBegin { get; set; }
-        public System.DateTime fCheckinDateEnd { get; set; }
+        public System.DateTime fCheckinStart { get; set; }
+        public System.DateTime fCheckinEnd { get; set; }
         public string fOrderComment { get; set; }
         public int fOrderPrice { get; set; }
     }

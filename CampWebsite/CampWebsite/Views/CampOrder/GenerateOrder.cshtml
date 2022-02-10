@@ -1,4 +1,5 @@
-﻿@model CampWebsite.ViewModels.PreOrderInfoViewModel
+﻿@model IEnumerable<CampWebsite.ViewModels.PreOrderInfoViewModel>
+
 
 @{
     ViewBag.Title = "GenerateOrder";
@@ -6,63 +7,97 @@
 
 <h2>訂單確認頁面</h2>
 
-
+@{
+    var checkinStart = Model.First().fCheckinStart;
+    var checkinEnd = Model.Last().fCheckinEnd;
+    var stayNight = checkinEnd.Subtract(checkinStart).Days;
+}
+@{
+    var totalPrice = 0;
+    foreach (var i in Model)
+    {
+        totalPrice += i.fOrderPrice;
+    }
+}
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <p>帳棚名稱: @Model.tTent.fTentName</p>
-    <p>入住日期: @Model.fCheckinDateBegin.GetDateTimeFormats('D')[0]</p>
+    <p>訂房資訊</p>
+    <p>入住日期: @Model.First().fCheckinStart.GetDateTimeFormats('D')[0]</p>
+    <p>退宿日期: @Model.Last().fCheckinEnd.GetDateTimeFormats('D')[0]</p>
+    <p>總共入住: @stayNight 晚 </p>
+    <p>總價: TWD @totalPrice 元 </p>
     <br />
     <div class="form-horizontal">
-        <h4>旅客資訊</h4>
+        <h4>旅客資料</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*姓名*@
         <div class="form-group">
-            @Html.LabelFor(model => model.tMember.fName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.First().tMember.fName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.tMember.fName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.tMember.fName, "", new { @class = "text-danger" })
+                <input type="text" name="fClientName" value="@Model.First().tMember.fName" />
             </div>
         </div>
+        @*EMAIL*@
         <div class="form-group">
-            @Html.LabelFor(model => model.tMember.fEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.First().tMember.fEmail, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.tMember.fEmail, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.tMember.fEmail, "", new { @class = "text-danger" })
+                <input type="text" name="fClientEmail" value="@Model.First().tMember.fEmail" />
             </div>
         </div>
+        @*電話*@
         <div class="form-group">
-            @Html.LabelFor(model => model.tMember.fPhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.First().tMember.fPhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.tMember.fPhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="text" name="fClientPhone" value="@Model.First().tMember.fPhoneNumber" />
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.fCheckinDateBegin, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fCheckinDateBegin, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.fOrderPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fOrderPrice, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.fOrderComment, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fOrderComment, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-10">
-                @Html.HiddenFor(model => model.tTent.fTentID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.HiddenFor(model => model.fCheckinDateBegin, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-
+        <hr />
+        @{
+            int index = 0;
+        }
+        @foreach (var item in Model)
+        {
+            if (item.fCheckinStart == checkinStart)
+            {
+                <div class="form-group">
+                    <input type="hidden" name="newOrderList[@index].tTent.fTentID" value="@item.tTent.fTentID" />
+                    <input type="hidden" name="newOrderList[@index].fCheckinStart" value="@item.fCheckinStart" />
+                    <input type="hidden" name="newOrderList[@index].fOrderPrice" value="@item.fOrderPrice" />
+                    <p>帳棚名稱</p>
+                    <input type="text" name="newOrderList[@index].tTent.fTentName" value="@item.tTent.fTentName" readonly />
+                    <p>帳棚類型</p>
+                    <input type="text" name="newOrderList[@index].tTent.fTentCategory" value="@item.tTent.fTentCategory" readonly />
+                    <p>人數上限</p>
+                    <input type="text" name="newOrderList[@index].tTent.fTentPeople" value="@item.tTent.fTentPeople" readonly />
+                    <p>備註</p>
+                    <div class="col-md-10">
+                        <input type="text" name="newOrderList[@index].fOrderComment" value="@item.fOrderComment" />
+                    </div>
+                </div>
+                <br />
+            }
+            else
+            {
+                <div class="form-group" style="display: none">
+                    <input type="hidden" name="newOrderList[@index].tTent.fTentID" value="@item.tTent.fTentID" />
+                    <input type="hidden" name="newOrderList[@index].fCheckinStart" value="@item.fCheckinStart" />
+                    <input type="hidden" name="newOrderList[@index].fOrderPrice" value="@item.fOrderPrice" />
+                    <p>帳棚名稱</p>
+                    <input type="text" name="newOrderList[@index].tTent.fTentName" value="@item.tTent.fTentName" readonly />
+                    <p>帳棚類型</p>
+                    <input type="text" name="newOrderList[@index].tTent.fTentCategory" value="@item.tTent.fTentCategory" readonly />
+                    <p>人數上限</p>
+                    <input type="text" name="newOrderList[@index].tTent.fTentPeople" value="@item.tTent.fTentPeople" readonly />
+                    <p>備註</p>
+                    <div class="col-md-10">
+                        <input type="text" name="newOrderList[@index].fOrderComment" value="@item.fOrderComment" />
+                    </div>
+                </div>
+            }
+            index++;
+        }
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -74,7 +109,4 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
