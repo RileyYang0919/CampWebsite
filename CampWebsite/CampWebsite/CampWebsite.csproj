@@ -155,6 +155,7 @@
     <Compile Include="Models\CTagsFactory.cs" />
     <Compile Include="Models\CTents.cs" />
     <Compile Include="Models\CTentsBooked.cs" />
+    <Compile Include="Models\CTentsFactory.cs" />
     <Compile Include="Models\dbCamp.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -24,5 +24,9 @@ namespace CampWebsite.ViewModels
         {
             get; set;
         }
+        public List<CTentsBooked> tentsbooked
+        {
+            get; set;
+        }
     }
 }
