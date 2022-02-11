@@ -173,6 +173,44 @@ body {
     .preMonth p, .thisMonth p, .nextMonth p {
         pointer-events: none
     }
+
+.dateMouse {
+    background-color: pink;
+}
+
+.dateIsSelected {
+    background-color: powderblue;
+}
+
+.calendar-text {
+    height: 160px;
+    border: 1px #e6e6e6 solid;
+    box-shadow: 5px 7px 5px #e6e6e6;
+}
+
+    .calendar-text input {
+        width: 100%;
+        border: 1px solid black;
+        text-align: center;
+        font-weight: 700;
+    }
+
+        .calendar-text input:focus {
+            outline: none;
+        }
+
+    .calendar-text i {
+        color: red;
+    }
+
+.hide-exclamation {
+    visibility: hidden;
+}
+
+.show-exclamation {
+    visibility: visible;
+    color: #234a63;
+}
 /*==========月曆結束  */
 
 .star-container {
@@ -195,15 +233,19 @@ body {
 }
 
 .tent-container {
-    border-radius: 20px;
     border: black 1px solid;
 }
 
-.tent-select-result-hidden {
+    .tent-container li {
+        list-style: disc;
+        margin-left: 20px;
+    }
+
+.tent-unselected {
     display: none;
 }
 
-.tent-select-result {
+.tent-selected {
     display: block;
 }
 

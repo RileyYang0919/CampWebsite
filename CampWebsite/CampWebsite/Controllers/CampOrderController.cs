@@ -18,10 +18,10 @@ namespace CampWebsite.Controllers
             return View();
         }
         [Authorize]
-        public ActionResult GenerateOrder(JsonResult test)
+        public ActionResult GenerateOrder(string orderJson)
         {
-            var jasonString = fakeJSON(); //this is fake data.                
-            List<PreOrderInfoViewModel> newOrderList = new COrderFactory().OrderJason2VM(jasonString, User.Identity.Name);
+            //var jasonString = fakeJSON(); //this is fake data.                
+            List<PreOrderInfoViewModel> newOrderList = new COrderFactory().OrderJason2VM(orderJson, User.Identity.Name);
             return View(newOrderList.AsEnumerable());
         }
         [HttpPost]

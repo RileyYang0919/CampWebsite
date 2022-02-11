@@ -770,17 +770,17 @@ for (int j = star_count; j < 5; j++)
                     console.log(orderArray)
                     console.log(JSON.stringify(orderArray))
                     $.ajax({
-                        type: "post",
+                        type: "get",
                         async: false,
                         dataType:'html',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 /*                        contentType: "application/json; charset=utf-8",*/
-                        url: '@Url.Action("Index", "Order")',
+                        url: '@Url.Action("GenerateOrder", "CampOrder")',
                         data: {
                             "orderJson": JSON.stringify(orderArray),
                         },
                         success: function (data) {
-                            console.log(data)
+                            window.location.href = this.url;
                         },
                         error: function () {
                             alert("失敗");
