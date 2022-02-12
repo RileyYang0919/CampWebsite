@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CampWebsite.Models;
 using System.Web.Security;
+using CampWebsite.ViewModels;
 
 namespace CampWebsite.Controllers
 {
@@ -14,26 +15,28 @@ namespace CampWebsite.Controllers
 
         public ActionResult Register()
         {
-            return View();
+            RegisterViewModel newMember = new RegisterViewModel();
+            return View(newMember);
         }
         [HttpPost]
-        public ActionResult Register(string fName, string fEmail, string fPassword )
+        public ActionResult Register( RegisterViewModel newMember )
         {
+            //string fName, string fEmail, string fPassword
             if (ModelState.IsValid == false)
             {
                 return View();
             }
-            var member = db.tMember.Where(i => i.fEmail == fEmail).FirstOrDefault();
+            var member = db.tMember.Where(i => i.fEmail == newMember.fEmail).FirstOrDefault();
             if (member == null)
             {
                 tMember newUser = new tMember();
-                newUser.fName = fName;
-                newUser.fEmail = fEmail;
-                newUser.fPassword = fPassword;
+                newUser.fName = newMember.fName;
+                newUser.fEmail = newMember.fEmail;
+                newUser.fPassword = newMember.fPassword;
                 newUser.fSex = 0;
                 newUser.fGroup = "gCustomer";
                 newUser.fVerified = false;
-                newUser.fAvailable = false;
+                newUser.fAvailable = false; //此欄位之後要刪除
                 db.tMember.Add(newUser);
                 db.SaveChanges();
                 return RedirectToAction("List");
@@ -64,7 +67,7 @@ namespace CampWebsite.Controllers
             }
             string userData = (member.fGroup).ToString() + "," + member.fName;
             string userID = (member.fMemberID).ToString();
-            SetAuthenTicket(userData, userID);
+            new CAuthenticationFactory().SetAuthenTicket(userData, userID);
             //另一種驗證方式FormsAuthentication.RedirectFromLoginPage(member.Email, true);
             return Redirect(returnUrl);
         }
@@ -115,24 +118,5 @@ namespace CampWebsite.Controllers
         {
             return View();
         }
-
-        // 身分驗證方法
-        void SetAuthenTicket(string roles, string userID)
-        {
-            //宣告一個驗證票
-            FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
-            1,//版本
-            userID,//使用者名稱orID，可以用User.Identity.Name取出
-            DateTime.Now,//發行時間
-            DateTime.Now.AddMinutes(20),//有效時間，也可以AddHours
-            false,//是否將 Cookie 設定成 Session Cookie，如果是則會在瀏覽器關閉後移除。
-            roles//寫入使用者角色
-            );
-            //加密驗證票
-            string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-            System.Web.HttpCookie authCookie = new System.Web.HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-            System.Web.HttpContext.Current.Response.Cookies.Add(authCookie);
-        }
-
     }
 }

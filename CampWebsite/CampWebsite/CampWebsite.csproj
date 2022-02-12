@@ -149,6 +149,7 @@
     </Compile>
     <Compile Include="Models\AdoSample\AdoMemberModelSample.cs" />
     <Compile Include="Models\AdoSample\AdoQueryFactorySample.cs" />
+    <Compile Include="Models\CAuthenticationFactory.cs" />
     <Compile Include="Models\COrderFactory.cs" />
     <Compile Include="Models\COrderJsonModel.cs" />
     <Compile Include="Models\CTags.cs" />
@@ -201,6 +202,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CampsiteDetailsViewModel.cs" />
     <Compile Include="ViewModels\PreOrderInfoViewModel.cs" />
+    <Compile Include="ViewModels\RegisterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -223,7 +225,6 @@
     <Content Include="Views\Member\personalProfile.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Member\List.cshtml" />
-    <Content Include="Views\Member\Register.cshtml" />
     <Content Include="Views\Home\search.cshtml" />
     <Content Include="Views\Shared\_LoginFloatPartial.cshtml" />
     <Content Include="Views\CampSite\Details.cshtml" />
@@ -233,6 +234,7 @@
     <Content Include="Views\CampOrder\GenerateOrder.cshtml" />
     <Content Include="Views\TempTentList\ListTent.cshtml" />
     <Content Include="Views\TempTentList\ListOrder.cshtml" />
+    <Content Include="Views\Member\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -244,6 +246,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Images\Campsites\Campsite101\" />
     <Folder Include="Images\Members\" />
+    <Folder Include="Images\test\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
