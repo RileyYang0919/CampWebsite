@@ -24,22 +24,30 @@ namespace CampWebsite.Controllers
             //string fName, string fEmail, string fPassword
             if (ModelState.IsValid == false)
             {
-                return View();
+                return View(newMember);
             }
             var member = db.tMember.Where(i => i.fEmail == newMember.fEmail).FirstOrDefault();
             if (member == null)
             {
-                tMember newUser = new tMember();
-                newUser.fName = newMember.fName;
-                newUser.fEmail = newMember.fEmail;
-                newUser.fPassword = newMember.fPassword;
-                newUser.fSex = 0;
-                newUser.fGroup = "gCustomer";
-                newUser.fVerified = false;
-                newUser.fAvailable = false; //此欄位之後要刪除
-                db.tMember.Add(newUser);
-                db.SaveChanges();
-                return RedirectToAction("List");
+                try
+                {
+                    tMember newUser = new tMember();
+                    newUser.fName = newMember.fName;
+                    newUser.fEmail = newMember.fEmail;
+                    newUser.fPassword = newMember.fPassword;
+                    newUser.fSex = 0;
+                    newUser.fGroup = "gCustomer";
+                    newUser.fVerified = false;
+                    newUser.fAvailable = false; //此欄位之後要刪除
+                    db.tMember.Add(newUser);
+                    db.SaveChanges();
+                    return RedirectToAction("List");
+                }
+                catch
+                {
+                    return View();  //在這邊返回View
+                }
+                
             }
             ViewBag.Message = "帳號重複";
             return View();

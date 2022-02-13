@@ -172,6 +172,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbCamp.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\PartialModels\tMemberPartial.cs" />
     <Compile Include="Models\tCampsite.cs">
       <DependentUpon>dbCamp.tt</DependentUpon>
     </Compile>

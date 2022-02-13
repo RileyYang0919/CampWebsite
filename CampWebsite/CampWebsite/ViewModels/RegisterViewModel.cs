@@ -8,16 +8,17 @@ namespace CampWebsite.ViewModels
 {
     public class RegisterViewModel
     {
-        [Display(Name = "姓名")]
+        [Display(Name = "會員姓名")]
         [Required(ErrorMessage = "您必須輸入姓名！")]
         public string fName { get; set; }
-        [Display(Name = "電子信箱")]
+        [Display(Name = "會員E-mail(帳號)")]
         [EmailAddress]
-        [Required(ErrorMessage = "您必須輸入Email，此Email為後續您登入的帳號")]        
+        [Required(ErrorMessage = "您必須輸入Email，此Email作為後續登入的帳號")]
         public string fEmail { get; set; }
-        [Display(Name = "密碼")]
+        [Display(Name = "會員密碼")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "您必須輸入密碼！")]
+        [StringLength(16, MinimumLength = 8, ErrorMessage = "請設定8~16字元密碼")]
         public string fPassword { get; set; }
 
         [Display(Name = "再次確認密碼")]
