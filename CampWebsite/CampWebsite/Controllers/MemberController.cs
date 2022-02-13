@@ -12,7 +12,9 @@ namespace CampWebsite.Controllers
     public class MemberController : Controller
     {
         dbCampEntities db = new dbCampEntities();
-
+        /// <summary>
+        /// 註冊會員
+        /// </summary>
         public ActionResult Register()
         {
             RegisterViewModel newMember = new RegisterViewModel();
@@ -24,7 +26,7 @@ namespace CampWebsite.Controllers
             //string fName, string fEmail, string fPassword
             if (ModelState.IsValid == false)
             {
-                return View(newMember);
+                return View();
             }
             var member = db.tMember.Where(i => i.fEmail == newMember.fEmail).FirstOrDefault();
             if (member == null)
@@ -41,15 +43,18 @@ namespace CampWebsite.Controllers
                     newUser.fAvailable = false; //此欄位之後要刪除
                     db.tMember.Add(newUser);
                     db.SaveChanges();
+                    string userData = (newUser.fGroup).ToString() + "," + newUser.fName;
+                    string userID = (newUser.fMemberID).ToString();
+                    new CAuthenticationFactory().SetAuthenTicket(userData, userID);
                     return RedirectToAction("List");
                 }
                 catch
                 {
+                    ViewBag.Message = "Something wrong!";
                     return View();  //在這邊返回View
-                }
-                
+                }                
             }
-            ViewBag.Message = "帳號重複";
+            ViewBag.Message = "此Email帳號已被註冊";
             return View();
         }
         // ---
@@ -86,21 +91,34 @@ namespace CampWebsite.Controllers
         {
             int myID = Convert.ToInt32(User.Identity.Name);
             var member = db.tMember.Where(i => i.fMemberID == myID).FirstOrDefault();
-
+            if(member.fBirthday.HasValue)
+            {
+                DateTime myBirthday = member.fBirthday.HasValue ? member.fBirthday.Value : DateTime.MinValue;
+                ViewBag.Birthday = myBirthday.ToString("yyyy-MM-dd");
+            }
             return View(member);
         }
         [HttpPost]
-        public ActionResult personalProfile(tMember m)
+        public ActionResult personalProfile(tMember viewMember)
         {
             int myID = Convert.ToInt32(User.Identity.Name);
-            var temp = db.tMember.Where(i => i.fMemberID == myID).FirstOrDefault();
-            temp.fName = m.fName;
+            var editMember = db.tMember.Where(i => i.fMemberID == myID).FirstOrDefault();            
+            editMember.fName = viewMember.fName;
+            editMember.fPassword = viewMember.fPassword;
+            editMember.fPhoneNumber = viewMember.fPhoneNumber;
+            editMember.fSex = viewMember.fSex;
+            editMember.fBirthday = viewMember.fBirthday;
+            editMember.fPhoto = viewMember.fPhoto;
             db.SaveChanges();
-            return RedirectToAction("List", "Home");
+            //更新身分憑證
+            string userData = (editMember.fGroup).ToString() + "," + editMember.fName;
+            string userID = (editMember.fMemberID).ToString();
+            new CAuthenticationFactory().SetAuthenTicket(userData, userID);
+            return RedirectToAction("List", "Member");
         }
 
 
-        // 顯示所有資料
+        // 顯示所有會員-限開發用
         public ActionResult List()
         {
             var members = db.tMember.OrderBy(m => m.fMemberID).ToList();
@@ -114,7 +132,7 @@ namespace CampWebsite.Controllers
             Session.Clear();
             return Redirect("/Home/Index");
         }
-
+        //身分群組測試頁面
         [Authorize]
         [Authorize(Roles = "gVendor")]
         public ActionResult forGroup3()

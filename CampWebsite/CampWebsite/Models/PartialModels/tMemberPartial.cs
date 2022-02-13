@@ -24,6 +24,8 @@ namespace CampWebsite.Models
             [DisplayName("會員密碼")]
             [Required(ErrorMessage = "密碼為必填欄位！")]            
             public string fPassword { get; set; }
+            [DataType(DataType.Date)]
+            public Nullable<System.DateTime> fBirthday { get; set; }
         }            
     }
 }
