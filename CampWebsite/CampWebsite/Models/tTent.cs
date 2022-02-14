@@ -28,7 +28,6 @@ namespace CampWebsite.Models
         public int fTentPeople { get; set; }
         public int fTentPriceWeekday { get; set; }
         public int fTentPriceWeekend { get; set; }
-        public int fTendPriceHoliday { get; set; }
     
         public virtual tCampsite tCampsite { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

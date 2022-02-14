@@ -126,8 +126,8 @@
     <Content Include="Images\user.png" />
     <Content Include="Models\dbCamp.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>dbCamp.edmx</DependentUpon>
       <LastGenOutput>dbCamp.Context.cs</LastGenOutput>
+      <DependentUpon>dbCamp.edmx</DependentUpon>
     </Content>
     <Content Include="Models\dbCamp.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

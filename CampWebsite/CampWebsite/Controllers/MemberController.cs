@@ -40,7 +40,6 @@ namespace CampWebsite.Controllers
                     newUser.fSex = 0;
                     newUser.fGroup = "gCustomer";
                     newUser.fVerified = false;
-                    newUser.fAvailable = false; //此欄位之後要刪除
                     db.tMember.Add(newUser);
                     db.SaveChanges();
                     string userData = (newUser.fGroup).ToString() + "," + newUser.fName;

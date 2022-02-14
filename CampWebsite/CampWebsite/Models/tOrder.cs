@@ -23,6 +23,7 @@ namespace CampWebsite.Models
         public int fOrderID { get; set; }
         public int fMemberID { get; set; }
         public int fTentID { get; set; }
+        public string fOrderConfirmCode { get; set; }
         public string fClinetName { get; set; }
         public string fClinetEmail { get; set; }
         public string fClinetPhone { get; set; }
