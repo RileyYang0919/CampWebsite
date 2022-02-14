@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 ﻿// 已啟用模型 'C:\Users\William\Desktop\FinalProject\ProjectCode\0212_MemberProfilePage\CampWebsite\CampWebsite\CampWebsite\Models\dbCamp.edmx' 的 T4 程式碼產生。
-=======
 ﻿// 已啟用模型 'C:\Users\William\Desktop\FinalProject\ProjectCode\0214_test_razor\CampWebsite\CampWebsite\CampWebsite\Models\dbCamp.edmx' 的 T4 程式碼產生。
->>>>>>> 43eed07b3e27769a316bf7bf872f39b5692f5bb5
 // 若要啟用舊版程式碼產生，請將 [程式碼產生策略] 設計工具屬性的值
 //變更為 [舊版 ObjectContext]。當模型在設計工具中開啟時，這個屬性便可
 //以在 [屬性] 視窗中使用。
