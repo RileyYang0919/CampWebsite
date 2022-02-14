@@ -39,7 +39,11 @@ namespace CampWebsite.Controllers
                     newUser.fPassword = newMember.fPassword;
                     newUser.fSex = 0;
                     newUser.fGroup = "gCustomer";
+<<<<<<< HEAD
                     newUser.fVerified = false;
+=======
+                    newUser.fVerified = false;                    
+>>>>>>> 43eed07b3e27769a316bf7bf872f39b5692f5bb5
                     db.tMember.Add(newUser);
                     db.SaveChanges();
                     string userData = (newUser.fGroup).ToString() + "," + newUser.fName;

@@ -58,44 +58,22 @@
             int index = 0;
         }
         @foreach (var item in Model)
-        {
-            if (item.fCheckinStart == checkinStart)
-            {
-                <div class="form-group">
-                    <input type="hidden" name="newOrderList[@index].tTent.fTentID" value="@item.tTent.fTentID" />
-                    <input type="hidden" name="newOrderList[@index].fCheckinStart" value="@item.fCheckinStart" />
-                    <input type="hidden" name="newOrderList[@index].fOrderPrice" value="@item.fOrderPrice" />
-                    <p>帳棚名稱</p>
-                    <input type="text" name="newOrderList[@index].tTent.fTentName" value="@item.tTent.fTentName" readonly />
-                    <p>帳棚類型</p>
-                    <input type="text" name="newOrderList[@index].tTent.fTentCategory" value="@item.tTent.fTentCategory" readonly />
-                    <p>人數上限</p>
-                    <input type="text" name="newOrderList[@index].tTent.fTentPeople" value="@item.tTent.fTentPeople" readonly />
-                    <p>備註</p>
-                    <div class="col-md-10">
-                        <input type="text" name="newOrderList[@index].fOrderComment" value="@item.fOrderComment" />
-                    </div>
+        {            
+            <div class="form-group"  @(item.fCheckinStart == checkinStart ? "" : "style = display:none")>
+                <input type="hidden" name="newOrderList[@index].tTent.fTentID" value="@item.tTent.fTentID" />
+                <input type="hidden" name="newOrderList[@index].fCheckinStart" value="@item.fCheckinStart" />
+                <input type="hidden" name="newOrderList[@index].fOrderPrice" value="@item.fOrderPrice" />
+                <p>帳棚名稱</p>
+                <input type="text" name="newOrderList[@index].tTent.fTentName" value="@item.tTent.fTentName" readonly />
+                <p>帳棚類型</p>
+                <input type="text" name="newOrderList[@index].tTent.fTentCategory" value="@item.tTent.fTentCategory" readonly />
+                <p>人數上限</p>
+                <input type="text" name="newOrderList[@index].tTent.fTentPeople" value="@item.tTent.fTentPeople" readonly />
+                <p>備註</p>
+                <div class="col-md-10">
+                    <input type="text" name="newOrderList[@index].fOrderComment" value="@item.fOrderComment" />
                 </div>
-                <br />
-            }
-            else
-            {
-                <div class="form-group" style="display: none">
-                    <input type="hidden" name="newOrderList[@index].tTent.fTentID" value="@item.tTent.fTentID" />
-                    <input type="hidden" name="newOrderList[@index].fCheckinStart" value="@item.fCheckinStart" />
-                    <input type="hidden" name="newOrderList[@index].fOrderPrice" value="@item.fOrderPrice" />
-                    <p>帳棚名稱</p>
-                    <input type="text" name="newOrderList[@index].tTent.fTentName" value="@item.tTent.fTentName" readonly />
-                    <p>帳棚類型</p>
-                    <input type="text" name="newOrderList[@index].tTent.fTentCategory" value="@item.tTent.fTentCategory" readonly />
-                    <p>人數上限</p>
-                    <input type="text" name="newOrderList[@index].tTent.fTentPeople" value="@item.tTent.fTentPeople" readonly />
-                    <p>備註</p>
-                    <div class="col-md-10">
-                        <input type="text" name="newOrderList[@index].fOrderComment" value="@item.fOrderComment" />
-                    </div>
-                </div>
-            }
+            </div>
             index++;
         }
         <div class="form-group">
