@@ -39,8 +39,7 @@ namespace CampWebsite.Controllers
                     newUser.fPassword = newMember.fPassword;
                     newUser.fSex = 0;
                     newUser.fGroup = "gCustomer";
-                    newUser.fVerified = false;
-                    newUser.fAvailable = false; //此欄位之後要刪除
+                    newUser.fVerified = false;                    
                     db.tMember.Add(newUser);
                     db.SaveChanges();
                     string userData = (newUser.fGroup).ToString() + "," + newUser.fName;
