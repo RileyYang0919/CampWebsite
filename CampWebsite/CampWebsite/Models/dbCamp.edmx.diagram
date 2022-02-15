@@ -4,11 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-<<<<<<< HEAD
-      <Diagram DiagramId="13d1a65657da46c1984349d240150753" Name="Diagram1">
-=======
-      <Diagram DiagramId="25b2efac89174018bd76d193dcd76ca7" Name="Diagram1">
->>>>>>> 43eed07b3e27769a316bf7bf872f39b5692f5bb5
+      <Diagram DiagramId="eaae2f49b1f64f58a9d1468bc5f8a15e" Name="Diagram1">
         <EntityTypeShape EntityType="dbCampModel.tCampsite" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="dbCampModel.tComment" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="dbCampModel.tMember" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />

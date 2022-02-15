@@ -1,0 +1,63 @@
+﻿@model IEnumerable<CampWebsite.Models.tTent>
+
+@{
+    ViewBag.Title = "營區-帳篷";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>營區-帳篷</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fTentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fTentCategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fTentPeople)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fTentPriceWeekday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fTentPriceWeekend)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tCampsite.fCampsiteName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.fTentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fTentCategory)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fTentPeople)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fTentPriceWeekday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fTentPriceWeekend)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tCampsite.fCampsiteName)
+        </td>
+        <td>
+            @Html.ActionLink("上傳照片", "NewPhoto", new { tID=item.fTentID, tName= item.fTentName, cName=item.tCampsite.fCampsiteName})
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.fTentID })*@
+        </td>
+    </tr>
+}
+
+</table>

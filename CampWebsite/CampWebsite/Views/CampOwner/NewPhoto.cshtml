@@ -1,0 +1,86 @@
+﻿@model CampWebsite.ViewModels.NewPhotoViewModel
+
+@{
+    ViewBag.Title = "新增帳篷照片";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .required::after {
+        content: " *";
+        color: red;
+    }
+
+    .input-validation-error {
+        border: 2px solid red;
+    }
+</style>
+
+<h2>新增帳篷照片</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+
+<div class="form-horizontal">
+    <h4>新增照片</h4>
+    <hr />
+
+    @Html.HiddenFor(model => model.TentID)
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">營區：</label>
+        @Html.LabelFor(item=>item.CampsiteName)
+        @*<label class="col-form-label">@Model.CampsiteName </label>*@
+        @Html.HiddenFor(item=>item.CampsiteName)
+    </div>
+    <br />
+    
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">帳篷：</label>
+        <label class="col-form-label">@Model.TentName </label>
+    </div>
+    <br />
+
+
+    <div class="form-group mb-3">
+        <div class="col-md-10">
+            @Html.TextBoxFor(item => item.Photo, "", new {@type="file"@*, @multiple="multiple"*@})
+            @Html.ValidationMessageFor(item => item.Photo);
+        </div>
+            <span class="form-text">只接受下列格式：.jpg  .jpeg  .png  .gif</span>
+    </div>
+    
+    @*<div class="form-group mb-3">
+        <div class="col-md-10">
+            <input type="file" name="@Model.UploadedPhoto" />
+            <span class="form-text">只接受下列格式：.jpg  .jpeg  .png  .gif</span>
+        </div>
+    </div>*@
+
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">
+            送出
+        </button>
+    </div>
+
+</div>
+}
+@{ if (ViewBag.UploadStat == true)
+    {
+       
+    <script>    prompt("照片上傳成功!!!")</script>
+    }
+}
+
+
+<div>
+    @*@Html.ActionLink("Back to List", "Index")*@
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

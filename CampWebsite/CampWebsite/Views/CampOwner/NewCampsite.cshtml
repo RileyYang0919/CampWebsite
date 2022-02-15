@@ -1,0 +1,149 @@
+﻿@model CampWebsite.Models.tCampsite
+
+@{ ViewBag.Title = "註冊新營區";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<style>
+    .required::after {
+        content: " *";
+        color: red;
+    }
+
+    .input-validation-error {
+        border: 2px solid red;
+    }
+</style>
+
+<div class="page-header">
+    <h3>
+            新增你的營區
+    </h3>
+    <small>Subtext for header</small>
+</div>
+<br />
+
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+<div class="card">
+    <div class="card-body py-3">
+
+        @*名稱*@
+        <div class="card-body py-3">
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(model => model.fCampsiteName, htmlAttributes: new { @class = "control-label card-title required" })
+                <div class="col-md-10">
+                    <span class="form-text">最多12個字唷</span>
+                    @Html.EditorFor(model => model.fCampsiteName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fCampsiteName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        @*縣市*@
+        <div class="card-body py-3">
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(model => model.fCampsiteCity, htmlAttributes: new { @class = "control-label card-title required" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.fCampsiteCity, (IEnumerable<SelectListItem>)ViewBag.SelectList, "請選擇縣市", new { htmlAttributes = new { @class = "form-select" } })
+                    @Html.ValidationMessageFor(model => model.fCampsiteCity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        @*地址*@
+        <div class="card-body py-3">
+            <div class="form-group mb-3">
+                @Html.LabelFor(model => model.fCampsiteAddress, htmlAttributes: new { @class = "control-label card-title required" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fCampsiteAddress, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fCampsiteAddress, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        @*海拔*@
+        <div class="card-body py-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.fCampsiteAltitude, htmlAttributes: new { @class = "control-label card-title" })
+                <div class="col-md-10">
+                    <input type="range" id="fCampsiteAltitude" name="fCampsiteAltitude" min="0" max="2500" step="100" class="form-range">
+                    @Html.EditorFor(model => model.fCampsiteAltitude, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div>
+
+        @*公休日*@
+        <div class="card-body py-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.fCampsiteClosedDay, htmlAttributes: new { @class = "control-label card-title" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fCampsiteClosedDay, new { htmlAttributes = new { @class = "form-control " } })
+                    @Html.ValidationMessageFor(model => model.fCampsiteClosedDay, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        @*check in time*@
+        <div class="card-body py-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.fCampsiteCheckInTime, htmlAttributes: new { @class = "control-label card-title" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fCampsiteCheckInTime, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fCampsiteCheckInTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        @*check out time*@
+        <div class="card-body py-5">
+            <div class="form-group">
+                @Html.LabelFor(model => model.fCampsiteCheckOutTime, htmlAttributes: new { @class = "control-label card-title" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fCampsiteCheckOutTime, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fCampsiteCheckOutTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <br />  <br />  <br />
+        @*phone*@
+        <div class="card-body py-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.fCampsitePhone, htmlAttributes: new { @class = "control-label card-title required" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fCampsitePhone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fCampsitePhone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        @*Introduction*@
+        <div class="card-body py-5">
+            <div class="form-group">
+                @Html.LabelFor(model => model.fCampsiteIntroduction, htmlAttributes: new { @class = "control-label card-title  required" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fCampsiteIntroduction, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fCampsiteIntroduction, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body py-3">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="submit" class="btn btn-primary">新增營區</button>
+                </div>
+            </div>
+         </div>
+
+
+        </div>
+    </div>
+
+    }
+
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

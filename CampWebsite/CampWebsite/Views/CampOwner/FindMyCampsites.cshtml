@@ -1,0 +1,99 @@
+﻿@model IEnumerable<CampWebsite.Models.tCampsite>
+
+@{
+    ViewBag.Title = "FindMyCampsites";
+}
+
+<h2>FindMyCampsites</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fMemberID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsitePhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteArea)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteIntroduction)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteAltitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteClosedDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteCheckInTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fCampsiteCheckOutTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.fCampsiteID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fMemberID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fCampsiteName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fCampsitePhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fCampsiteArea)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fCampsiteCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fCampsiteAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fCampsiteIntroduction)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fCampsiteAltitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fCampsiteClosedDay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fCampsiteCheckInTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fCampsiteCheckOutTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
