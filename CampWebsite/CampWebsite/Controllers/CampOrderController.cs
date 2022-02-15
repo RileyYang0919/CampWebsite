@@ -32,36 +32,5 @@ namespace CampWebsite.Controllers
             return RedirectToAction("ListOrder","TempTentList" );
         }
 
-        public string fakeJSON()
-        {
-            List<COrderJsonModel> allBooks = new List<COrderJsonModel>();
-            allBooks.Add(new COrderJsonModel()
-            {
-                tentID = 101,
-                checkinDate = new DateTime(2022, 3, 18),
-                price = 111
-            });
-            allBooks.Add(new COrderJsonModel()
-            {
-                tentID = 102,
-                checkinDate = new DateTime(2022, 3, 18),
-                price = 2222
-            });
-            allBooks.Add(new COrderJsonModel()
-            {
-                tentID = 101,
-                checkinDate = new DateTime(2022, 3, 19),
-                price = 2111
-            });
-            allBooks.Add(new COrderJsonModel()
-            {
-                tentID = 102,
-                checkinDate = new DateTime(2022, 3, 19),
-                price = 3222
-            });
-            string jsonString = JsonConvert.SerializeObject(allBooks);
-
-            return jsonString;
-        }
     }
 }

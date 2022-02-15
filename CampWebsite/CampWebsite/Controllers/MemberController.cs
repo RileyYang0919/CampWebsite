@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CampWebsite.Models;
 using System.Web.Security;
 using CampWebsite.ViewModels;
+using System.IO;
 
 namespace CampWebsite.Controllers
 {
@@ -96,6 +97,15 @@ namespace CampWebsite.Controllers
                 DateTime myBirthday = member.fBirthday.HasValue ? member.fBirthday.Value : DateTime.MinValue;
                 ViewBag.Birthday = myBirthday.ToString("yyyy-MM-dd");
             }
+            //if (String.IsNullOrEmpty(member.fPhoto))
+            //{
+            //    ViewBag.Photo = "/Images/Members/default.jpg";
+            //}
+            //else
+            //{
+            //    ViewBag.Photo = member.fPhoto;
+            //}
+            
             return View(member);
         }
         [HttpPost]
@@ -108,13 +118,37 @@ namespace CampWebsite.Controllers
             editMember.fPhoneNumber = viewMember.fPhoneNumber;
             editMember.fSex = viewMember.fSex;
             editMember.fBirthday = viewMember.fBirthday;
-            editMember.fPhoto = viewMember.fPhoto;
             db.SaveChanges();
             //更新身分憑證
             string userData = (editMember.fGroup).ToString() + "," + editMember.fName;
             string userID = (editMember.fMemberID).ToString();
             new CAuthenticationFactory().SetAuthenTicket(userData, userID);
             return RedirectToAction("List", "Member");
+        }
+        /// <summary>
+        /// 上傳會員圖片
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult uploadPersonalPic() 
+        {
+            string path = Server.MapPath("~/Images/Members/");
+            //## 如果有任何檔案類型才做
+            if (Request.Files.AllKeys.Any())
+            {
+                //## 讀取指定的上傳檔案ID
+                var httpPostedFile = Request.Files["UploadedImage"];
+                int myID = Convert.ToInt32(User.Identity.Name);
+                //## 真實有檔案，進行上傳
+                if (httpPostedFile != null && httpPostedFile.ContentLength != 0)
+                {
+                    httpPostedFile.SaveAs(path + Path.GetFileName("user"+myID+".jpg"));
+                    var editMember = db.tMember.Where(i => i.fMemberID == myID).FirstOrDefault();
+                    editMember.fPhoto = "/Images/Members/user" + myID + ".jpg";
+                    db.SaveChanges();
+                }
+            }
+            return Json(new { isUploaded = true, result = "成功囉" }, "text/html");
         }
 
 

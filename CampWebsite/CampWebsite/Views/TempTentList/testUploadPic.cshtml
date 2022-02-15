@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "testUploadPic";
+}
+
+<h2>testUploadPic</h2>
+
+<div>
+    <input id="fileUpload" type="file" />
+    <input id="btnUploadFile" type="button" value="Upload File" />
+</div>
+<hr />
+<div>
+    <input type="text" name="name" value=@ViewBag.t1 />
+    <input type="text" name="name" value=@ViewBag.t2 />
+    <input type="text" name="name" value=@ViewBag.t3 />
+    <input type="text" name="name" value=@ViewBag.t4 />
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    //## 按下上傳按鈕觸發
+        $('#btnUploadFile').on('click', function () {
+
+            //## 宣告一個FormData
+            var data = new FormData();
+            //## 將檔案append FormData
+            var files = $("#fileUpload").get(0).files;
+            if (files.length > 0) {
+                data.append("UploadedImage", files[0]);
+            }
+
+            //## 透過ajax方式Post 至Action
+            var ajaxRequest = $.ajax({
+                type: "POST",
+                url: "@Url.Action("UploadFile")",
+                    contentType: false,         // 告诉jQuery不要去這置Content-Type
+                    processData: false,         // 告诉jQuery不要去處理發送的數據
+                    dataType: "json",
+                    data: data
+            })
+                .done(function (data, textStatus) {
+                    //## data 接收回傳的Json，透過each組合結果
+                    var htmlresult="<ul>";
+
+                    $.each(data.result, function (i, item) {
+                        htmlresult += "<li>" + item.ID + ":" + item.Name + "</li>";
+                    });
+
+                    htmlresult += "</ul>";
+                    //## 將結果append到預留的DIV中
+                    $("#DivResult").append(htmlresult);
+                })
+                .fail(function() {
+                    alert( "error" );
+                });
+        });
+    
+</script>

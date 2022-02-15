@@ -246,6 +246,7 @@
     <Content Include="Views\CampOwner\NewPhoto.cshtml" />
     <Content Include="Views\CampOwner\NewTent.cshtml" />
     <Content Include="Views\CampOwner\TentsInCampsite.cshtml" />
+    <Content Include="Views\TempTentList\testUploadPic.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -257,7 +258,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Images\Campsites\Campsite101\" />
     <Folder Include="Images\Members\" />
-    <Folder Include="Images\test\" />
+    <Folder Include="Images\Test\" />
     <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>
