@@ -1,56 +1,73 @@
-﻿@model CampWebsite.Models.tMember
+﻿@model CampWebsite.ViewModels.Member3in1ViewModel
 
 @{
     ViewBag.Title = "personalProfile";
+    var myProfile = Model.tMember;
+    var myOrders = Model.myOrderList;
+    var myFavorites = Model.myCampFavorites;
 }
+<style>
+    .imageBox {
+        width: auto;
+        height: 10rem;
+    }
 
-<h2>personalProfile</h2>
+    .image100 {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="container d-flex justify-content-center mt-5">
-        <div class="col-md-6 border shadow">
-            <ul class="nav nav-pills nav-justified">
-                <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#p1Profile">會員資料</a></li>
+        <div class="col-12 col-lg-6 border shadow">
+            <ul class="nav nav-pills nav-justified" id="tabSwitch">
+                <li class="nav-item"><a class="nav-link " data-bs-toggle="pill" href="#p1Profile">會員資料</a></li>
                 <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#p2Favorite">我的收藏</a></li>
-                <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#p3Order">歷史訂單</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#p3Order" id="tabMyOrders">歷史訂單</a></li>
             </ul>
 
             <!-- All tabs main div -->
-            <div class="tab-content">
-                <!-- Profile tab start -->
-                <div class="tab-pane show fade active justify-content-center px-5" id="p1Profile">
-                    <img src=@Model.fPhoto width="150px" height="150px" class="rounded-circle border border-primary mx-auto d-flex my-2" onerror="this.src='/Images/Members/default.jpg'"/>
+            <div class="tab-content" id="mainContent">
+                <!-- Profile tab start                 會員資料頁面-->
+                <div class="tab-pane fade active justify-content-center px-5" id="p1Profile">
+                    <img class="rounded-circle border border-primary mx-auto d-flex my-2" width="150" height="150" onerror="this.src='/Images/Members/default.jpg'" src=@myProfile.fPhoto />
                     <!-- <h2 class="text-center my-3">The Providers</h2> -->
-                    <input type="file" accept="image/*" class="btn btn-outline-info mx-auto btn-sm d-flex" id="ChangePic"/>更換照片
+                    <label class="btn btn-info mx-auto btn-sm d-flex col-2">
+                        <input id="ChangePic" style="display:none;" type="file" accept="image/*">
+                        <i class="fas fa-pen m-auto"></i> 上傳圖片
+                    </label>
                     @*<i class="fas fa-pen m-auto"></i>*@
                     <hr />
                     <div class="form-group mt-3">
                         <label for="fName" class="">姓名</label>
-                        <input type="text" class="form-control" name="fName" value="@Model.fName" required />
+                        <input type="text" class="form-control" name="fName" value="@myProfile.fName" required />
                     </div>
                     <div class="form-group mt-3">
                         <label for="fEmail" class="">Email</label>
-                        <input type="email" class="form-control" name="fEmail" value="@Model.fEmail" disabled readonly />
+                        <input type="email" class="form-control" name="fEmail" value="@myProfile.fEmail" disabled readonly />
                     </div>
                     <div class="form-group mt-3">
                         <label for="fPassword" class="">密碼</label> <i class="fa-solid fa-eye"></i> <i class="fa-solid fa-eye-slash"></i>
-                        <input type="password" class="form-control" name="fPassword" value="@Model.fPassword" required />
+                        <input type="password" class="form-control" name="fPassword" value="@myProfile.fPassword" required />
                     </div>
                     <div class="form-group mt-3">
                         <label for="fPhoneNumber" class="">電話</label>
-                        <input type="tel" class="form-control" name="fPhoneNumber" value="@Model.fPhoneNumber" maxlength="10" minlength="10" />
+                        <input type="tel" class="form-control" name="fPhoneNumber" value="@myProfile.fPhoneNumber" maxlength="10" minlength="10" />
                     </div>
                     <div class="form-group mt-3">
                         <label>性別</label>
                         <br />
-                        @Html.RadioButtonFor(model => model.fSex, "0", new { @class = "form-check-input", id = "none" })
+                        @Html.RadioButtonFor(model => model.tMember.fSex, "0", new { @class = "form-check-input", id = "none" })
                         <label for="none" class="">不表態</label>
-                        @Html.RadioButtonFor(model => model.fSex, "1", new { @class = "form-check-input", id = "male" })
+                        @Html.RadioButtonFor(model => model.tMember.fSex, "1", new { @class = "form-check-input", id = "male" })
                         <label for="male" class="">男生</label>
-                        @Html.RadioButtonFor(model => model.fSex, "2", new { @class = "form-check-input", id = "female" })
+                        @Html.RadioButtonFor(model => model.tMember.fSex, "2", new { @class = "form-check-input", id = "female" })
                         <label for="female" class="">女生</label>
                     </div>
                     <div class="form-group mt-3">
@@ -60,11 +77,11 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="name" class="">會員身分</label>
-                        <input type="text" class="form-control" name="fGroup" value="@Model.fGroup" />
+                        <input type="text" class="form-control" name="fGroup" value="@myProfile.fGroup" />
                     </div>
                     <div class="form-group mt-3">
                         <label for="name" class="">Email驗證</label>
-                        <input type="text" class="form-control" name="fVerified" value="@Model.fVerified" />
+                        <input type="text" class="form-control" name="fVerified" value="@myProfile.fVerified" />
                     </div>
                     <div class="form-group mt-3">
                         <input type="submit" value="儲存修改" class="btn btn-info mx-auto d-flex" />
@@ -75,22 +92,99 @@
                         <input type="button" class="btn btn-danger btn-sm" name="fAvailable" value="刪除帳號" />
                     </div>
                 </div>
-                <!-- Favorite tab start -->
+                <!-- Favorite tab start                 營區收藏頁面 -->
                 <div class="tab-pane fade p-5" id="p2Favorite">
-                    <h4 class="text-center">還沒好</h4>
+                    <h4 class="text-center">營區收藏</h4>
+                    @{
+                        if (myFavorites == null)
+                        {
+                            <h3>目前沒有任何收藏</h3>
+                        }
+                        else
+                        {
+                            foreach (var Favorite in myFavorites)
+                            {
+                                <div class="row justify-content-around">
+                                    <div class="card col-10 col-lg-6 my-2">
+                                        <div class="imageBox">
+                                            <img class="card-img-top image100" alt="@Favorite.fCampsiteName" onerror="this.src='/Images/Campsites/CampDefault.jpg'" src=@Favorite.fPhotoUrl />
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">@Favorite.fCampsiteName</h5>
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                                </div>
+                                                <p><i class="fa-solid fa-location-dot"></i> @Favorite.fCity</p>
+                                            </div>
+                                            <div class="d-flex p-3">
+                                                @Html.ActionLink("查看住宿", "Details", "CampSite", new { id = Favorite.fCampsiteID }, new { @class = "btn border-success text-center m-auto" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                    }
+
+
 
                 </div>
-                <!-- Order History tab start -->
-                <div class="tab-pane fade my-4" id="p3Order">
+                <!-- Order History tab start                  歷史訂單頁面-->
+                <div class="tab-pane fade my-4 justify-content-center px-5" id="p3Order">
                     <h3 class="text-center">歷史訂單</h3>
+                    @if (myOrders == null)
+                    {
+                        <h2>還沒有訂單</h2>
+                    }
+                    else
+                    {
+                        foreach (var item in myOrders)
+                        {
+                            <div class="card mt-3">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div>
+                                        訂單編號: @item.fOrderCode
+                                    </div>
+                                    <div>
+                                        @Html.ActionLink("住宿評語", "OrderDetail", new { OrderCode = item.fOrderCode })
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <blockquote class="blockquote mb-0 ">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="test">
+                                                <p>@item.fCampsiteName</p>
+                                                <p>入住日期: @item.fCheckinStart</p>
+                                                <p>退房日期: @item.fCheckinEnd</p>
+                                                <p>@item.fTentCount 個營位</p>
+                                            </div>
+                                            <div class="">
+                                                <p>TWD @item.fTotalPrice</p>
+                                                @Html.ActionLink("訂單細節", "OrderDetail", new { OrderCode = item.fOrderCode })
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-end">
+                                            <footer class="blockquote-footer   ">@(item.fZDay > 0? "再" + item.fZDay + "天就見面囉": "謝謝惠顧" )</footer>
+                                        </div>
+                                    </blockquote>
+                                </div>
+                            </div>
+                            <br />
+                        }
+                    }
+
                 </div>
             </div>
         </div>
     </div>
 }
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
 
+<script>
+    //script for 照片上傳
     $("#ChangePic").change(function () {
 
         previewImg(this.files);
@@ -107,7 +201,6 @@
                 var data = new FormData();
                 data.append("UploadedImage", file);
                 sendAjax(data);
-                console.log("ajax send~");
             };
         fr.readAsDataURL(file);
     }
@@ -116,63 +209,35 @@
         var ajaxRequest = $.ajax({
                 type: "POST",
                 url: "@Url.Action("uploadPersonalPic")",
-                    contentType: false,         // 告诉jQuery不要去這置Content-Type
-                    processData: false,         // 告诉jQuery不要去處理發送的數據
+                    contentType: false,         // 告訴jQuery不要去設置Content-Type
+                    processData: false,         // 告訴jQuery不要去處理發送的數據
                     dataType: "json",
                     data: data
             })
                 .done(function (data, textStatus) {
-                    //## data 接收回傳的Json，透過each組合結果
-                    console.log(data);
-                    console.log("回傳成功");
+                    console.log("會員照片上傳成功");
                 })
                 .fail(function() {
-                    console.log("回傳成功");
+                    console.log("回傳失敗");
                 });
     }
-
-
-    ///
-    //$('#ChangePic').click(function () {
-
-    //    // Checking whether FormData is available in browser
-    //    if (window.FormData !== undefined) {
-
-    //        var fileUpload = $("#ChangePic").get(0);
-    //        var files = fileUpload.files;
-
-    //        // Create FormData object
-    //        var fileData = new FormData();
-
-    //        // Looping over all files and add it to FormData object
-    //        for (var i = 0; i < files.length; i++) {
-    //            fileData.append(files[i].name, files[i]);
-    //        }
-
-    //        // Adding one more key to FormData object
-    //        fileData.append('username', 'will');
-
-    //        $.ajax({
-    //            url: '/Member/uploadPersonalPic',
-    //            type: "POST",
-    //            contentType: false, // Not to set any content header
-    //            processData: false, // Not to process data
-    //            data: fileData,
-    //            success: function (result) {
-    //                alert(result);
-    //            },
-    //            error: function (err) {
-    //                alert(err.statusText);
-    //            }
-    //        });
-    //    } else {
-    //        alert("FormData is not supported.");
-    //    }
-    //});
-
-
 </script>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<script>
+    //老師的作法
+    //網頁重載後，顯示重載前所顯示的頁籤
+    $(function () {
+        $('a[data-bs-toggle="pill"]').on("show.bs.tab", function () {
+            localStorage.setItem("activeTab", $(this).attr("href"));
+            //比較: sessionStorage's item 會在網頁關閉後被移除
+        });
+        var activeTab = localStorage.getItem("activeTab");
+        console.log(activeTab); //activeTab有可能是null
+        if (activeTab) {
+            $('#tabSwitch a[href="' + activeTab + '"]').tab("show");
+        } else {
+            $(`#tabSwitch li:eq(0) a`).tab("show");
+        }
+    });
+</script>
+

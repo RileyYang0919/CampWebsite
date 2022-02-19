@@ -5,7 +5,6 @@
     ViewBag.Title = "GenerateOrder";
 }
 
-<h2>訂單確認頁面</h2>
 
 @{
     var checkinStart = Model.First().fCheckinStart;
@@ -58,8 +57,8 @@
             int index = 0;
         }
         @foreach (var item in Model)
-        {            
-            <div class="form-group"  @(item.fCheckinStart == checkinStart ? "" : "style = display:none")>
+        {
+            <div class="form-group" @(item.fCheckinStart == checkinStart ? "" : "style = display:none")>
                 <input type="hidden" name="newOrderList[@index].tTent.fTentID" value="@item.tTent.fTentID" />
                 <input type="hidden" name="newOrderList[@index].fCheckinStart" value="@item.fCheckinStart" />
                 <input type="hidden" name="newOrderList[@index].fOrderPrice" value="@item.fOrderPrice" />

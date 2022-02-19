@@ -29,8 +29,8 @@ namespace CampWebsite
             FormsAuthenticationTicket authTicket = null;
             try
             {
+                authCookie.Expires = DateTime.Now.AddDays(7); //登入後自動延長七天
                 authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-
             }
             catch
             {
@@ -42,9 +42,7 @@ namespace CampWebsite
             if (Context.User != null)
             {
                 Context.User = new System.Security.Principal.GenericPrincipal(Context.User.Identity, roles);
-                //(new HomeController()).getUserName();
             }
-            //Session["userRoles"] = roles[0];
         }
         protected void Application_AcquireRequestState(object sender, EventArgs e)
         {
