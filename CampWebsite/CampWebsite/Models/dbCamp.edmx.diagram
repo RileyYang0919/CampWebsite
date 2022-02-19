@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="eaae2f49b1f64f58a9d1468bc5f8a15e" Name="Diagram1">
+      <Diagram DiagramId="87ed4ebeed9e4ba898577d9ddc16f048" Name="Diagram1">
         <EntityTypeShape EntityType="dbCampModel.tCampsite" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbCampModel.tComment" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbCampModel.tMember" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbCampModel.tOptionCase" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tComment" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tMember" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tOptionCase" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="dbCampModel.tOrder" Width="1.5" PointX="7.5" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbCampModel.tRent" Width="1.5" PointX="9.75" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbCampModel.tTag" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbCampModel.tTent" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbCampModel.tTentPhoto" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tRent" Width="1.5" PointX="9.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tTag" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tTent" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbCampModel.tTentPhoto" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
         <AssociationConnector Association="dbCampModel.FK__tCampsite__fMemb__628FA481" ManuallyRouted="false" />
         <AssociationConnector Association="dbCampModel.FK__tComment__fCamps__7A672E12" ManuallyRouted="false" />
         <AssociationConnector Association="dbCampModel.FK__tOptionCa__fCamp__01142BA1" ManuallyRouted="false" />

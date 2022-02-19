@@ -24,9 +24,9 @@ namespace CampWebsite.Models
         public int fMemberID { get; set; }
         public int fTentID { get; set; }
         public string fOrderConfirmCode { get; set; }
-        public string fClinetName { get; set; }
-        public string fClinetEmail { get; set; }
-        public string fClinetPhone { get; set; }
+        public string fClientName { get; set; }
+        public string fClientEmail { get; set; }
+        public string fClientPhone { get; set; }
         public System.DateTime fCheckinDate { get; set; }
         public int fOrderPrice { get; set; }
         public string fOrderComment { get; set; }

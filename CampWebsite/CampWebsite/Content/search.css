@@ -1,0 +1,161 @@
+﻿html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+    a:hover {
+        color: inherit;
+    }
+
+ul,
+li {
+    list-style: none;
+}
+
+body {
+    font-family: "微軟正黑體";
+}
+
+.tags-container-style div, .tags-container-area div {
+    max-width: max-content;
+    margin-bottom: 0.5rem;
+    margin-right: 1rem;
+    padding: 0.1rem 1.3rem 0.1rem 1.3rem;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+    .tags-container-style div:hover,
+    .tags-container-area div:hover {
+        cursor: pointer;
+    }
+
+.comment {
+    background-color: wheat;
+    padding: 3px 8px 3px 8px;
+    border-radius: 8px;
+    right: 5px;
+    bottom: 5px;
+}
+
+    .comment i {
+        color: orange;
+    }
+
+.search-section input,
+button {
+    width: max-content;
+    border: 2px solid orange;
+    height: 50px;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.search-section button {
+    border-radius: 5px;
+}
+
+.order-section div {
+    padding: 5px;
+    border: 1px solid black;
+}
+
+#orderByScoreDesc:hover,
+#orderByHAsc:hover,
+#orderByHDesc:hover {
+    cursor: pointer;
+    background-color: #e6e6e6;
+}
+
+* {
+    /*outline: 1px pink solid;*/
+}

@@ -108,6 +108,8 @@
   <ItemGroup>
     <Content Include="Content\AC.css" />
     <Content Include="Content\campsite.css" />
+    <Content Include="Content\homeindex.css" />
+    <Content Include="Content\search.css" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\1.jpeg" />
@@ -122,7 +124,9 @@
     <Content Include="Images\Asset 3.png" />
     <Content Include="Images\avatars\01.svg" />
     <Content Include="Images\bell-ring.png" />
+    <Content Include="Images\campsite\alt.jpg" />
     <Content Include="Images\cat.png" />
+    <Content Include="Images\main.jpg" />
     <Content Include="Images\user.png" />
     <Content Include="Models\dbCamp.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -144,6 +148,7 @@
     <Compile Include="Controllers\CampSiteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TempTentListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -153,8 +158,10 @@
     <Compile Include="Models\CAuthenticationFactory.cs" />
     <Compile Include="Models\COrderFactory.cs" />
     <Compile Include="Models\COrderJsonModel.cs" />
+    <Compile Include="Models\CSearchFactory.cs" />
     <Compile Include="Models\CTags.cs" />
     <Compile Include="Models\CTagsFactory.cs" />
+    <Compile Include="Models\CTentCamp.cs" />
     <Compile Include="Models\CTents.cs" />
     <Compile Include="Models\CTentsBooked.cs" />
     <Compile Include="Models\CTentsFactory.cs" />
@@ -209,6 +216,7 @@
     <Compile Include="ViewModels\NewTentViewModel.cs" />
     <Compile Include="ViewModels\PreOrderInfoViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\SearchSearchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -247,6 +255,7 @@
     <Content Include="Views\CampOwner\NewTent.cshtml" />
     <Content Include="Views\CampOwner\TentsInCampsite.cshtml" />
     <Content Include="Views\TempTentList\testUploadPic.cshtml" />
+    <Content Include="Views\Search\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

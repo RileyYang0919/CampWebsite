@@ -48,6 +48,7 @@
           <Property Name="fComment" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="fCommentScore" Type="int" Nullable="false" />
           <Property Name="fCommentTime" Type="datetime" Nullable="false" />
+          <Property Name="fOrderID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tCommentLike">
           <Key>
@@ -89,9 +90,9 @@
           <Property Name="fMemberID" Type="int" Nullable="false" />
           <Property Name="fTentID" Type="int" Nullable="false" />
           <Property Name="fOrderConfirmCode" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="fClinetName" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="fClinetEmail" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="fClinetPhone" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="fClientName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="fClientEmail" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="fClientPhone" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="fCheckinDate" Type="date" Nullable="false" />
           <Property Name="fOrderPrice" Type="int" Nullable="false" />
           <Property Name="fOrderComment" Type="nvarchar" MaxLength="255" />
@@ -443,6 +444,7 @@
           <Property Name="fComment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fCommentScore" Type="Int32" Nullable="false" />
           <Property Name="fCommentTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fOrderID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tCampsite" Relationship="Self.FK__tComment__fCamps__7A672E12" FromRole="tComment" ToRole="tCampsite" />
           <NavigationProperty Name="tMember" Relationship="Self.FK__tComment__fMembe__797309D9" FromRole="tComment" ToRole="tMember" />
           <NavigationProperty Name="tMember1" Relationship="Self.tCommentLike" FromRole="tComment" ToRole="tMember" />
@@ -486,9 +488,9 @@
           <Property Name="fMemberID" Type="Int32" Nullable="false" />
           <Property Name="fTentID" Type="Int32" Nullable="false" />
           <Property Name="fOrderConfirmCode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="fClinetName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="fClinetEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="fClinetPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fClientName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fClientEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fClientPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fCheckinDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="fOrderPrice" Type="Int32" Nullable="false" />
           <Property Name="fOrderComment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -770,6 +772,7 @@
                 <ScalarProperty Name="fComment" ColumnName="fComment" />
                 <ScalarProperty Name="fCommentScore" ColumnName="fCommentScore" />
                 <ScalarProperty Name="fCommentTime" ColumnName="fCommentTime" />
+                <ScalarProperty Name="fOrderID" ColumnName="fOrderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -806,9 +809,9 @@
                 <ScalarProperty Name="fMemberID" ColumnName="fMemberID" />
                 <ScalarProperty Name="fTentID" ColumnName="fTentID" />
                 <ScalarProperty Name="fOrderConfirmCode" ColumnName="fOrderConfirmCode" />
-                <ScalarProperty Name="fClinetName" ColumnName="fClinetName" />
-                <ScalarProperty Name="fClinetEmail" ColumnName="fClinetEmail" />
-                <ScalarProperty Name="fClinetPhone" ColumnName="fClinetPhone" />
+                <ScalarProperty Name="fClientName" ColumnName="fClientName" />
+                <ScalarProperty Name="fClientEmail" ColumnName="fClientEmail" />
+                <ScalarProperty Name="fClientPhone" ColumnName="fClientPhone" />
                 <ScalarProperty Name="fCheckinDate" ColumnName="fCheckinDate" />
                 <ScalarProperty Name="fOrderPrice" ColumnName="fOrderPrice" />
                 <ScalarProperty Name="fOrderComment" ColumnName="fOrderComment" />

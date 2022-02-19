@@ -1,0 +1,458 @@
+﻿<div class="container px-xxl-5">
+    <p class="fs-4 fst-italic mt-3">搜尋</p>
+    <div class="d-flex">
+        <input type="text" id="from" autocomplete="off" placeholder="入住日" required>
+        <input type="text" id="to" autocomplete="off" placeholder="離開日" required>
+        <button id="search_btn"><i class="fas fa-search"><span class="ms-1">搜尋</span></i></button>
+        <button id="reset_btn">重置</button>
+    </div>
+    <p class="fs-4 fst-italic">透過以下分類搜尋</p>
+    <div class="p-3 mb-1">
+        <div>
+            <div class="d-flex flex-wrap tags-container-area">
+                <div class="bg-info">全部</div>
+                <div>北部</div>
+                <div>中部</div>
+                <div>南部</div>
+                <div>東部</div>
+            </div>
+        </div>
+        <div class="mt-3">
+            <div class="d-flex flex-wrap tags-container-style">
+                <div class='bg-info'>不拘</div>
+            </div>
+        </div>
+    </div>
+    <p class="fs-4 fst-italic py-3"><span id="result_area"></span>：搜尋到<span id="result_count"></span>間營區</p>
+    <div class="mb-2 d-flex text-center order-section">
+        <div class="rounded-start col-1">排序</div>
+        <div class="col" id="orderByScoreDesc">評價最高</div>
+        <div class="col" id="orderByHAsc">海拔最低</div>
+        <div class="col rounded-end" id="orderByHDesc">海拔最高</div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-4 g-2 g-xxl-4" id="resultSection">
+
+    </div>
+    <div class="text-center p-5 fw-bolder fs-5 search-nothing">
+        <i class="fas fa-exclamation-triangle text-danger fs-2"></i>
+        <p>尚無符合搜尋條件的營區，請嘗試其他搜尋條件</p>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    var tags_container_area = document.querySelector(".tags-container-area");
+    var tags_container_style = document.querySelector(".tags-container-style");
+    var tag_selected_index = 0;
+    var areaSelected = "全部";
+    var tagSelected = "";
+    var resultSection = document.querySelector("#resultSection");
+    var search_nothing = document.querySelector(".search-nothing");
+    var result_area = document.querySelector("#result_area");
+    var result_count = document.querySelector("#result_count");
+    var from = document.querySelector("#from");
+    var to = document.querySelector("#to");
+    var search_btn = document.querySelector("#search_btn");
+    var reset_btn = document.querySelector("#reset_btn")
+    var CheckoutDate;
+
+    reset_btn.addEventListener("click", () => {
+        from.value = "";
+        to.value = "";
+        CheckoutDate = "";
+        GetAjax();
+    })
+
+    search_btn.addEventListener("click", () => {
+        areaSelected = "全部";
+        tagSelected = "";
+        CheckoutDate = new Date(to.value);
+        CheckoutDate = CheckoutDate.setDate(CheckoutDate.getDate() - 1);
+        CheckoutDate = `${new Date(CheckoutDate).getFullYear()}/${new Date(CheckoutDate).getMonth() + 1}/${new Date(CheckoutDate).getDate()}`
+        tags_container_area.children[tag_selected_index].classList.remove(
+            "bg-info"
+        );
+        tags_container_area.children[0].classList.add("bg-info");
+        GetAjax();
+        AddResult();
+    })
+    for (let i = 0; i < tags_container_area.children.length; i++) {
+        tags_container_area.children[i].addEventListener("click", e => {
+            //css部分
+            if (!e.target.classList.contains("bg-info")) {
+                tags_container_area.children[tag_selected_index].classList.remove(
+                    "bg-info"
+                );
+                e.target.classList.add("bg-info");
+            }
+            tag_selected_index = Array.prototype.indexOf.call(
+                tags_container_area.children,
+                e.target
+            );
+            if (e.target.textContent != "全部")
+                areaSelected = e.target.textContent.slice(0, 1);
+            else
+                areaSelected = e.target.textContent;
+            AddResult();
+        })
+    }
+    tags_container_style.addEventListener("click", e => {
+        if (!e.target.classList.contains("d-flex")) {
+            if (e.target.textContent == "不拘") {
+                for (let i = 1; i < tags_container_style.children.length; i++) {
+                    if (tags_container_style.children[i].classList.contains("bg-info"))
+                        tags_container_style.children[i].classList.remove("bg-info");
+                }
+                tagSelected = "";
+                e.target.classList.add("bg-info");
+            } else {
+                if (!e.target.classList.contains("bg-info")) {
+                    tags_container_style.children[0].classList.remove("bg-info");
+                    e.target.classList.add("bg-info");
+                    tagSelected += e.target.textContent + ",";
+                } else {
+                    tagSelected = tagSelected.replace(e.target.textContent + ",", "");
+                    e.target.classList.remove("bg-info");
+                    //是否都取消點擊了要跳回不拘
+                    let count = 0;
+                    for (let i = 0; i < tags_container_style.children.length; i++) {
+                        if (tags_container_style.children[i].classList.contains("bg-info"))
+                            count++;
+                    }
+                    if (count == 0)
+                        tags_container_style.children[0].classList.add("bg-info");
+                }
+            }
+            tagSelectedArr = tagSelected.split(",");
+            AddResult();
+        }
+    })
+
+    //以name提取cookie的value的函式
+    //#region
+    function parseCookie() {
+        var cookieObj = {};
+        var cookieAry = document.cookie.split(';');
+        var cookie;
+
+        for (var i = 0, l = cookieAry.length; i < l; ++i) {
+            cookie = jQuery.trim(cookieAry[i]);
+            cookie = cookie.split('=');
+            cookieObj[cookie[0]] = cookie[1];
+        }
+        return cookieObj;
+    }
+
+    function getCookieByName(name) {
+        var value = parseCookie()[name];
+        if (value) {
+            value = decodeURIComponent(value);
+        }
+        return value;
+    }
+//#endregion
+    $(function () {
+        //如果是從主頁進入本頁面就讀取首頁使用者所點選的哪些標籤
+        if (getCookieByName("area") != null) {
+            areaSelected = getCookieByName("area")
+            //根據所點選的標籤內容去更改標籤css背景色
+            if (areaSelected == "北" || areaSelected == "中" || areaSelected == "南" || areaSelected == "東")
+                for (let i = 0; i < tags_container_area.children.length; i++) {
+                    if (tags_container_area.children[i].textContent == areaSelected + "部")
+                        tags_container_area.children[i].classList.add("bg-info");
+                    else
+                        tags_container_area.children[i].classList.remove("bg-info");
+                }
+            let tagsArr = tagSelected.split(",");
+            /*console.log(tagsArr)*/
+            for (let i = 0; i < tags_container_style.children.length; i++) {
+                if (tagsArr.indexOf(tags_container_style.children[i].textContent) > -1) {
+                    tags_container_style.children[i].classList.add("bg-info")
+                }
+                else
+                    tags_container_style.children[i].classList.remove("bg-info")
+            }
+            if (tagsArr.length == 1)//不拘
+                tags_container_style.children[0].classList.add("bg-info");
+            //GetAjax();//然後傳到AJAX函式
+        }
+        GetAjax();
+    })
+        var dataArray = [];
+        var tagSelectedArr
+    function GetAjax() {
+        //標籤清除
+        tags_container_style.innerHTML = "<div class='bg-info'>不拘</div>";
+        $.ajax({
+            type: "post",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            dataType: "json",
+            async: false,
+            url: "@Url.Action("Search", "Search")",
+            data: {
+                "from": from.value,
+                "to": CheckoutDate
+            },
+            success: function (data) {
+                console.log(data);
+                //==不選擇日期印出全部==
+                //--列出所有標籤
+                //1.取出所有標籤
+                var TagArr = data.Tags.map(function (item) {
+                    return item.fTagName
+                })
+                //2.取出不重複標籤
+                var norepeatTagArr = TagArr.filter(function (item, index, array) {
+                    return array.indexOf(item) === index
+                })
+                //3.印出頁面
+                for (var item in norepeatTagArr)
+                    tags_container_style.innerHTML +=
+                        `<div>${norepeatTagArr[item]}</div>`;
+                //--印出全部營區
+                //1.取出所有營區ID
+                var CampIdArr = data.CampTents.map(function (item) {
+                    return item.fCampsiteID;
+                })
+                //2.取出不重複營區ID
+                var norepeatCampIdArr = CampIdArr.filter(function (item, index, array) {
+                    return array.indexOf(item) === index
+                })
+                //3.建立結果陣列
+                dataArray = [];
+                for (var i in norepeatCampIdArr) {
+                    let object = [];
+                    object.fCampsiteID = norepeatCampIdArr[i];
+                    data.CampTents.forEach(ob => {
+                        if (norepeatCampIdArr[i] == ob.fCampsiteID) {
+                            object.fCampsiteName = ob.fCampsiteName
+                            object.fCampsiteArea = ob.fCampsiteArea
+                            object.fCampsiteCity = ob.fCampsiteCity
+                            object.fCampsiteAltitude = ob.fCampsiteAltitude.replace("公尺", "")
+                            object.fCampsiteClosedDay = ob.fCampsiteClosedDay;
+                            object.fAvgComment = ob.fAvgComment;
+                        }
+                        object.TentnameQuantity = [];
+                        data.Tents.forEach(t => {
+                            if (norepeatCampIdArr[i] == t.fCampsiteID) {
+                                let a = [];
+                                a.push(t.fTentName)
+                                a.push(t.fTentQuantity)
+                                a.push(t.fTentPeople)
+                                object.TentnameQuantity.push(a)
+                            }
+                        })
+                        object.fTagName = [];
+                        data.Tags.forEach(ob => {
+                            if (norepeatCampIdArr[i] == ob.fCampsiteID)
+                                object.fTagName.push(ob.fTagName);
+                        })
+                    })
+                    dataArray.push(object);
+                }
+                //公休日
+                for (var item in dataArray) {
+                    let closedayArr = [];
+                    for (let i = 0; i < dataArray[item].fCampsiteClosedDay.toString().length; i++) {
+                        if (dataArray[item].fCampsiteClosedDay.toString()[i] == "7")
+                            closedayArr.push("0")
+                        else if (dataArray[item].fCampsiteClosedDay.toString()[i] == "0")
+                            closedayArr.push("無")
+                        else
+                            closedayArr.push(dataArray[item].fCampsiteClosedDay.toString().slice(i, i + 1))
+                }
+                dataArray[item].fCampsiteClosedDay = closedayArr
+                }
+                console.log(dataArray);
+                //4.印出結果
+                AddResult();
+                //==選擇日期作篩選==
+                var dataBookedArray = [];
+                if (CheckoutDate != "" && from.value != "") {
+                //1.排序data.TentsBooked.BookedCount最大至最小
+                     dataBookedArray =  data.TentsBooked.sort(function (a,b) {
+                        return b.BookedCount - a.BookedCount
+                    })
+                //2.取tent名稱出來、刪除重複
+                    for (let i = 0; i < dataBookedArray.length; i++) {
+                        let nameArr = dataBookedArray.map(function (value) {
+                            return value.fTentName;
+                        })
+                        let first = nameArr.indexOf(dataBookedArray[i].fTentName)
+                        if (i != first) {
+                            dataBookedArray.splice(i, 1);
+                        }
+                    }
+                    //console.log(dataBookedArray)
+                    //3.刪去掉dataArray裡的
+                    for (let i = 0; i < dataBookedArray.length; i++) {
+                        for (let j = 0; j < dataArray.length; j++) {
+                            for (var k in dataArray[j].TentnameQuantity) {
+                                if (dataBookedArray[i].fCampsiteID == dataArray[j].fCampsiteID && dataBookedArray[i].fTentName == dataArray[j].TentnameQuantity[k][0])
+                                    dataArray[j].TentnameQuantity[k][1]=dataArray[j].TentnameQuantity[k][1] - dataBookedArray[i].BookedCount
+                            }
+                        }
+                    }
+/*                    console.log(dataArray)*/
+                    //4.處理公休日
+                    //a.取得選取期間內所有日期
+                    var selectedDateArr = [];
+                    function getDateTime(datestr) {
+                        var temp = datestr.split("/");
+                        var date = new Date(temp[0], parseInt(temp[1]) - 1, temp[2]);
+                        return date;
+                    }
+                    var startTime = getDateTime(from.value);
+                    var endTime = getDateTime(CheckoutDate);
+                    while ((endTime.getTime() - startTime.getTime()) >= 0) {
+                        var year = startTime.getFullYear();
+                        var month = parseInt(startTime.getMonth()) + 1;
+                        var day = startTime.getDate();
+                        selectedDateArr.push(new Date(year + "/" + month + "/" + day).getDay().toString());
+                        startTime.setDate(startTime.getDate() + 1);
+                    }
+                    /*console.log(selectedDateArr)*/
+                    //b.只要有選取期間內包含公休日就予以刪除
+                    for (var item in dataArray) {
+                        for (var day in selectedDateArr) {
+                            if (dataArray[item].fCampsiteClosedDay.indexOf(selectedDateArr[day].toString()) > -1)
+                                dataArray.splice(item, 1)
+                        }
+                    }
+                    console.log(dataArray)
+                }
+            }
+        })
+    }
+    //添加結果到頁面上的function
+    //#region
+    var D = [];//過濾地區後的陣列
+    function AddResult() {
+        resultSection.innerHTML = "";
+        //排序重置
+        for (let i = 0; i < order_section.children.length; i++) {
+            order_section.children[i].classList.remove("bg-info");
+        }
+        if (dataArray.length > 0) {
+            if (areaSelected != "全部") {
+                D = dataArray.filter(function (item) {
+                    return item.fCampsiteArea == areaSelected;
+                })
+            }
+            else
+                D = dataArray;
+            console.log(D);
+            for (let i = 0; i < D.length; i++) {
+                if (tagSelected == "")
+                    addinnerHTML(i);
+                else {
+                    let count = 0;
+                    D[i].fTagName.forEach(item => {
+                        if (tagSelectedArr.indexOf(item) > -1)
+                            count++;
+                    })
+                    if (count == tagSelectedArr.length - 1)
+                        addinnerHTML(i);
+                }
+                search_nothing.classList.add("d-none");
+            }
+        }
+        if (resultSection.innerHTML == "")
+            search_nothing.classList.remove("d-none");
+        if (areaSelected == "全部")
+            result_area.textContent = "全部";
+        else
+            result_area.textContent = areaSelected + "部";
+        result_count.textContent = resultSection.children.length
+    }
+    function addinnerHTML(i) {
+        let searchHtml = "";
+        if (CheckoutDate != "" && to.value != "") {//如果有搜尋
+            for (let k = 0; k < D[i].TentnameQuantity.length; k++) {
+                searchHtml += `<p class='card-text'>${D[i].TentnameQuantity[k][2]}人帳剩餘${D[i].TentnameQuantity[k][1]}間</p>`;
+            }
+        }
+        resultSection.innerHTML +=
+                "<div class='col'>" +
+                "<div class='card'>" +
+                "<div class='row row-cols-md-auto g-0'>" +
+                "<div class='col-5 '>" +
+            `<a href='@Url.Action("Details","CampSite")/${D[i].fCampsiteID}'><img src='@Url.Content("~/Images/campsite/alt.jpg")' class='img-fluid rounded-start h-100' alt=''></a>` +
+                "</div>" +
+                "<div class='col-7'>" +
+                "<div class='position-absolute comment'>" +
+                "<i class='fas fa-star me-1'></i>" +
+                `<span class='fw-bolder'>${D[i].fAvgComment}</span>` +
+                "</div>" +
+                "<div class='card-body'>" +
+                "<i class='fas fa-map-marker-alt'></i>" +
+            `<a href='@Url.Action("Details","CampSite")/${D[i].fCampsiteID}' class='card-text'>${D[i].fCampsiteCity}。海拔${D[i].fCampsiteAltitude}</a>` +
+                `<a href='@Url.Action("Details","CampSite")/${D[i].fCampsiteID}'><h5 class='card-title fw-bolder'>${D[i].fCampsiteName}</h5></a>` +
+            "<div class='fst-italic' id='tents_section'>" + searchHtml + "</div></div></div></div></div></div>";
+    }
+    //#endregion
+    //評價排序點擊事件
+    let order_section = document.querySelector(".order-section");
+    let orderByHAsc = document.querySelector("#orderByHAsc");
+    let orderByHDesc = document.querySelector("#orderByHDesc");
+    let orderByScoreDesc = document.querySelector("#orderByScoreDesc");
+    let order_index;
+    order_section.addEventListener("click", e => {
+        order_index = Array.prototype.indexOf.call(order_section.children, e.target)
+        if (order_index != 0 && !e.target.classList.contains("bg-info")) {
+            e.target.classList.add("bg-info")
+            for (let i = 0; i < order_section.children.length; i++) {
+                if (i != order_index)
+                    order_section.children[i].classList.remove("bg-info");
+            }
+        }
+    })
+        //海拔高度升冪
+        orderByHDesc.addEventListener("click", () => {
+            dataArray.sort(function (a, b) {
+                return b.fCampsiteAltitude - a.fCampsiteAltitude
+            })
+            AddResult()
+        })
+        //海拔高度降冪
+        orderByHAsc.addEventListener("click", () => {
+            dataArray.sort(function (a, b) {
+                return a.fCampsiteAltitude - b.fCampsiteAltitude
+            })
+            AddResult()
+        })
+        //評價排序降冪
+        orderByScoreDesc.addEventListener("click", () => {
+            dataArray.sort(function (a, b) {
+                return b.fAvgComment - a.fAvgComment
+            })
+            AddResult()
+        })
+</script>
+<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+<script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script>
+    $(function () {
+        $("#from").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1,
+            onClose: function (selectedDate) {
+                $("#to").datepicker("option", "minDate", selectedDate);
+            },
+            dateFormat: "yy/mm/dd"
+        });
+        $("#to").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1,
+            onClose: function (selectedDate) {
+                $("#from").datepicker("option", "maxDate", selectedDate);
+            },
+            dateFormat: "yy/mm/dd"
+        });
+    });
+</script>
+

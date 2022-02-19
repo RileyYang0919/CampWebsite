@@ -50,9 +50,9 @@ namespace CampWebsite.Models
                 newOrder.fMemberID = userID;
                 newOrder.fTentID = item.tTent.fTentID;
                 newOrder.fOrderConfirmCode = orderConfirmCode;
-                newOrder.fClinetName = fClientName;
-                newOrder.fClinetEmail = fClientEmail;
-                newOrder.fClinetPhone = fClientPhone;
+                newOrder.fClientName = fClientName;
+                newOrder.fClientEmail = fClientEmail;
+                newOrder.fClientPhone = fClientPhone;
                 newOrder.fCheckinDate = item.fCheckinStart;
                 newOrder.fOrderPrice = item.fOrderPrice;
                 newOrder.fOrderComment = item.fOrderComment;
