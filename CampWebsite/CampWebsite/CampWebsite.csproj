@@ -157,6 +157,7 @@
     <Compile Include="Models\AdoSample\AdoQueryFactorySample.cs" />
     <Compile Include="Models\CAuthenticationFactory.cs" />
     <Compile Include="Models\CCampFavoriteFactory.cs" />
+    <Compile Include="Models\CMailVerifyFactory.cs" />
     <Compile Include="Models\CMemberProfileFactory.cs" />
     <Compile Include="Models\COrderFactory.cs" />
     <Compile Include="Models\COrderJsonModel.cs" />
@@ -263,6 +264,7 @@
     <Content Include="Views\TempTentList\testUploadPic.cshtml" />
     <Content Include="Views\Search\Search.cshtml" />
     <Content Include="Views\Member\OrderDetail.cshtml" />
+    <Content Include="Views\Member\Em.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

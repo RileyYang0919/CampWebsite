@@ -48,6 +48,9 @@ namespace CampWebsite.Controllers
                     new CAuthenticationFactory().SetAuthenTicket(userData, userID);
                     newUser.fPhoto = "/Images/Members/user" + userID + ".jpg"; //拿到userID後，產生一組photo url存進資料庫
                     db.SaveChanges();
+
+                    new CMailVerifyFactory().SendVerificationMail(newUser.fEmail); //發送驗證信給new user, function by 俊丞
+
                     return RedirectToAction("List");
                 }
                 catch
@@ -59,6 +62,22 @@ namespace CampWebsite.Controllers
             ViewBag.Message = "此Email帳號已被註冊";
             return View();
         }
+        /// <summary>
+        /// 會員點擊email驗證連結後的頁面
+        /// </summary>
+        [HttpGet]
+        public ActionResult Em()
+        {
+            string fem = Request.QueryString["email"];
+            var member = db.tMember.Where(i => i.fEmail == fem).FirstOrDefault();
+            if (member.fVerified == false)
+            {
+                member.fVerified = true;
+                db.SaveChanges();
+            }
+            return View();
+        }
+
         /// <summary>
         /// 登入會員
         /// </summary>
