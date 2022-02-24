@@ -12,12 +12,15 @@ namespace CampWebsite.ViewModels
 
         //hidden field 
         public int TentID { get; set; }
+        public int CampsiteID { get; set; }
         public string CampsiteName { get; set; }
         public string TentName { get; set; }
 
+        //[Display(Name ="封面照片")]
+        //[Required(ErrorMessage ="請選擇封面照片！")]
+        //public HttpPostedFileBase  CoverPhoto { get; set; }
 
-        [Required(ErrorMessage = "請選擇檔案！")]
-        //public HttpPostedFileBase[] Photoes{ get; set; }
-        public HttpPostedFileBase Photo { get; set; }
+        [Display(Name = "其他照片")]
+        public HttpPostedFileBase[] OtherPhotos { get; set; }
     }
 }

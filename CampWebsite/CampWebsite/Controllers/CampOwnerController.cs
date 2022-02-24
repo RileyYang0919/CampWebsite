@@ -17,190 +17,282 @@ namespace CampWebsite.Controllers
             return View();
         }
 
-        // Campsite
 
-        [Authorize(Roles = "gVendor")]
+
+        //
+        // Looking for something?
+
+        [Authorize(Roles = "1")]
         public ActionResult FindMyCampsites()
         {
-            dbCampEntities campEntities = new dbCampEntities();
-            int myID = Convert.ToInt32(User.Identity.Name);
-            var myCampsites = campEntities.tCampsite.Where(c => c.fMemberID == myID).ToList();
+            dbCampEntities camp = new dbCampEntities();
+            int OwnerID = Convert.ToInt32(User.Identity.Name);
+            var myCampsites =
+                from t in camp.tCampsite
+                where t.fMemberID == OwnerID
+                orderby t.fCampsiteID
+                select t;
             return View(myCampsites);
         }
 
-        [Authorize(Roles = "gVendor")]
-        public ActionResult NewCampsite()
+        [Authorize(Roles = "1")]
+        public ActionResult TentsInCampsite(int cID, string cName)
         {
-            tCampsite c = new tCampsite();
-            ViewBag.SelectList = c.SelectCity.AsEnumerable();
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult NewCampsite(tCampsite campsite)
-        {
-            //refactory here
-            if (!ModelState.IsValid)
-            {
-                tCampsite c = new tCampsite();
-                ViewBag.SelectList = c.SelectCity.AsEnumerable();
-                return View(campsite);
-            }
-            else
-            {
-                switch (campsite.fCampsiteCity)
-                {
-                    case "台北市":
-                    case "新北市":
-                    case "基隆市":
-                    case "桃園市":
-                    case "新竹縣":
-                    case "苗栗縣":
-                        campsite.fCampsiteArea = "北部";
-                        break;
-                    case "台中市":
-                    case "彰化縣":
-                    case "南投縣":
-                    case "雲林縣":
-                        campsite.fCampsiteArea = "中部";
-                        break;
-                    case "嘉義縣":
-                    case "台南市":
-                    case "高雄市":
-                    case "屏東縣":
-                        campsite.fCampsiteArea = "南部";
-                        break;
-                    case "宜蘭縣":
-                    case "花蓮縣":
-                    case "台東縣":
-                        campsite.fCampsiteArea = "東部";
-                        break;
-                }
-                dbCampEntities campEntities = new dbCampEntities();
-                campsite.fMemberID = Convert.ToInt32(User.Identity.Name);
-                campEntities.tCampsite.Add(campsite);
-                campEntities.SaveChanges();
-                //return RedirectToAction("Details", new { id = campsite.fCampsiteID });
-                return RedirectToAction("List");
-            }
-        }
-
-
-
-        [Authorize(Roles = "gVendor")]
-        public ActionResult NewTent(int ID, string name)
-        {
-            NewTentViewModel vm = new NewTentViewModel();
-            vm.CampsiteID = ID;
-            vm.CampsiteName = name;
-            return View(vm);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult NewTent(NewTentViewModel newTent)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(newTent);
-            }
-            else
-            {
-                tTent myTent = new tTent();
-                dbCampEntities campEntities = new dbCampEntities();
-                newTent.tTent.fCampsiteID = newTent.CampsiteID;
-                myTent = newTent.tTent;
-                for (int i = 0; i < newTent.Quantity; i++)
-                {
-                    campEntities.tTent.Add(myTent);
-                }
-                campEntities.SaveChanges();
-                return RedirectToAction("TentsInCampsite", new { campsiteID = newTent.CampsiteID });
-            }
-        }
-
-
-        [Authorize(Roles = "gVendor")]
-        public ActionResult TentsInCampsite(int campsiteID)
-        {
-            dbCampEntities campEntities = new dbCampEntities();
-            var Tents = from t in campEntities.tTent
-                        where t.fCampsiteID == campsiteID
-                        select t;
+            ViewBag.cName = cName;
+            dbCampEntities camp = new dbCampEntities();
+            var Tents =
+                from t in camp.tTent
+                where t.fCampsiteID == cID
+                orderby t.fTentName
+                select t;
             return View(Tents);
         }
 
-
-        //[Authorize(Roles = "gVendor")]
-        public ActionResult NewPhoto(int tID, string tName, string cName)
+        [Authorize(Roles = "1")]
+        public ActionResult HistoryOrders(int cID, string cName)
         {
-            NewPhotoViewModel vm = new NewPhotoViewModel
+            ViewBag.cName = cName;
+            dbCampEntities camp = new dbCampEntities();
+            var historyOrders =
+                from o in camp.tOrder
+                join t in camp.tTent on o.fTentID equals t.fTentID
+                where t.fCampsiteID == cID
+                select o;
+            if (historyOrders.Count() != 0)
             {
-                TentID = tID,
-                TentName = tName,
-                CampsiteName = cName,
-                //TentID = 101,
-                //TentName = "temp Name for tent",
-                //CampsiteName = "temp Name for Campsite"/*campsiteName*/
-            };
-            return View(vm);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult NewPhoto(NewPhotoViewModel photoVM)
-        {
-
-            if (!ModelState.IsValid/*newPhotoVM.UploadedPhoto != null*/)
-            {
-                return View();
+                return View(historyOrders);
             }
             else
             {
-                //if (photoVM.Photo != null)
-                //{
-                //    var pName = Path.GetFileName(photoVM.Photo.FileName);
-                //    var path = Path.Combine(Server.MapPath("~/Images/Campsites/") + photoVM.CampsiteName + "/" + pName);
-                //    //tTentPhoto ttp = new tTentPhoto
-                //    //{
-                //    //    fTentID = photoVM.TentID,
-                //    //    fTentPhotoURL = path
-                //    //};
-                //    dbCampEntities campEntities = new dbCampEntities();
-                //    campEntities.tTentPhoto.Add(ttp);
-                //    campEntities.SaveChanges();
-                //    photoVM.Photo.SaveAs(path);
-                //    ViewBag.UploadStat = true;
-                //    return View(photoVM);
-                //}
-                //foreach (photoVM.HttpPostdFileBase[] f in newPhotoVM.UploadedPhoto)
-                //{
-                //    var path = "";
-
-                //    if (photoVM.Photoes.ContentLength > 0)
-                //    {
-                //        var fileType = Path.GetExtension(photoVM.Photoes.FileName).ToLower();
-
-                //        if (fileType == ".jpg" || fileType == ".jpeg" || fileType == ".png" || fileType == ".gif")
-                //        {
-                //            path = Path.Combine(Server.MapPath("~/Images/tentPhotos"), newPhotoVM.UploadedPhoto.FileName);
-                //            //newPhotoVM.UploadedPhoto.SaveAs(path);
-                //            ViewBag.UploadSuccess = true;
-
-                //            dbCampEntities campEntities = new dbCampEntities();
-                //            tTentPhoto newPhoto = new tTentPhoto
-                //            {
-                //                //fTentID = newPhotoVM.TentID
-                //                fTentID = 101,
-                //                fTentPhotoURL = path,
-                //            };
-                //        }
-
-                //    }
-
-                //}
+                return Redirect(Request.UrlReferrer.PathAndQuery);
             }
-            return Content("sldkfj");
         }
 
-        //This controller ends here
+        [Authorize(Roles = "1")]
+        public ActionResult FutureOrdersForTent(int tID, string tName)
+        {
+            ViewBag.tName = tName;
+            DateTime today = DateTime.Now.Date;
+            dbCampEntities camp = new dbCampEntities();
+            var futureOrders =
+                from o in camp.tOrder
+                where o.fTentID == tID
+                where o.fCheckinDate >= today
+                select o;
+
+            if (futureOrders.Count() != 0)
+            {
+                return View(futureOrders);
+            }
+            else
+            {
+                //tell users no results
+                return Redirect(Request.UrlReferrer.PathAndQuery);
+            }
+
+        }
+
+
+
+        //
+        // New  Campsite
+
+        [Authorize(Roles = "1")]
+        public ActionResult NewCampsite()
+        {
+            NewCampsiteViewModel vm = new NewCampsiteViewModel();
+            return View(vm);
+        }
+
+        //refactory here
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NewCampsite(NewCampsiteViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+            else
+            {
+                dbCampEntities camp = new dbCampEntities();
+                tCampsite c = new tCampsite();
+
+                c = vm.tCampsite;
+                c.fMemberID = Convert.ToInt32(User.Identity.Name);
+                c.fCampsiteAltitude = vm.withoutAltitude ? "無資料" : vm.tCampsite.fCampsiteAltitude.ToString();
+                camp.tCampsite.Add(c);
+                camp.SaveChanges();
+
+                //Images/Campsites/Campsite27/Cover
+                //find campsite and use it's id 
+                var newCSite =
+                    from cSite in camp.tCampsite
+                    where cSite.fCampsiteName == vm.tCampsite.fCampsiteName
+                    select cSite;
+
+                int newID = newCSite.FirstOrDefault().fCampsiteID;
+                string virtualPath = "~/Images/Campsites/Campsite" + newID.ToString();
+                string physicalPath = Server.MapPath(virtualPath);
+
+                // find  or create Directory
+                if (!Directory.Exists(virtualPath))
+                    Directory.CreateDirectory(physicalPath);
+
+                vm.CoverPhoto.SaveAs(Server.MapPath(virtualPath + "/" + "Cover"));
+
+
+
+                return RedirectToAction("FindMyCampsites");
+            }
+        }
+        [HttpPost]
+        public JsonResult GetCities(string area)
+        {
+            List<KeyValuePair<string, string>> cityPair = new List<KeyValuePair<string, string>>();
+
+            if (!string.IsNullOrWhiteSpace(area))
+            {
+                var cityList = this.GetCityList(area);
+                if (cityList.Count() > 0)
+                {
+                    foreach (var c in cityList)
+                    {
+                        cityPair.Add(new KeyValuePair<string, string>(c.Text, c.Value));
+                    }
+                }
+            }
+
+            return this.Json(cityPair);
+        }
+        private List<SelectListItem> GetCityList(string area)
+        {
+            List<SelectListItem> Cities = new List<SelectListItem>();
+            if (area == "北部")
+                Cities = (new NewCampsiteViewModel()).SelectCityNorth;
+            if (area == "中部")
+                Cities = (new NewCampsiteViewModel()).SelectCityCenter;
+            if (area == "南部")
+                Cities = (new NewCampsiteViewModel()).SelectCitySouth;
+            if (area == "東部")
+                Cities = (new NewCampsiteViewModel()).SelectCityEast;
+            return Cities;
+        }
+
+
+
+        //
+        // New Tents
+
+        [Authorize(Roles = "gVendor")]
+        public ActionResult NewTent(int cID, string cName)
+        {
+            NewTentViewModel vm = new NewTentViewModel
+            {
+                CampsiteID = cID,
+                CampsiteName = cName
+            };
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NewTent(NewTentViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+            else
+            {
+                dbCampEntities camp = new dbCampEntities();
+                tTent myTent = new tTent();
+                myTent = vm.tTent;
+                myTent.fCampsiteID = vm.CampsiteID;
+
+                for (int i = 0; i < vm.Quantity; i++)
+                {
+                    camp.tTent.Add(myTent);
+                }
+                camp.SaveChanges();
+                return RedirectToAction("TentsInCampsite", new { campsiteID = vm.CampsiteID });
+            }
+        }
+
+
+
+        //
+        // New Photo
+
+        [Authorize(Roles = "gVendor")]
+        public ActionResult NewPhoto(string tName, int cID, string cName)
+        {
+            NewPhotoViewModel vm = new NewPhotoViewModel
+            {
+                TentName = tName,
+                CampsiteID = cID,
+                CampsiteName = cName,
+            };
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NewPhoto(NewPhotoViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+            else
+            {
+
+
+                //Images/Campsites/Campsite27/tName_fileName
+                string virtualPath = "~/Images/Campsites/Campsite" + vm.CampsiteID.ToString();
+                string physicalPath = Server.MapPath(virtualPath);
+                string tentName = vm.TentName;
+
+                // find  or create Directory
+                if (!Directory.Exists(virtualPath))
+                    Directory.CreateDirectory(physicalPath);
+
+                dbCampEntities camp = new dbCampEntities();
+
+                foreach (HttpPostedFileBase photo in vm.OtherPhotos)
+                {
+                    string localFileName = tentName + "_" + Path.GetFileName(photo.FileName);
+                    string path = virtualPath + "/" + localFileName;
+                    photo.SaveAs(Server.MapPath(path));
+                    tTentPhoto ttp = new tTentPhoto
+                    {
+                        fCampsiteID = vm.CampsiteID,
+                        fTentPhotoURL = path.TrimStart('~')
+                    };
+                    camp.tTentPhoto.Add(ttp);
+                    camp.SaveChanges();
+                }
+            }
+            return RedirectToAction("TentsInCampsite", vm.CampsiteID);
+        }
     }
+
+    //public void SavePhotos(HttpPostedFileBase photo, int cID, string fileName)
+    //{
+
+    //    //Images/Campsites/Campsite27/tName_fileName
+    //    string shortPath = "~/Images/Campsites/Campsite" + cID.ToString();
+    //    string longPath = Server.MapPath(shortPath);
+
+    //    if (!Directory.Exists(shortPath))
+    //    {
+    //        Directory.CreateDirectory(longPath);
+    //    }
+    //    photo.SaveAs(longPath +"/" + fileName);
+
+
+    //}
+
+
 }
+

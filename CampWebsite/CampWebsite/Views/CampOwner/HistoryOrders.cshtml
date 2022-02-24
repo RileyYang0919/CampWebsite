@@ -1,0 +1,193 @@
+﻿@model IEnumerable<CampWebsite.Models.tOrder>
+
+@{
+    ViewBag.Title = "歷史訂單";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    th {
+        text-align: center;
+        min-width: 3rem;
+    }
+    body {
+         padding: 5px ;
+    }
+</style>
+
+<div class="container" >
+    <div class="mb-5"></div>
+    <div class="page-header mb-3">
+        <h2>@ViewBag.cName</h2>
+        <br />
+    </div>
+
+    <!--search and filter-->
+    <div class="mb-5">
+        <form>
+            <div class="form-group mb-5">
+            </div>
+
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="searchInput" onkeyup="" placeholder="輸入搜尋條件">
+                    <button type="button" class="btn ">搜尋</button>
+                </div>
+        </form>
+        <div class="form-group mb-5">
+            <input class="form-control" type="text" id="phoneFilter" onkeyup="phoneFilter()" placeholder="用電話過濾結果">
+            <input class="form-control" type="text" id="nameFilter" onkeyup="nameFilter()" placeholder="用名字過濾結果">
+        </div>
+        </div>
+
+        <div class="table-responsive" style="user-select:none">
+            <table id="historyTable" class="table table-hover table-striped align-middle" style="user-select:none">
+                <thead class="">
+                    <tr>
+                        <th class="text-bold">
+                            @Html.DisplayNameFor(model => model.fOrderConfirmCode)
+                        </th>
+                        <th class="text-bold">
+                            @Html.DisplayNameFor(model => model.fClientName)
+                        </th>
+                        <th class="text-bold">
+                            @Html.DisplayNameFor(model => model.fClientEmail)
+                        </th>
+                        <th class="text-bold">
+                            @Html.DisplayNameFor(model => model.fClientPhone)
+                        </th>
+                        <th class="text-bold">
+                            @Html.DisplayNameFor(model => model.fCheckinDate)
+                        </th>
+                        <th class="text-bold">
+                            @Html.DisplayNameFor(model => model.fOrderPrice)
+                        </th>
+                        <th class="text-bold">
+                            @Html.DisplayNameFor(model => model.fOrderComment)
+                        </th>
+                        <th class="text-bold">
+                            @Html.DisplayNameFor(model => model.fOrderIsPaid)
+                        </th>
+                        <th class="text-bold">
+                            @Html.DisplayNameFor(model => model.fOrderCreatedTime)
+                        </th>
+                        <th class="text-bold">
+                            @Html.DisplayNameFor(model => model.tMember.fName)
+                        </th>
+                        <th class="text-bold">
+                            @Html.DisplayNameFor(model => model.tTent.fTentName)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fOrderConfirmCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fClientName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fClientEmail)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fClientPhone)
+                            </td>
+                            <td>
+                                @item.fCheckinDate.ToShortDateString()
+                                @*@Html.DisplayFor(modelItem => item.fCheckinDate)*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fOrderPrice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fOrderComment)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fOrderIsPaid)
+                            </td>
+                            <td>
+                                @item.fOrderCreatedTime.ToShortDateString()
+                                @*@Html.DisplayFor(modelItem => item.fOrderCreatedTime)*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tMember.fName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tTent.fTentName)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<div class="container-xl d-flex justify-content-center mt-5 disabled">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<script>
+    const table = document.getElementById("historyTable");
+
+    function nameFilter() {
+        var filter, tr, td, txtValue;
+        filter = document.getElementById("nameFilter").value.toUpperCase();
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function phoneFilter() {
+        var filter, tr, td, txtValue;
+        filter = document.getElementById("phoneFilter").value;
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[3];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+    
+
+
+
+</script>

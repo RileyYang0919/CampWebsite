@@ -1,0 +1,118 @@
+﻿@model IEnumerable<CampWebsite.Models.tOrder>
+
+@{
+    ViewBag.Title = "帳篷-訂單";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    th {
+        text-align: center;
+        min-width: 3rem;
+    }
+</style>
+
+<div class="container-xl" style="">
+    <div class="mb-5"></div>
+    <div class="page-header mb-3">
+        <h2>@ViewBag.tName</h2>
+        <br />
+    </div>
+
+
+    <table class="table table-hover table-striped align-middle" style="user-select:none">
+        <thead class="">
+            <tr>
+                <th class="text-bold">
+                    @Html.DisplayNameFor(model => model.fOrderConfirmCode)
+                </th>
+                <th class="text-bold">
+                    @Html.DisplayNameFor(model => model.fClientName)
+                </th>
+                <th class="text-bold">
+                    @Html.DisplayNameFor(model => model.fClientEmail)
+                </th>
+                <th class="text-bold">
+                    @Html.DisplayNameFor(model => model.fClientPhone)
+                </th>
+                <th class="text-bold">
+                    @Html.DisplayNameFor(model => model.fCheckinDate)
+                </th>
+                <th class="text-bold">
+                    @Html.DisplayNameFor(model => model.fOrderPrice)
+                </th>
+                <th class="text-bold">
+                    應付訂金
+                </th>
+                <th class="text-bold">
+                    已收款項
+                </th>
+                <th class="text-bold">
+                    @Html.DisplayNameFor(model => model.fOrderIsPaid)
+                </th>
+                <th class="text-bold">
+                    @Html.DisplayNameFor(model => model.fOrderCreatedTime)
+                </th>
+                <th class="text-bold">
+                    @Html.DisplayNameFor(model => model.tMember.fName)
+                </th>
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+
+            @foreach (var item in Model)
+            {
+                <tr style="justify-content:center">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fOrderConfirmCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fClientName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fClientEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fClientPhone)
+                    </td>
+                    <td>
+                        @item.fCheckinDate.ToShortDateString()
+                        @*@Html.DisplayFor(modelItem => item.fCheckinDate.)*@
+                    </td>
+                    <td>
+                        @{ 
+                            string p = String.Format("{0:N}",  item.fOrderPrice.ToString());
+                        }
+                        @String.Format("{0:N}", item.fOrderPrice.ToString())
+                        @Html.DisplayFor(modelItem => item.fOrderPrice)
+                    </td>
+                    <td class="text-secondary">
+                        300
+                    </td>
+                    <td class="text-secondary">
+                        300
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fOrderIsPaid)
+                    </td>
+                    <td>
+                        @item.fOrderCreatedTime.ToShortDateString()
+                        @*@Html.DisplayFor(modelItem => item.fOrderCreatedTime)*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tMember.fName)
+                    </td>
+                    @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.fOrderID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.fOrderID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.fOrderID })
+                </td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>

@@ -1,63 +1,91 @@
-﻿@model IEnumerable<CampWebsite.Models.tTent>
+﻿@model  IEnumerable<CampWebsite.Models.tTent>
 
 @{
     ViewBag.Title = "營區-帳篷";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    td {
+        text-align: center;
+        vertical-align: middle;
+    }
 
-<h2>營區-帳篷</h2>
+    th {
+        text-align: center;
+        min-width: 3rem;
+    }
+</style>
 
-<p>
-    @*@Html.ActionLink("Create New", "Create")*@
-</p>
-<table class="table table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.fTentName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fTentCategory)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fTentPeople)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fTentPriceWeekday)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fTentPriceWeekend)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tCampsite.fCampsiteName)
-        </th>
-        <th></th>
-    </tr>
+<div class="container">
+    <div class="mb-5"></div>
+    <div class="page-header mb-3">
+        <h2>@ViewBag.cName</h2>
+        <br />
+        <span>新增住宿要 <a href="javascript:history.back()" class="link-primary">回到上一頁</a></span>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.fTentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fTentCategory)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fTentPeople)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fTentPriceWeekday)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fTentPriceWeekend)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tCampsite.fCampsiteName)
-        </td>
-        <td>
-            @Html.ActionLink("上傳照片", "NewPhoto", new { tID=item.fTentID, tName= item.fTentName, cName=item.tCampsite.fCampsiteName})
-            @*@Html.ActionLink("Delete", "Delete", new { id=item.fTentID })*@
-        </td>
-    </tr>
-}
+    <table class="table table-hover table-striped align-middle" style="user-select:none">
+        <thead class="">
+            <tr>
 
-</table>
+                <th class="text-bold" min-width>
+                    @Html.DisplayNameFor(model => model.fTentName)
+                </th>
+                <th class="text-bold">
+                    @Html.DisplayNameFor(model => model.fTentCategory)
+                </th>
+                <th class="text-bold">
+                    @Html.DisplayNameFor(model => model.fTentPeople)
+                </th>
+                <th class="text-bold">
+                    @Html.DisplayNameFor(model => model.fTentPriceWeekday)
+                </th>
+                <th class="text-bold">
+                    @Html.DisplayNameFor(model => model.fTentPriceWeekend)
+                </th>
+                <th class="text-bold">
+                    今日入住
+                </th>
+                <th class="text-bold">
+                    未來訂單
+                </th>
+                <th class="text-bold">
+                    @*上傳封面*@
+                </th>
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+
+            @foreach (var item in Model)
+            {
+                <tr style="justify-content:center">
+ 
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fTentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fTentCategory)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fTentPeople)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fTentPriceWeekday)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fTentPriceWeekend)
+                    </td>
+                    <td class="text-secondary">
+                        (有/無)
+                    </td>
+                    <td>
+                        @Html.ActionLink("未來訂單", "FutureOrdersForTent", new { tID = item.fTentID, tName = item.fTentName }, new { @class = "link-primary" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("上傳照片", "NewPhoto", new { tName = item.fTentName, cID = item.tCampsite.fCampsiteID, cName = item.tCampsite.fCampsiteName} , new { @class = "link-secondary" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

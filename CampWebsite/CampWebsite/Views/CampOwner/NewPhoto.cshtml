@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <style>
     .required::after {
         content: " *";
@@ -14,73 +15,102 @@
     .input-validation-error {
         border: 2px solid red;
     }
+
+    .error-type::before {
+        content: "注意!! ";
+        color: red;
+    }
+
+    .error-type {
+        color: red;
+    }
 </style>
 
-<h2>新增帳篷照片</h2>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-
-
-<div class="form-horizontal">
-    <h4>新增照片</h4>
-    <hr />
-
-    @Html.HiddenFor(model => model.TentID)
-    <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label">營區：</label>
-        @Html.LabelFor(item=>item.CampsiteName)
-        @*<label class="col-form-label">@Model.CampsiteName </label>*@
-        @Html.HiddenFor(item=>item.CampsiteName)
-    </div>
-    <br />
-    
-    <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label">帳篷：</label>
-        <label class="col-form-label">@Model.TentName </label>
+<div class="container">
+    <div class="page-header mb-3">
+        <h3>
+            新增帳篷照片
+        </h3>
+        <span>同房型其中一間有照片就好</span>
     </div>
     <br />
 
-
-    <div class="form-group mb-3">
-        <div class="col-md-10">
-            @Html.TextBoxFor(item => item.Photo, "", new {@type="file"@*, @multiple="multiple"*@})
-            @Html.ValidationMessageFor(item => item.Photo);
-        </div>
-            <span class="form-text">只接受下列格式：.jpg  .jpeg  .png  .gif</span>
-    </div>
-    
-    @*<div class="form-group mb-3">
-        <div class="col-md-10">
-            <input type="file" name="@Model.UploadedPhoto" />
-            <span class="form-text">只接受下列格式：.jpg  .jpeg  .png  .gif</span>
-        </div>
-    </div>*@
-
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-success">
-            送出
-        </button>
-    </div>
-
-</div>
-}
-@{ if (ViewBag.UploadStat == true)
+    @using (Html.BeginForm("NewPhoto", "CampOwner", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-       
-    <script>    prompt("照片上傳成功!!!")</script>
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.TentID)
+        @Html.HiddenFor(model => model.TentName)
+        @Html.HiddenFor(model => model.CampsiteID)
+        @Html.HiddenFor(model => model.CampsiteName)
+
+        <div class="col col-md-10 col-lg-8">
+
+
+            @*campsite name*@
+            <div class="card-body py-3">
+                <label class="col-form-label">營區：</label>
+                @Html.LabelFor(item => item.CampsiteName)
+            </div>
+
+
+            @* tent name *@
+            <div class="card-body py-3">
+                <label class="col-form-label">帳篷：</label>
+                <label class="col-form-label">@Model.TentName </label>
+            </div>
+
+            @* cover photo *@
+            @*
+                <div class="card-body py-3">
+                    <div class="col-md-8">
+                        <label class="col-form-label w-100 required">封面照片</label>
+                        <img src="" alt="" id="coverPhotoPreview" height="200" />
+                        <input data-val="true" id="coverPhotoInput" name="CoverPhoto" type="file" accept="image/*" onchange="loadCover(event)" class="form-control">
+                        <span class="form-text" id="coverPhotoMessage">只接受圖檔：jpg   jpeg  png  gif</span>
+                    </div>
+                </div>
+            *@
+
+
+            @* other photos *@
+            <div class="form-group">
+                <label class="col-form-label w-100">其他照片</label>
+                <br />
+                <input data-val="true" id="otherPhotosInput" name="OtherPhotos" type="file" accept="image/*" onchange="loadOthers(event)" class="form-control" multiple>
+                <span class="form-text" id="otherPhotosMessage">只接受圖檔：jpg   jpeg  png  gif</span>
+            </div>
+
+            @* button *@
+            <div class="form-group">
+                <button type="submit" class="btn btn-success" id="btnSend">
+                    送出
+                </button>
+            </div>
+
+        </div>
     }
-}
-
-
-<div>
-    @*@Html.ActionLink("Back to List", "Index")*@
 </div>
 
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        const othersInput = document.getElementById("otherPhotosInput");
+        const othersMessage = document.getElementById("otherPhotosMessage");
+
+        function loadOthers(e) {
+            const photos = othersInput.files;
+            for (var i = 0; i < photos.length; i++) {
+                if (!photos[i].type.startsWith("image/")) {
+                    document.getElementById("btnSend").disabled = true;
+                    othersMessage.classList.add("error-type");
+                    return;
+                } else {
+                    document.getElementById("btnSend").disabled = false;
+                }
+            }
+        }
+    </script>
+
+
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
