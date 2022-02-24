@@ -1,41 +1,42 @@
-﻿<div class="container px-xxl-5">
-    <p class="fs-4 fst-italic mt-3">搜尋</p>
-    <div class="d-flex">
-        <input type="text" id="from" autocomplete="off" placeholder="入住日" required>
-        <input type="text" id="to" autocomplete="off" placeholder="離開日" required>
-        <button id="search_btn"><i class="fas fa-search"><span class="ms-1">搜尋</span></i></button>
-        <button id="reset_btn">重置</button>
+﻿<link rel="stylesheet" href="~/Content/search.css">
+<div class="container">
+    <br>
+    <p class="fs-4 mt-3 letter-sp-1 mb-3">搜尋空房</p>
+    <div class="d-flex position-relative" id="search_section">
+        <input type="text" id="from" autocomplete="off" placeholder="入住日" class="me-3">
+        <div class="errorMsg opacity-0">請至少選擇兩天一夜</div>
+        <input type="text" id="to" autocomplete="off" placeholder="離開日">
+        <button class="ms-3 px-3" id="search_btn"><i class="fas fa-search"><span class="ms-1">搜尋</span></i></button>
+        <button class="ms-3 px-3" id="reset_btn">重置</button>
     </div>
-    <p class="fs-4 fst-italic">透過以下分類搜尋</p>
-    <div class="p-3 mb-1">
-        <div>
-            <div class="d-flex flex-wrap tags-container-area">
-                <div class="bg-info">全部</div>
-                <div>北部</div>
-                <div>中部</div>
-                <div>南部</div>
-                <div>東部</div>
-            </div>
+    <p class="fs-4 my-3 letter-sp-1">透過以下標籤搜尋</p>
+    <div class="p-3 mb-1 fs-5">
+        <div class="d-flex flex-wrap tags-container-area">
+            <div class="bg-main-color color-w">全部</div>
+            <div>北部</div>
+            <div>中部</div>
+            <div>南部</div>
+            <div>東部</div>
         </div>
-        <div class="mt-3">
-            <div class="d-flex flex-wrap tags-container-style">
-                <div class='bg-info'>不拘</div>
-            </div>
+        <div class="d-flex flex-wrap tags-container-style mt-3">
+            <div class='bg-main-color color-w'>不拘</div>
         </div>
     </div>
-    <p class="fs-4 fst-italic py-3"><span id="result_area"></span>：搜尋到<span id="result_count"></span>間營區</p>
-    <div class="mb-2 d-flex text-center order-section">
-        <div class="rounded-start col-1">排序</div>
-        <div class="col" id="orderByScoreDesc">評價最高</div>
-        <div class="col" id="orderByHAsc">海拔最低</div>
-        <div class="col rounded-end" id="orderByHDesc">海拔最高</div>
-    </div>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-4 g-2 g-xxl-4" id="resultSection">
-
+    <p class="fs-4 my-3 letter-sp-1"><span id="result_area"></span>：搜尋到<span id="result_count"></span>間營區</p>
+    <div class="d-flex justify-content-center align-items-center flex-column">
+        <div class="mb-2 d-flex justify-content-center text-center align-items-center fw-bolder order-section">
+            <div class="rounded-start" id="orderByScoreAsc">評價最低</div>
+            <div id="orderByScoreDesc">評價最高</div>
+            <div id="orderByHAsc">海拔最低</div>
+            <div class="rounded-end" id="orderByHDesc">海拔最高</div>
+        </div>
+        <div class='d-flex flex-column' id='resultSection'>
+            <img src="~/Images/campsite/alt.jpg" />
+        </div>
     </div>
     <div class="text-center p-5 fw-bolder fs-5 search-nothing">
         <i class="fas fa-exclamation-triangle text-danger fs-2"></i>
-        <p>尚無符合搜尋條件的營區，請嘗試其他搜尋條件</p>
+        <p class="letter-sp-1">尚無符合搜尋條件的營區，請嘗試其他搜尋條件</p>
     </div>
 </div>
 
@@ -44,7 +45,7 @@
 <script>
     var tags_container_area = document.querySelector(".tags-container-area");
     var tags_container_style = document.querySelector(".tags-container-style");
-    var tag_selected_index = 0;
+    var area_selected_index = 0;
     var areaSelected = "全部";
     var tagSelected = "";
     var resultSection = document.querySelector("#resultSection");
@@ -56,37 +57,53 @@
     var search_btn = document.querySelector("#search_btn");
     var reset_btn = document.querySelector("#reset_btn")
     var CheckoutDate;
+    var errorMsg = document.querySelector(".errorMsg");
 
+    function tagReset() {
+        areaSelected = "全部";
+        tags_container_area.children[area_selected_index].className = "";
+        area_selected_index = 0
+        tags_container_area.children[0].className = "bg-main-color color-w";
+        tagSelected = "";
+    }
     reset_btn.addEventListener("click", () => {
         from.value = "";
         to.value = "";
         CheckoutDate = "";
+        tagReset();
+        to.focus();
+        from.focus();
         GetAjax();
     })
 
     search_btn.addEventListener("click", () => {
-        areaSelected = "全部";
-        tagSelected = "";
-        CheckoutDate = new Date(to.value);
-        CheckoutDate = CheckoutDate.setDate(CheckoutDate.getDate() - 1);
-        CheckoutDate = `${new Date(CheckoutDate).getFullYear()}/${new Date(CheckoutDate).getMonth() + 1}/${new Date(CheckoutDate).getDate()}`
-        tags_container_area.children[tag_selected_index].classList.remove(
-            "bg-info"
-        );
-        tags_container_area.children[0].classList.add("bg-info");
+        if (from.value != "" && to.value != "") {
+            if (from.value == to.value) {
+                errorMsg.classList.add("opacity-0");
+                let showagain = setTimeout(function () {
+                    errorMsg.classList.remove("opacity-0");
+                }, 500)
+                return;
+            }
+            else {
+                errorMsg.classList.add("opacity-0");
+                CheckoutDate = new Date(to.value);
+                CheckoutDate = CheckoutDate.setDate(CheckoutDate.getDate() - 1);
+                CheckoutDate = `${new Date(CheckoutDate).getFullYear()}/${new Date(CheckoutDate).getMonth() + 1}/${new Date(CheckoutDate).getDate()}`
+                tagReset();
+            }
+        }
         GetAjax();
         AddResult();
     })
     for (let i = 0; i < tags_container_area.children.length; i++) {
         tags_container_area.children[i].addEventListener("click", e => {
             //css部分
-            if (!e.target.classList.contains("bg-info")) {
-                tags_container_area.children[tag_selected_index].classList.remove(
-                    "bg-info"
-                );
-                e.target.classList.add("bg-info");
+            if (!e.target.classList.contains("bg-main-color")) {
+                tags_container_area.children[area_selected_index].className = "";
+                e.target.className = "bg-main-color color-w";
             }
-            tag_selected_index = Array.prototype.indexOf.call(
+            area_selected_index = Array.prototype.indexOf.call(
                 tags_container_area.children,
                 e.target
             );
@@ -101,27 +118,27 @@
         if (!e.target.classList.contains("d-flex")) {
             if (e.target.textContent == "不拘") {
                 for (let i = 1; i < tags_container_style.children.length; i++) {
-                    if (tags_container_style.children[i].classList.contains("bg-info"))
-                        tags_container_style.children[i].classList.remove("bg-info");
+                    if (tags_container_style.children[i].classList.contains("bg-main-color"))
+                        tags_container_style.children[i].className = "";
                 }
                 tagSelected = "";
-                e.target.classList.add("bg-info");
+                e.target.className = "bg-main-color color-w";
             } else {
-                if (!e.target.classList.contains("bg-info")) {
-                    tags_container_style.children[0].classList.remove("bg-info");
-                    e.target.classList.add("bg-info");
+                if (!e.target.classList.contains("bg-main-color")) {
+                    tags_container_style.children[0].className = "";
+                    e.target.className = "bg-main-color color-w";
                     tagSelected += e.target.textContent + ",";
                 } else {
                     tagSelected = tagSelected.replace(e.target.textContent + ",", "");
-                    e.target.classList.remove("bg-info");
+                    e.target.className = "";
                     //是否都取消點擊了要跳回不拘
                     let count = 0;
                     for (let i = 0; i < tags_container_style.children.length; i++) {
-                        if (tags_container_style.children[i].classList.contains("bg-info"))
+                        if (tags_container_style.children[i].classList.contains("bg-main-color"))
                             count++;
                     }
                     if (count == 0)
-                        tags_container_style.children[0].classList.add("bg-info");
+                        tags_container_style.children[0].className = "bg-main-color color-w";
                 }
             }
             tagSelectedArr = tagSelected.split(",");
@@ -129,7 +146,7 @@
         }
     })
 
-    //以name提取cookie的value的函式
+    //以name提取cookie的value函式
     //#region
     function parseCookie() {
         var cookieObj = {};
@@ -157,33 +174,41 @@
         if (getCookieByName("area") != null) {
             areaSelected = getCookieByName("area")
             //根據所點選的標籤內容去更改標籤css背景色
-            if (areaSelected == "北" || areaSelected == "中" || areaSelected == "南" || areaSelected == "東")
+            if (areaSelected == "北" || areaSelected == "中" || areaSelected == "南" || areaSelected == "東") {
                 for (let i = 0; i < tags_container_area.children.length; i++) {
                     if (tags_container_area.children[i].textContent == areaSelected + "部")
-                        tags_container_area.children[i].classList.add("bg-info");
+                        tags_container_area.children[i].className = "bg-main-color color-w";
                     else
-                        tags_container_area.children[i].classList.remove("bg-info");
+                        tags_container_area.children[i].className = "";
                 }
-            let tagsArr = tagSelected.split(",");
-            /*console.log(tagsArr)*/
-            for (let i = 0; i < tags_container_style.children.length; i++) {
-                if (tagsArr.indexOf(tags_container_style.children[i].textContent) > -1) {
-                    tags_container_style.children[i].classList.add("bg-info")
-                }
-                else
-                    tags_container_style.children[i].classList.remove("bg-info")
             }
-            if (tagsArr.length == 1)//不拘
-                tags_container_style.children[0].classList.add("bg-info");
-            //GetAjax();//然後傳到AJAX函式
+            switch (areaSelected) {
+                case "北":
+                    area_selected_index = 1; break;
+                case "中":
+                    area_selected_index = 2; break;
+                case "南":
+                    area_selected_index = 3; break;
+                case "東":
+                    area_selected_index = 4; break;
+            }
+        }
+        if (getCookieByName("from") != null && getCookieByName("to") != null) {
+            from.value = getCookieByName("from")
+            to.value = getCookieByName("to")
+            CheckoutDate = new Date(to.value);
+            CheckoutDate = CheckoutDate.setDate(CheckoutDate.getDate() - 1);
+            CheckoutDate = `${new Date(CheckoutDate).getFullYear()}/${new Date(CheckoutDate).getMonth() + 1}/${new Date(CheckoutDate).getDate()}`
         }
         GetAjax();
+        AddResult();
     })
-        var dataArray = [];
-        var tagSelectedArr
+    var dataArray = [];
+    var tagSelectedArr
+    var MemberFavor = [];
     function GetAjax() {
         //標籤清除
-        tags_container_style.innerHTML = "<div class='bg-info'>不拘</div>";
+        tags_container_style.innerHTML = "<div class='bg-main-color color-w'>不拘</div>";
         $.ajax({
             type: "post",
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -195,6 +220,8 @@
                 "to": CheckoutDate
             },
             success: function (data) {
+                MemberFavor = data.MemberFavors;
+                console.log(MemberFavor)
                 console.log(data);
                 //==不選擇日期印出全部==
                 //--列出所有標籤
@@ -254,13 +281,13 @@
                 //公休日
                 for (var item in dataArray) {
                     let closedayArr = [];
-                    for (let i = 0; i < dataArray[item].fCampsiteClosedDay.toString().length; i++) {
-                        if (dataArray[item].fCampsiteClosedDay.toString()[i] == "7")
+                    for (let i = 0; i < dataArray[item].fCampsiteClosedDay.length; i++) {
+                        if (dataArray[item].fCampsiteClosedDay[i] == "7")
                             closedayArr.push("0")
-                        else if (dataArray[item].fCampsiteClosedDay.toString()[i] == "0")
+                        else if (dataArray[item].fCampsiteClosedDay[i] == "無公休日")
                             closedayArr.push("無")
                         else
-                            closedayArr.push(dataArray[item].fCampsiteClosedDay.toString().slice(i, i + 1))
+                            closedayArr.push(dataArray[item].fCampsiteClosedDay.slice(i, i + 1))
                 }
                 dataArray[item].fCampsiteClosedDay = closedayArr
                 }
@@ -273,18 +300,20 @@
                 //1.排序data.TentsBooked.BookedCount最大至最小
                      dataBookedArray =  data.TentsBooked.sort(function (a,b) {
                         return b.BookedCount - a.BookedCount
-                    })
-                //2.取tent名稱出來、刪除重複
+                     })
+                    console.log(dataBookedArray)
+                    //2.取tent名稱出來、刪除重複
                     for (let i = 0; i < dataBookedArray.length; i++) {
-                        let nameArr = dataBookedArray.map(function (value) {
-                            return value.fTentName;
-                        })
-                        let first = nameArr.indexOf(dataBookedArray[i].fTentName)
-                        if (i != first) {
-                            dataBookedArray.splice(i, 1);
-                        }
+                        dataBookedArray[i].fCampsiteIDfTentName=dataBookedArray[i].fCampsiteID + dataBookedArray[i].fTentName //合併campid跟帳篷名字
                     }
-                    //console.log(dataBookedArray)
+                    console.log(dataBookedArray)
+                    let nameArr = dataBookedArray.map(function (value) {
+                        return value.fCampsiteIDfTentName;
+                    })
+                    dataBookedArray = dataBookedArray.filter(function (item, index) {
+                        return nameArr.indexOf(item.fCampsiteIDfTentName) === index
+                    })
+                    console.log(dataBookedArray)
                     //3.刪去掉dataArray裡的
                     for (let i = 0; i < dataBookedArray.length; i++) {
                         for (let j = 0; j < dataArray.length; j++) {
@@ -294,7 +323,7 @@
                             }
                         }
                     }
-/*                    console.log(dataArray)*/
+                    console.log(dataArray)
                     //4.處理公休日
                     //a.取得選取期間內所有日期
                     var selectedDateArr = [];
@@ -312,12 +341,12 @@
                         selectedDateArr.push(new Date(year + "/" + month + "/" + day).getDay().toString());
                         startTime.setDate(startTime.getDate() + 1);
                     }
-                    /*console.log(selectedDateArr)*/
                     //b.只要有選取期間內包含公休日就予以刪除
                     for (var item in dataArray) {
                         for (var day in selectedDateArr) {
-                            if (dataArray[item].fCampsiteClosedDay.indexOf(selectedDateArr[day].toString()) > -1)
-                                dataArray.splice(item, 1)
+                            dataArray = dataArray.filter(function (item) {
+                                    return item.fCampsiteClosedDay.indexOf(selectedDateArr[day]) < 0
+                            })
                         }
                     }
                     console.log(dataArray)
@@ -332,7 +361,7 @@
         resultSection.innerHTML = "";
         //排序重置
         for (let i = 0; i < order_section.children.length; i++) {
-            order_section.children[i].classList.remove("bg-info");
+            order_section.children[i].className = "";
         }
         if (dataArray.length > 0) {
             if (areaSelected != "全部") {
@@ -370,65 +399,166 @@
         let searchHtml = "";
         if (CheckoutDate != "" && to.value != "") {//如果有搜尋
             for (let k = 0; k < D[i].TentnameQuantity.length; k++) {
-                searchHtml += `<p class='card-text'>${D[i].TentnameQuantity[k][2]}人帳剩餘${D[i].TentnameQuantity[k][1]}間</p>`;
+                searchHtml += `<p>${D[i].TentnameQuantity[k][0]}/${D[i].TentnameQuantity[k][2]}人帳/剩餘${D[i].TentnameQuantity[k][1]}間</p>`;
             }
         }
+        else {
+            searchHtml = "<p>請使用搜尋功能查看</p><p>選擇期間內之空房狀況</p>";
+        }
+        let FavorIcon = "";
+        if (MemberFavor != null && MemberFavor.length>0) {//會員如果有登入收藏icon要改紅色
+            for (var item in MemberFavor) {
+                if (MemberFavor[item].fCampsiteID == D[i].fCampsiteID) {
+                    FavorIcon = "<i class='fas fa-heart favorite-icon fs-4 me-1 c-red'></i>"
+                    break;
+                }
+                else
+                    FavorIcon = "<i class='fas fa-heart favorite-icon fs-4 me-1'></i>"
+            }
+        }
+        else
+            FavorIcon = "<i class='fas fa-heart favorite-icon fs-4 me-1'></i>"
+
         resultSection.innerHTML +=
-                "<div class='col'>" +
-                "<div class='card'>" +
-                "<div class='row row-cols-md-auto g-0'>" +
-                "<div class='col-5 '>" +
-            `<a href='@Url.Action("Details","CampSite")/${D[i].fCampsiteID}'><img src='@Url.Content("~/Images/campsite/alt.jpg")' class='img-fluid rounded-start h-100' alt=''></a>` +
-                "</div>" +
-                "<div class='col-7'>" +
-                "<div class='position-absolute comment'>" +
-                "<i class='fas fa-star me-1'></i>" +
-                `<span class='fw-bolder'>${D[i].fAvgComment}</span>` +
-                "</div>" +
-                "<div class='card-body'>" +
-                "<i class='fas fa-map-marker-alt'></i>" +
-            `<a href='@Url.Action("Details","CampSite")/${D[i].fCampsiteID}' class='card-text'>${D[i].fCampsiteCity}。海拔${D[i].fCampsiteAltitude}</a>` +
-                `<a href='@Url.Action("Details","CampSite")/${D[i].fCampsiteID}'><h5 class='card-title fw-bolder'>${D[i].fCampsiteName}</h5></a>` +
-            "<div class='fst-italic' id='tents_section'>" + searchHtml + "</div></div></div></div></div></div>";
+            "<div class='row row-cols-3 item d-flex mb-3 g-0'>" +
+            "<div class='col-5 img-left h-100 p-3 border-right'>" +
+            `<img src='@Url.Content("~/Images/campsite/alt.jpg")' class='h-100 w-100'>` +
+            "</div>" +
+            "<div class='col-5 d-flex ps-3 border-right position-relative'>" +
+            "<div class='d-flex align-items-center position-absolute commentHeart'>" +
+            "<div class='comment me-3'>" +
+            "<i class='fas fa-star me-1'></i>" +
+            `<span class='fw-bolder'>${D[i].fAvgComment}</span>` +
+        "</div>" + FavorIcon+
+            "<div tabindex='-1' class='position-absolute favorMsg text-center opacity-0'>" +
+            "<div id='NoLoginMsg' class='d-none'>" +
+        "<div>尚未登入</div>" +
+         `<div class='text-warning cursor-pointer'><u>點我登入</u></div>` +
+            "</div>" +
+        "<div id='favorAddSucMsg' class='d-none'>已收藏</div>" +
+        "<div id='favorDelSucMsg' class='d-none'>已取消收藏</div>" +
+            "</div>" +
+            "</div>" +
+            "<div class='letter-sp-1'>" +
+            `<h4 class='fw-bolder mt-5 mb-3'>${D[i].fCampsiteName}</h4>` +
+            "<div class='mb-3'>" +
+        `<i class='fas fa-map-marker-alt text-danger'></i>`+
+            `<span>${D[i].fCampsiteCity}。海拔${D[i].fCampsiteAltitude}</span>` +
+            "</div>" +
+            "<div class='tents-section'>" +
+            searchHtml +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            "<div class='col-2 border-left'>" +
+            `<a href='@Url.Action("Details", "CampSite")/${D[i].fCampsiteID}'><button class='w-100 h-100 letter-sp-1'>進入營區</button></a>` +
+            "</div>" +
+            `<div class='invisible'>${D[i].fCampsiteID}</div></div>`;
     }
     //#endregion
     //評價排序點擊事件
     let order_section = document.querySelector(".order-section");
     let orderByHAsc = document.querySelector("#orderByHAsc");
     let orderByHDesc = document.querySelector("#orderByHDesc");
+    let orderByScoreAsc = document.querySelector("#orderByScoreAsc");
     let orderByScoreDesc = document.querySelector("#orderByScoreDesc");
     let order_index;
     order_section.addEventListener("click", e => {
         order_index = Array.prototype.indexOf.call(order_section.children, e.target)
-        if (order_index != 0 && !e.target.classList.contains("bg-info")) {
-            e.target.classList.add("bg-info")
+        console.log(order_index)
+        if (order_index >= 0 && !e.target.classList.contains("bg-main-color")) {
+            e.target.className = "bg-main-color color-w";
             for (let i = 0; i < order_section.children.length; i++) {
                 if (i != order_index)
-                    order_section.children[i].classList.remove("bg-info");
+                    order_section.children[i].className = "";
             }
         }
     })
-        //海拔高度升冪
-        orderByHDesc.addEventListener("click", () => {
-            dataArray.sort(function (a, b) {
-                return b.fCampsiteAltitude - a.fCampsiteAltitude
-            })
-            AddResult()
+    //海拔高度升冪
+    orderByHDesc.addEventListener("click", () => {
+        dataArray.sort(function (a, b) {
+            return b.fCampsiteAltitude - a.fCampsiteAltitude
         })
-        //海拔高度降冪
-        orderByHAsc.addEventListener("click", () => {
-            dataArray.sort(function (a, b) {
-                return a.fCampsiteAltitude - b.fCampsiteAltitude
-            })
-            AddResult()
+        AddResult()
+    })
+    //海拔高度降冪
+    orderByHAsc.addEventListener("click", () => {
+        dataArray.sort(function (a, b) {
+            return a.fCampsiteAltitude - b.fCampsiteAltitude
         })
-        //評價排序降冪
-        orderByScoreDesc.addEventListener("click", () => {
-            dataArray.sort(function (a, b) {
-                return b.fAvgComment - a.fAvgComment
-            })
-            AddResult()
+        AddResult()
+    })
+    //評價排序降冪
+    orderByScoreDesc.addEventListener("click", () => {
+        dataArray.sort(function (a, b) {
+            return b.fAvgComment - a.fAvgComment
         })
+        AddResult()
+    })
+    //評價排序升冪
+    orderByScoreAsc.addEventListener("click", () => {
+        dataArray.sort(function (a, b) {
+            return a.fAvgComment - b.fAvgComment
+        })
+        AddResult()
+    })
+    //收藏功能
+    var campId = "";
+    resultSection.addEventListener("click", (e) => {
+        if (e.target.classList.contains("favorite-icon")) {
+            if ("@User.Identity.Name" != "") {
+                campId = e.target.parentNode.parentNode.parentNode.lastChild.textContent;
+                if (parseInt(campId) > 0) {
+                    $.ajax({
+                        type: "post",
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        dataType: "json",
+                        url: "@Url.Action("Search", "Search")",
+                        data: { "campId": campId },
+                        success: function (data) {
+                            console.log(data)
+                            e.target.nextSibling.classList.remove("opacity-0")//FavorMsg
+                            if (e.target.classList.contains("c-red")) {//取消收藏
+                                e.target.classList.remove("c-red")
+                                e.target.nextSibling.lastChild.classList.remove("d-none")
+                                e.target.nextSibling.children[1].classList.add("d-none")
+                                MemberFavor.splice(MemberFavor.findIndex(item => item.fCampsiteID == parseInt(e.target.parentNode.parentNode.parentNode.lastChild.textContent)), 1)
+                                e.target.nextSibling.focus() //出現時就聚焦，失焦前要先有focus
+                                e.target.nextSibling.onblur = function () { //添加事件，失焦時隱藏
+                                    this.classList.add("opacity-0");
+                                }
+                            }
+                            else {//加入收藏
+                                let favor = {}
+                                e.target.classList.add("c-red")
+                                e.target.nextSibling.lastChild.classList.add("d-none")
+                                e.target.nextSibling.children[1].classList.remove("d-none")
+                                favor.fMemberID = parseInt("@User.Identity.Name");
+                                favor.fCampsiteID = parseInt(e.target.parentNode.parentNode.parentNode.lastChild.textContent);
+                                MemberFavor.push(favor);
+                                e.target.nextSibling.focus()//出現時就聚焦，失焦前要先有focus
+                                e.target.nextSibling.onblur = function () {//添加事件，失焦時隱藏
+                                    this.classList.add("opacity-0");
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+            else {//未登入出現請先登入
+                e.target.nextSibling.classList.remove("opacity-0")
+                e.target.nextSibling.firstChild.classList.remove("d-none")
+                e.target.nextSibling.focus()//出現時就聚焦，失焦前要先有focus
+                e.target.nextSibling.onclick = function (e) {
+                    if (e.target.textContent == "點我登入")
+                        location.href = "@Url.Action("Login","Member")"
+                }
+                e.target.nextSibling.onblur = function () {//添加事件，失焦時隱藏
+                    this.classList.add("opacity-0");
+                }
+            }
+        }
+    })
 </script>
 <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
 <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -436,20 +566,30 @@
 <script>
     $(function () {
         $("#from").datepicker({
-            defaultDate: "+1w",
+            defaultDate: "d",
             changeMonth: true,
             numberOfMonths: 1,
+            minDate: "d",
+            showButtonPanel: true,
+            dateFormat: "yy/mm/dd",
             onClose: function (selectedDate) {
                 $("#to").datepicker("option", "minDate", selectedDate);
-            },
-            dateFormat: "yy/mm/dd"
-        });
+            }
+        })
         $("#to").datepicker({
-            defaultDate: "+1w",
+            defaultDate: "d",
             changeMonth: true,
             numberOfMonths: 1,
+            minDate: "d",
+            showButtonPanel: true,
             onClose: function (selectedDate) {
                 $("#from").datepicker("option", "maxDate", selectedDate);
+                if (from.value == selectedDate) {
+                    errorMsg.classList.remove("opacity-0");
+                }
+                else {
+                    errorMsg.classList.add("opacity-0");
+                }
             },
             dateFormat: "yy/mm/dd"
         });

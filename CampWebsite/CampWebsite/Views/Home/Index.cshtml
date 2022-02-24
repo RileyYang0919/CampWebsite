@@ -1,9 +1,10 @@
-﻿  <!-- 大圖部分 -->
+﻿<link rel="stylesheet" href="~/Content/homeindex.css">
+<!-- 大圖部分 -->
 <div class="main d-flex justify-content-center flex-column align-items-center position-relative">
     <div>
         <p class="fs-5 mb-3">週末要做什麼</p>
         <h1>來露過人間</h1>
-        <button class="fs-5 mt-3 px-3 py-1">隨心所欲</button>
+        <button class="fs-5 mt-3 px-3 py-1" id="gogo">隨心所欲</button>
     </div>
     <a href="#here" class="position-absolute"><i class="fas fa-chevron-circle-down"></i></a>
 </div>
@@ -22,21 +23,22 @@
         </div>
     </div>
     <div class="container search-section">
-        <p class="fs-2 fw-bolder main-color pt-5">馬上出發吧</p>
+        <p class="fs-2 fw-bolder main-color pt-5 letter-sp-1">馬上出發吧</p>
         <div class="d-flex justify-content-center my-5">
-            <div class="d-flex" id="search_section">
+            <div class="d-flex letter-sp-1 position-relative" id="search_section">
                 <input type="text" id="from" autocomplete="off" placeholder="入住日" required>
                 <input type="text" id="to" autocomplete="off" placeholder="離開日" required>
-                <button><i class="fas fa-search"><span class="ms-1">搜尋</span></i></button>
+                <div class="errorMsg opacity-0">請至少選擇兩天一夜</div>
+                <button id="searchBtn"><i class="fas fa-search"><span class="ms-1">搜尋</span></i></button>
             </div>
         </div>
     </div>
 
     <!-- 區域搜尋分類 -->
     <div class="container class-section mt-5">
-        <p class="fs-2 fw-bolder mb-3 main-color">為下一趟旅程尋找靈感</p>
-        <div class="row mb-3 mb-md-5">
-            <div class="col px-0">
+        <p class="fs-2 fw-bolder mb-3 main-color letter-sp-1">為下一趟旅程尋找靈感</p>
+        <div class="row mb-3 mb-md-5 letter-sp-1">
+            <div class="col px-0" id="north">
                 <div class="d-flex flex-column align-items-center justify-content-center cover shadow-sm">
                     <i class="fas fa-fish"></i>
                     <p class="fs-3 fw-bolder">北部</p>
@@ -46,7 +48,7 @@
                     <p class="fs-3 fw-bolder">前往查看</p>
                 </div>
             </div>
-            <div class="col px-0">
+            <div class="col px-0" id="central">
                 <div class="d-flex flex-column align-items-center justify-content-center cover shadow">
                     <i class="fas fa-hippo"></i>
                     <p class="fs-3 fw-bolder">中部</p>
@@ -65,7 +67,7 @@
                 </div>
             </div>
         </div>
-        <div class="row pb-5">
+        <div class="row pb-5 letter-sp-1">
             <div class="col px-0">
                 <div class="d-flex flex-column align-items-center justify-content-center cover cover-other shadow">
                     <p class="fs-3 fw-bolder"></p>
@@ -74,7 +76,7 @@
                     <p class="fs-3 fw-bolder"></p>
                 </div>
             </div>
-            <div class="col px-0">
+            <div class="col px-0" id="south">
                 <div class="d-flex flex-column align-items-center justify-content-center cover shadow">
                     <i class="fas fa-crow"></i>
                     <p class="fs-3 fw-bolder">南部</p>
@@ -84,7 +86,7 @@
                     <p class="fs-3 fw-bolder">前往查看</p>
                 </div>
             </div>
-            <div class="col px-0">
+            <div class="col px-0" id="east">
                 <div class="d-flex flex-column align-items-center justify-content-center cover shadow">
                     <i class="fas fa-paw"></i>
                     <p class="fs-3 fw-bolder">東部</p>
@@ -99,98 +101,55 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-    var tags_container_area = document.querySelector(".tags-container-area");
-    var tags_container_style = document.querySelector(".tags-container-style");
-    var tag_selected_index = 0;
-    var areaSelected = "北";
-    var tagSelected = "";
-    var search_section = document.querySelector("#search_section");
-    var search_nothing = document.querySelector(".search-nothing");
-    tags_container_area.addEventListener("click", e => {
-        console.log(e.target.classList.contains("d-flex"))
-         //css部分
-        if (!e.target.classList.contains("d-flex")) {
-            if (!e.target.classList.contains("bg-info")) {
-                tags_container_area.children[tag_selected_index].classList.remove(
-                    "bg-info"
-                );
-                e.target.classList.add("bg-info");
-            }
-            tag_selected_index = Array.prototype.indexOf.call(
-                tags_container_area.children,
-                e.target
-            );
-            //給ajax
-            if (e.target.textContent == "北部" || e.target.textContent == "中部" || e.target.textContent == "南部" || e.target.textContent == "東部")
-                areaSelected = e.target.textContent.substring(0, 1);
-            else
-                areaSelected = e.target.textContent;
-        }
-        GetAjax();
+    var north = document.querySelector("#north");
+    var central = document.querySelector("#central");
+    var south = document.querySelector("#south");
+    var east = document.querySelector("#east");
+    var searchBtn = document.querySelector("#searchBtn");
+    var from = document.querySelector("#from");
+    var to = document.querySelector("#to");
+    var errorMsg = document.querySelector(".errorMsg");
+    var gogo = document.querySelector("#gogo")
+    gogo.addEventListener("click", function () {
+        location.href = "/Search/Search"
     })
-    tags_container_style.addEventListener("click", e => {
-        if (!e.target.classList.contains("d-flex")) {
-            if (e.target.textContent == "不拘") {
-                for (let i = 1; i < tags_container_style.children.length; i++) {
-                    if (tags_container_style.children[i].classList.contains("bg-info"))
-                        tags_container_style.children[i].classList.remove("bg-info");
-                }
-                tagSelected = "";//給ajax
-                e.target.classList.add("bg-info");
-            } else {
-                if (!e.target.classList.contains("bg-info")) {
-                    tags_container_style.children[0].classList.remove("bg-info");
-                    e.target.classList.add("bg-info");
-                    tagSelected += e.target.textContent + ",";//給ajax
-                } else {
-                    tagSelected = tagSelected.replace(e.target.textContent + ",", "");//給ajax
-                    e.target.classList.remove("bg-info");
-                    //是否都取消點擊了要跳回不拘
-                    let count = 0;
-                    for (let i = 0; i < tags_container_style.children.length; i++) {
-                        if (tags_container_style.children[i].classList.contains("bg-info"))
-                            count++;
-                    }
-                    if (count == 0)
-                        tags_container_style.children[0].classList.add("bg-info");
-                }
+    searchBtn.addEventListener("click", function () {
+        if (from.value != "" && to.value != "") {
+            if (from.value == to.value) {
+                errorMsg.classList.add("opacity-0");
+                let showagain = setTimeout(function () {
+                    errorMsg.classList.remove("opacity-0");
+                }, 400)
+            }
+            else {
+                document.cookie = `from=${encodeURIComponent(from.value)};path=/;max-age=10`
+                document.cookie = `to=${encodeURIComponent(to.value)};path=/;max-age=10`
+                location.href = "/Search/Search"
             }
         }
-        //給ajax
-        GetAjax();
-        console.log(tagSelected)
+        else {
+            errorMsg.classList.remove("opacity-0");
+        }
     })
-
     //按下按鈕時 建立cookie傳到search/search controller
-    var moreSearch = document.querySelector("#moreSearch");
-    moreSearch.addEventListener("click", () => {
+    function addCookie(areaSelected) {
         document.cookie = `area=${encodeURIComponent(areaSelected)};path=/;max-age=10`
-        document.cookie = `tagArr=${encodeURIComponent(tagSelected)}; path = /;max-age=10`
         location.href = "/Search/Search";
+    }
+    north.addEventListener("click", function () {
+        addCookie("北")
     })
-    var moreCampOrderByScore = document.querySelector("#moreCampOrderByScore");
-    moreCampOrderByScore.addEventListener("click", () => {
-        document.cookie = `orderByScore=orderByScore; path = /;max-age=10`
-        location.href = "/Search/Search";
+    central.addEventListener("click", function () {
+        addCookie("中")
+    })
+    south.addEventListener("click", function () {
+        addCookie("南")
+    })
+    east.addEventListener("click", function () {
+        addCookie("東")
     })
     $(function () {
     })
-    function gotoSearchAjax() {
-        $.ajax({
-            type: "post",
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            url: "@Url.Action("Search", "Search")",
-            data: {
-                "area": areaSelected,
-                "tagSelected": tagSelected,
-            },
-            success: function (data) {
-                console.log(data)
-                window.location.href = this.url;
-            }
-        })
-    }
-
 </script>
 
 <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -198,20 +157,31 @@
 <script>
     $(function () {
         $("#from").datepicker({
-            defaultDate: "+1w",
+            defaultDate: "d",
             changeMonth: true,
             numberOfMonths: 1,
+            minDate: "d",
+            showButtonPanel: true,
+            dateFormat: "yy/mm/dd",
             onClose: function (selectedDate) {
                 $("#to").datepicker("option", "minDate", selectedDate);
-            },
-            dateFormat: "yy/mm/dd"
+            }
         });
         $("#to").datepicker({
-            defaultDate: "+1w",
+            defaultDate: "d",
+            minDate: "d",
             changeMonth: true,
             numberOfMonths: 1,
+            showButtonPanel: true,
             onClose: function (selectedDate) {
                 $("#from").datepicker("option", "maxDate", selectedDate);
+                if (from.value == selectedDate) {
+                    console.log("請至少選擇兩天一夜")
+                    errorMsg.classList.remove("opacity-0");
+                }
+                else {
+                    errorMsg.classList.add("opacity-0");
+                }
             },
             dateFormat: "yy/mm/dd"
         });

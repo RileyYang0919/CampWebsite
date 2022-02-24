@@ -14,23 +14,15 @@ namespace CampWebsite.Models
     
     public partial class tComment
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tComment()
-        {
-            this.tMember1 = new HashSet<tMember>();
-        }
-    
         public int fCommentID { get; set; }
+        public string fOrderConfirmCode { get; set; }
         public int fMemberID { get; set; }
         public int fCampsiteID { get; set; }
         public string fComment { get; set; }
         public int fCommentScore { get; set; }
         public System.DateTime fCommentTime { get; set; }
-        public string fOrderConfirmCode { get; set; }
     
         public virtual tCampsite tCampsite { get; set; }
         public virtual tMember tMember { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tMember> tMember1 { get; set; }
     }
 }

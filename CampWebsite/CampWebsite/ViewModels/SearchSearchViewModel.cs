@@ -12,5 +12,6 @@ namespace CampWebsite.ViewModels
         public List<CTags> Tags { get; set; }
         public List<CTentsBooked> TentsBooked { get; set; }
         public List<CTents> Tents { get; set; }
+        public List<CMemberFavor> MemberFavors { get; set; }
     }
 }

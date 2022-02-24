@@ -28,9 +28,7 @@ namespace CampWebsite.Models
         public virtual DbSet<tCampsite> tCampsite { get; set; }
         public virtual DbSet<tComment> tComment { get; set; }
         public virtual DbSet<tMember> tMember { get; set; }
-        public virtual DbSet<tOptionCase> tOptionCase { get; set; }
         public virtual DbSet<tOrder> tOrder { get; set; }
-        public virtual DbSet<tRent> tRent { get; set; }
         public virtual DbSet<tTag> tTag { get; set; }
         public virtual DbSet<tTent> tTent { get; set; }
         public virtual DbSet<tTentPhoto> tTentPhoto { get; set; }

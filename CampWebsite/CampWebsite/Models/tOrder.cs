@@ -14,12 +14,6 @@ namespace CampWebsite.Models
     
     public partial class tOrder
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tOrder()
-        {
-            this.tRent = new HashSet<tRent>();
-        }
-    
         public int fOrderID { get; set; }
         public int fMemberID { get; set; }
         public int fTentID { get; set; }
@@ -35,7 +29,5 @@ namespace CampWebsite.Models
     
         public virtual tMember tMember { get; set; }
         public virtual tTent tTent { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tRent> tRent { get; set; }
     }
 }

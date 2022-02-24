@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web.Mvc;
 
 namespace CampWebsite.Models
 {
@@ -13,7 +12,7 @@ namespace CampWebsite.Models
         private SqlConnection ConnectSQL()
         {
             SqlConnection con = new SqlConnection();
-            con.ConnectionString = "Data Source=chicken122two.database.windows.net;Initial Catalog=dbCamp;Persist Security Info=True;User ID=chicken;Password=P@sswo0rd;MultipleActiveResultSets=True;Application Name=EntityFramework";
+            con.ConnectionString = "Data Source=chicken122two.database.windows.net;Initial Catalog=dbCamp;User ID=chicken;Password=P@sswo0rd;MultipleActiveResultSets=True;Application Name=EntityFramework";
             con.Open();
             return con;
         }
@@ -113,8 +112,11 @@ namespace CampWebsite.Models
         public List<CTents> QueryAllTents(string ID)
         {
             SqlConnection con = ConnectSQL();
-            string SQLstring = "select fTentID,fTentName,fTentCategory,fTentPeople,fTentPriceWeekday,fTentPriceWeekend " +
-            "from tTent where fCampsiteID = @fCampsiteID";
+            string SQLstring = "select tTent.fTentID,tTent.fTentName,tTent.fTentCategory,tTent.fTentPeople," +
+                "tTent.fTentPriceWeekday,tTent.fTentPriceWeekend,tCampsite.fCampsiteClosedDay " +
+                "from tTent " +
+                "join tCampsite on tTent.fCampsiteID = tCampsite.fCampsiteID " +
+                "where tTent.fCampsiteID = @fCampsiteID";
             SqlCommand cmd = sqlcmd(con, SQLstring, ID);
             SqlDataReader reader = cmd.ExecuteReader();
             List<CTents> TentList = new List<CTents>();
@@ -127,6 +129,7 @@ namespace CampWebsite.Models
                 ctents.fTentPeople = Convert.ToInt32(reader["fTentPeople"]);
                 ctents.fTentPriceWeekday = Convert.ToInt32(reader["fTentPriceWeekday"]);
                 ctents.fTentPriceWeekend = Convert.ToInt32(reader["fTentPriceWeekend"]);
+                ctents.fCampsiteClosedDay = reader["fCampsiteClosedDay"].ToString();
                 TentList.Add(ctents);
             }
             reader.Close();
@@ -200,6 +203,22 @@ namespace CampWebsite.Models
                           orderby rev.fCommentTime descending
                           select rev;
             return reviews.ToList();
+        }
+        public bool QueryIsFavor(string MemberId, string CampId)
+        {
+            SqlConnection con = ConnectSQL();
+            string SQLstring = "select * from tCampFavorite where fMemberID = @MemberId and fCampsiteID = @fCampsiteID";
+            SqlCommand cmd = sqlcmd(con, SQLstring, CampId);
+            cmd.Parameters.AddWithValue("@MemberId", MemberId);
+            SqlDataReader reader = cmd.ExecuteReader();
+            bool isFavored = false;
+            if (reader.Read())
+            {
+                isFavored = true;
+            }
+            reader.Close();
+            con.Close();
+            return isFavored;
         }
     }
 }

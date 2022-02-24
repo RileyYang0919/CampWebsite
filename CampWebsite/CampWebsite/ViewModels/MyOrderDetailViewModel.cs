@@ -18,6 +18,6 @@ namespace CampWebsite.ViewModels
         public int fStayNight { get; set; }
         public int fTotalPrice { get; set; }
         public List<tOrder> tOrders { get; set; }
-        public bool hasComment { get; set; }
+        public tComment tComment { get; set; }
     }
 }

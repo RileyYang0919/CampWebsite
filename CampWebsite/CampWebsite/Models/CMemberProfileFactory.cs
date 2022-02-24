@@ -122,12 +122,9 @@ namespace CampWebsite.Models
             tentSum = tentIDs.Count();
             var userComment = (from x in db.tComment
                               where x.fOrderConfirmCode == orderCode
-                              select x);
-            
-
+                              select x).FirstOrDefault();
             MyOrderDetailViewModel getTheOrderDetails = new MyOrderDetailViewModel(); //everyOrder 每一筆訂單卡片
-            if (userComment != null) { getTheOrderDetails.hasComment = true; }
-            else { getTheOrderDetails.hasComment= false; }
+            getTheOrderDetails.tComment = userComment;            
             getTheOrderDetails.fOrderCode = orderCode;
             getTheOrderDetails.fCampsiteName = fCampsiteName;
             getTheOrderDetails.fCampsitePhone = fCampsitePhone;

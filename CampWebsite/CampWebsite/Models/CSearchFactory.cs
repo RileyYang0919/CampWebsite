@@ -43,7 +43,7 @@ namespace CampWebsite.Models
                 tentcamp.fCampsiteName = reader["fCampsiteName"].ToString();
                 tentcamp.fCampsiteArea = reader["fCampsiteArea"].ToString();
                 tentcamp.fCampsiteCity = reader["fCampsiteCity"].ToString();
-                if (!Convert.IsDBNull(reader["fCampsiteClosedDay"])) { tentcamp.fCampsiteClosedDay = reader["fCampsiteClosedDay"].ToString(); }  
+                tentcamp.fCampsiteClosedDay = reader["fCampsiteClosedDay"].ToString();
                 tentcamp.fCampsiteAltitude = reader["fCampsiteAltitude"].ToString();
                 if (!Convert.IsDBNull(reader["fAvgComment"])) { tentcamp.fAvgComment = Convert.ToDouble(reader["fAvgComment"]) * 1.0; }
                 campList.Add(tentcamp);
@@ -131,6 +131,53 @@ namespace CampWebsite.Models
             reader.Close();
             con.Close();
             return tentsBookedList;
+        }
+        public List<CMemberFavor> QueryAllFavor(int MemberId)
+        {
+            SqlConnection con = ConnectSQL();
+            string SQLstring = "select * from tCampFavorite where fMemberID = @MemberId";
+            SqlCommand cmd = sqlcmd(con, SQLstring);
+            cmd.Parameters.AddWithValue("@MemberId", MemberId);
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<CMemberFavor> favors = new List<CMemberFavor>();
+            while (reader.Read())
+            {
+                CMemberFavor favor = new CMemberFavor();
+                favor.fMemberID = Convert.ToInt32(reader["fMemberID"]);
+                favor.fCampsiteID = Convert.ToInt32(reader["fCampsiteID"]);
+                favors.Add(favor);
+            }
+            reader.Close();
+            con.Close();
+            return favors;
+        }
+        public void AddDeleteFavor(int MemberId, int CampId)
+        {
+            SqlConnection con = ConnectSQL();
+            string SQLstring = "select * from tCampFavorite where fMemberID = @MemberId and fCampsiteID = @CampId";
+            SqlCommand cmd = sqlcmd(con, SQLstring);
+            cmd.Parameters.AddWithValue("@MemberId", MemberId);
+            cmd.Parameters.AddWithValue("@CampId", CampId);
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                SQLstring = "Delete from tCampFavorite where fCampsiteID = @CampId and fMemberID = @MemberId";
+                cmd = sqlcmd(con, SQLstring);
+                cmd.Parameters.AddWithValue("@MemberId", MemberId);
+                cmd.Parameters.AddWithValue("@CampId", CampId);
+                cmd.ExecuteNonQuery();
+            }
+            else
+            {
+                SQLstring =
+                    "insert into tCampFavorite(fMemberID,fCampsiteID) " +
+                    "values(@MemberId, @CampId)";
+                cmd = sqlcmd(con, SQLstring);
+                cmd.Parameters.AddWithValue("@MemberId", MemberId);
+                cmd.Parameters.AddWithValue("@CampId", CampId);
+                cmd.ExecuteNonQuery();
+            }
+            con.Close();
         }
     }
 }

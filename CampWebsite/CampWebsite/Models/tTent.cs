@@ -18,7 +18,6 @@ namespace CampWebsite.Models
         public tTent()
         {
             this.tOrder = new HashSet<tOrder>();
-            this.tTentPhoto = new HashSet<tTentPhoto>();
         }
     
         public int fTentID { get; set; }
@@ -32,7 +31,5 @@ namespace CampWebsite.Models
         public virtual tCampsite tCampsite { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tOrder> tOrder { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tTentPhoto> tTentPhoto { get; set; }
     }
 }

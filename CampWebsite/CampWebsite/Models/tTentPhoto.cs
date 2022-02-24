@@ -15,9 +15,9 @@ namespace CampWebsite.Models
     public partial class tTentPhoto
     {
         public int fID { get; set; }
-        public int fTentID { get; set; }
+        public int fCampsiteID { get; set; }
         public string fTentPhotoURL { get; set; }
     
-        public virtual tTent tTent { get; set; }
+        public virtual tCampsite tCampsite { get; set; }
     }
 }

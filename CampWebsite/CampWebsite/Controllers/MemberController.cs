@@ -22,7 +22,7 @@ namespace CampWebsite.Controllers
             return View(newMember);
         }
         [HttpPost]
-        public ActionResult Register(RegisterViewModel newMember)
+        public ActionResult Register(RegisterViewModel newMember, int fGroup)
         {
             //string fName, string fEmail, string fPassword
             if (ModelState.IsValid == false)
@@ -39,7 +39,7 @@ namespace CampWebsite.Controllers
                     newUser.fEmail = newMember.fEmail;
                     newUser.fPassword = newMember.fPassword;
                     newUser.fSex = 0;
-                    newUser.fGroup = "gCustomer";
+                    newUser.fGroup = fGroup;
                     newUser.fVerified = false;
                     db.tMember.Add(newUser);
                     db.SaveChanges();
@@ -51,7 +51,7 @@ namespace CampWebsite.Controllers
 
                     new CMailVerifyFactory().SendVerificationMail(newUser.fEmail); //發送驗證信給new user, function by 俊丞
 
-                    return RedirectToAction("List");
+                    return RedirectToAction("Index", "Home");
                 }
                 catch
                 {
@@ -95,7 +95,7 @@ namespace CampWebsite.Controllers
             //if member is null,表示沒註冊
             if (member == null)
             {
-                ViewBag.Message = "帳號密碼有誤" + "\n我輸入: " + fEmail + " 密碼: " + fPassword;
+                ViewBag.Message = "該帳號不存在";
                 ViewData["returnUrl"] = returnUrl;
                 return View();
             }

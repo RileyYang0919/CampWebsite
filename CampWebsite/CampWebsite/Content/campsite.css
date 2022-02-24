@@ -87,29 +87,56 @@ video {
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+    /*color:inherit*/
 }
 
-    a:hover {
-        color: inherit;
-    }
+a {
+    text-decoration: none;
+}
+
 
 ul,
 li {
     list-style: none;
 }
 
-body {
-    font-family: "微軟正黑體";
+:root {
+    --main-color: #234a63;
+    --secondary-color: #95a59d;
+    --third-color: #e5c45b;
 }
 
-@media screen and (min-width: 768px) {
+.main-color {
+    color: var(--main-color);
 }
+
+.bg-main-color {
+    background-color: var(--main-color);
+}
+
+.bg-secondary-color {
+    background-color: var(--secondary-color);
+}
+
+.bg-third-color {
+    background-color: var(--third-color)
+}
+
+.secondary-color {
+    color: var(--secondary-color);
+}
+
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background-color: #e6e6e6;
+}
+
+
 
 /*月曆*/
 .calendar {
-    background-color: #e6e6e6;
+    /*background-color: var(--secondary-color);*/
+    border: 2px solid var(--main-color);
 }
 
 .year {
@@ -124,6 +151,7 @@ body {
 #pre_year,
 #next_year {
     cursor: pointer;
+    font-weight: 600
 }
 
 .month {
@@ -132,18 +160,25 @@ body {
     margin-bottom: 5px;
 }
 
+    .month select {
+        width: 3rem;
+        text-align: center;
+        margin-right: 0.5rem
+    }
+
 .day ul {
     display: flex;
-    background-color: #234a63;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    background-color: #e6e6e6;
+    border-top: 2px solid var(--main-color);
+    border-bottom: 2px solid var(--main-color)
 }
 
     .day ul li {
         flex: auto;
         text-align: center;
-        color: white;
         font-weight: bold;
+        padding-top: 5px;
+        padding-bottom: 5px;
     }
 
 .date {
@@ -151,23 +186,37 @@ body {
     justify-content: start;
     align-items: center;
     flex-wrap: wrap;
+    font-weight: 600;
 }
 
     .date div {
         width: 14.285714%;
         height: 4rem;
         text-align: center;
-        border: 1px solid black;
+        color: var(--third-color);
+        transition: background-color 0.3s ease-in
     }
 
-        .date div:hover {
-            background-color: #e5c45b;
-        }
+preMonthText, .thisMonthText, .nextMonthText {
+    color: #b95159;
+    text-decoration: underline;
+    font-size: larger;
+    text-shadow: 1px 1px gray
+}
+
+.date div:hover {
+    background-color: var(--main-color);
+}
+
+.calendar-unavailable {
+    pointer-events: none;
+    opacity: 0.3;
+}
 
 .preMonth,
 .nextMonth {
     color: white;
-    background-color: #95a59d;
+    background-color: var(--secondary-color);
 }
 
     .preMonth p, .thisMonth p, .nextMonth p {
@@ -175,15 +224,14 @@ body {
     }
 
 .dateMouse {
-    background-color: pink;
+    background-color: #007797;
 }
 
 .dateIsSelected {
-    background-color: powderblue;
+    background-color: var(--main-color);
 }
 
 .calendar-text {
-    height: 160px;
     border: 1px #e6e6e6 solid;
     box-shadow: 5px 7px 5px #e6e6e6;
 }
@@ -193,10 +241,30 @@ body {
         border: 1px solid black;
         text-align: center;
         font-weight: 700;
+        padding: 0.3rem 0 0.3rem 0;
+        box-shadow: 2px 2px 2px gray;
+        border-radius: 5px;
+        letter-spacing: 0.2rem
     }
 
         .calendar-text input:focus {
             outline: none;
+        }
+
+    .calendar-text a {
+        background-color: var(--secondary-color);
+        color: white;
+        letter-spacing: 0.3rem;
+        padding: 0.6rem 0.4rem 0.6rem 0.6rem;
+        border-radius: 5px;
+        transition: background-color 0.5s ease-in-out;
+        font-weight: 600;
+        box-shadow: 2px 2px 2px gray;
+    }
+
+        .calendar-text a:hover {
+            background-color: var(--main-color);
+            color: white;
         }
 
     .calendar-text i {
@@ -204,12 +272,14 @@ body {
     }
 
 .hide-exclamation {
-    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out
 }
 
 .show-exclamation {
-    visibility: visible;
+    opacity: 1;
     color: #234a63;
+    transition: opacity 0.7s ease-in-out
 }
 /*==========月曆結束  */
 
@@ -224,33 +294,119 @@ body {
 }
 
 .tags-container div {
-    max-width: max-content;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     margin-right: 1rem;
-    padding: 0.5rem;
-    border: 1px solid black;
+    padding: 0.1rem 0.9rem 0.1rem 1.3rem;
+    border: 1px solid var(--main-color);
     border-radius: 5px;
+    letter-spacing: 0.5rem;
+    transition: background-color 0.5s;
+    background-color: var(--main-color);
+    color: white
+}
+
+.border-bt {
+    border-bottom: 1px solid var(--main-color)
+}
+
+#tent_wrapper, #order_result {
+    width: 100%;
+}
+
+@media screen and (min-width:768px) {
+    #tent_wrapper, #order_result {
+        width: 70%
+    }
 }
 
 .tent-container {
-    border: black 1px solid;
+    width: 100%;
+    border: var(--main-color) 1px solid;
+    border-left: 15px solid var(--main-color);
+    margin-bottom: 0.5rem;
+    border-radius: 0.3rem
 }
 
-    .tent-container li {
-        list-style: disc;
-        margin-left: 20px;
+.tent-container-order {
+    border: var(--main-color) 1px solid;
+    border-left: 15px solid var(--third-color);
+    border-radius: 0.3rem;
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+.tent-container li {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+.tent-container a, #orderBtn {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: white;
+    letter-spacing: 0.3rem;
+    padding: 0.3rem 0.4rem 0.3rem 0.6rem;
+    border-radius: 5px;
+    transition: background-color 0.5s ease-in-out;
+    text-align: center
+}
+
+#orderBtn {
+    background-color: #b95159;
+}
+
+.tent-container a:hover {
+    background-color: var(--main-color);
+}
+
+#orderBtn:hover {
+    background-color: #007797;
+}
+
+.notion-section {
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    width: 100%;
+}
+
+.review, .review-result {
+    width: 100%;
+    border-radius: 0.3rem;
+    height: 100%;
+    position: relative;
+    border: 1px solid var(--main-color);
+}
+
+.review {
+    border-left: var(--main-color) 15px solid;
+}
+
+.review-result {
+    border-left: var(--third-color) 15px solid;
+}
+
+.review button {
+    background-color: var(--secondary-color);
+    color: white;
+    letter-spacing: 0.3rem;
+    padding: 0.2rem 0.4rem 0.2rem 0.6rem;
+    border-radius: 5px;
+    transition: background-color 0.5s ease-in-out;
+    border: none
+}
+
+    .review button:hover {
+        background-color: var(--main-color);
+        color: white;
     }
 
-.tent-unselected {
-    display: none;
-}
+@media screen and (min-width:768px) {
+    .review, .review-result {
+        width: 70%
+    }
 
-.tent-selected {
-    display: block;
-}
-
-.w-95 {
-    width: 95%;
+    .notion-section {
+        width: 70%;
+    }
 }
 
 .review-content p {
@@ -261,25 +417,22 @@ body {
     -webkit-box-orient: vertical;
     white-space: normal;
     overflow: hidden;
+    letter-spacing: 0.2rem;
 }
 
 .review-wrapper {
     height: 18rem;
 }
 
-.review-container .w-95 {
-    border-radius: 20px;
-    border: black 1px solid;
-    height: 100%;
-    position: relative;
+.review-container {
 }
 
-.review-container .btn {
-    position: absolute;
-    left: 50%;
-    bottom: 5%;
-    transform: translateX(-50%);
-}
+    .review-container .btn {
+        position: absolute;
+        left: 50%;
+        bottom: 5%;
+        transform: translateX(-50%);
+    }
 
 /* 輪播圖css開始 */
 .carousel {
@@ -293,6 +446,10 @@ body {
 .carousel-list {
     position: relative;
 }
+
+    .carousel-list img {
+        border-radius: 5px
+    }
 
 .carousel-sider {
     height: 550px;
@@ -311,9 +468,9 @@ body {
     top: 0;
     left: 0;
     z-index: 1;
-    color: #e6e6e6;
+    color: var(--main-color);
     opacity: 0.3;
-    transition: opacity 200ms ease-out;
+    transition: opacity 0.7s ease-in-out
 }
 
 .img-down {
@@ -323,9 +480,9 @@ body {
     bottom: 0;
     left: 0;
     z-index: 1;
-    color: #e6e6e6;
+    color: var(--main-color);
     opacity: 0.3;
-    transition: opacity 200ms ease-out;
+    transition: opacity 0.7s ease-in-out
 }
 
 .img-left,
@@ -369,11 +526,11 @@ body {
         position: absolute;
         height: 100%;
         z-index: 1;
-        color: #e6e6e6;
+        color: var(--main-color);
         opacity: 0.3;
-        transition: opacity 200ms ease-out;
         display: flex;
         align-items: center;
+        transition: opacity 0.7s ease-in-out
     }
 
     .img-right {
@@ -381,11 +538,11 @@ body {
         height: 100%;
         right: 0;
         z-index: 1;
-        color: #e6e6e6;
+        color: var(--main-color);
         opacity: 0.3;
-        transition: opacity 200ms ease-out;
         display: flex;
         align-items: center;
+        transition: opacity 0.7s ease-in-out
     }
 }
 
@@ -409,7 +566,8 @@ body {
 }
 
 #img_selected {
-    border: 3px #e6e6e6 solid;
+    border: 2px solid var(--main-color);
+    border-radius: 5px;
 }
 
 .img-transition {
@@ -435,18 +593,34 @@ body {
 /* =====輪播圖css結束 */
 
 /* 入營退營時間css開始 */
+
+.notion {
+    width: 150px;
+    color: white;
+    letter-spacing: 0.3rem;
+}
+
+    .notion i {
+        width: 20%;
+        margin-right: 5px
+    }
+
 .CheckInBar {
     width: 264px;
     height: 24px;
-    background-color: gray;
+    background-color: #e6e6e6;
     border-radius: 10px;
+}
+
+.border-dashed {
+    border-left: 15px solid var(--main-color)
 }
 
 .CheckInTime,
 .CheckOutTime {
     position: relative;
     height: 100%;
-    background-color: pink;
+    background-color: var(--main-color);
 }
 
 .CheckInTime {
@@ -458,7 +632,7 @@ body {
 .CheckInTimeText,
 .CheckOutTimeText {
     position: absolute;
-    width: 90px;
+    width: 100px;
     height: 30px;
     background-color: #e6e6e6;
     bottom: -40px;
@@ -486,18 +660,61 @@ body {
     border-bottom-left-radius: inherit;
 }
 
-.notion {
-    width: 120px;
-}
 
-    .notion i {
-        width: 20%;
-    }
 
 .mb-50px {
     margin-bottom: 50px;
 }
+
+.letter-spacing-1 {
+    letter-spacing: 0.3rem
+}
+
+.favorite-icon {
+    text-shadow: 0 0 3px #333333;
+    color: #e6e6e6;
+    -webkit-text-stroke: 2px white;
+    cursor: pointer
+}
+
+    .favorite-icon:hover {
+        color: #b95159;
+    }
+
+.favorMsg {
+    bottom: -100px;
+    right: -35px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid white;
+    color: white;
+    background-color: var(--main-color);
+    border-radius: 5px;
+    transition: opacity 0.7s ease-in;
+}
+
+.c-red {
+    color: #b95159;
+}
+
+.cursor-pointer {
+    cursor: pointer
+}
+
+.favorMsg:focus {
+    outline: none;
+}
+
+.favorMsg::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    right: 30%;
+    transform: translateX(-50%);
+    border: 10px solid black;
+    border-color: transparent transparent var(--main-color) transparent;
+}
 /*=============入營退營時間css結束*/
 * {
-    /* outline: 1px pink solid; */
+    /*outline: 1px pink solid;*/
 }

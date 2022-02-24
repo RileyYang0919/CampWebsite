@@ -21,7 +21,6 @@ namespace CampWebsite.Models
             this.tComment = new HashSet<tComment>();
             this.tOrder = new HashSet<tOrder>();
             this.tCampsite1 = new HashSet<tCampsite>();
-            this.tComment1 = new HashSet<tComment>();
         }
     
         public int fMemberID { get; set; }
@@ -32,7 +31,7 @@ namespace CampWebsite.Models
         public int fSex { get; set; }
         public Nullable<System.DateTime> fBirthday { get; set; }
         public string fPhoto { get; set; }
-        public string fGroup { get; set; }
+        public int fGroup { get; set; }
         public bool fVerified { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -43,7 +42,5 @@ namespace CampWebsite.Models
         public virtual ICollection<tOrder> tOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tCampsite> tCampsite1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tComment> tComment1 { get; set; }
     }
 }

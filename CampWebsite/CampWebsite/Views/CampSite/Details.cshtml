@@ -1,210 +1,229 @@
 ﻿@using CampWebsite.Models
 @model Tuple<tCampsite, IEnumerable<tComment>, List<CTags>>
 @{ ViewBag.Title = "Details"; }
-
-<div class="d-md-flex carousel mt-5 w-100">
-    <div class="col-md-10 carousel-main pe-md-3">
-        <img class="w-100 h-100 px-3" id="img_selected" src="~/Images/1.png" alt="">
+<link rel="stylesheet" href="~/Content/campsite.css">
+<div class="container">
+    <div class="d-md-flex carousel mt-5 w-100">
+        <div class="col-md-10 carousel-main pe-md-3">
+            <img class="w-100 h-100 p-2" id="img_selected" src="~/Images/1.png" alt="">
+        </div>
+        <div class="col-md-2 carousel-list">
+            <div class="img-up fs-3">
+                <i class="fas fa-chevron-circle-up"></i>
+            </div>
+            <div class="img-down fs-3">
+                <i class="fas fa-chevron-circle-down"></i>
+            </div>
+            <div class="img-left fs-3">
+                <i class="fas fa-chevron-circle-left"></i>
+            </div>
+            <div class="img-right fs-3">
+                <i class="fas fa-chevron-circle-right"></i>
+            </div>
+            <div class="d-md-flex flex-md-column justify-content-md-center carousel-sider">
+                <div class="img-container d-flex  justify-content-center d-md-block pt-md-3 ps-md-0 ps-2">
+                    <img class="mb-md-3 me-2 opacity-25" src="~/Images/2.png" alt="">
+                    <img class="mb-md-3 me-2 opacity-25" src="~/Images/3.png" alt="">
+                    <img class="mb-md-3 me-2 opacity-25" src="~/Images/1.png" alt="">
+                    <img class="mb-md-3 me-2 opacity-25" src="~/Images/2.png" alt="">
+                    <img class="mb-md-3 me-2 opacity-25" src="~/Images/3.png" alt="">
+                    <img class="mb-md-3 me-2 opacity-25" src="~/Images/1.png" alt="">
+                    <img class="mb-md-3 me-2 opacity-25" src="~/Images/2.png" alt="">
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-2 carousel-list">
-        <div class="img-up fs-3">
-            <i class="fas fa-chevron-circle-up"></i>
-        </div>
-        <div class="img-down fs-3">
-            <i class="fas fa-chevron-circle-down"></i>
-        </div>
-        <div class="img-left fs-3">
-            <i class="fas fa-chevron-circle-left"></i>
-        </div>
-        <div class="img-right fs-3">
-            <i class="fas fa-chevron-circle-right"></i>
-        </div>
-        <div class="d-md-flex flex-md-column justify-content-md-center carousel-sider">
-            <div class="img-container d-flex  justify-content-center d-md-block pt-md-3 ps-md-0 ps-2">
-                <img class="mb-md-3 me-2 opacity-25" src="~/Images/2.png" alt="">
-                <img class="mb-md-3 me-2 opacity-25" src="~/Images/3.png" alt="">
-                <img class="mb-md-3 me-2 opacity-25" src="~/Images/1.png" alt="">
-                <img class="mb-md-3 me-2 opacity-25" src="~/Images/2.png" alt="">
-                <img class="mb-md-3 me-2 opacity-25" src="~/Images/3.png" alt="">
-                <img class="mb-md-3 me-2 opacity-25" src="~/Images/1.png" alt="">
-                <img class="mb-md-3 me-2 opacity-25" src="~/Images/2.png" alt="">
-            </div>
-        </div>
-    </div>
-</div>
-<br>
-<!-- ======= -->
-<div class="row">
-    <!-- 資訊、介紹、tags -->
-    <div class="d-xl-flex mb-3">
-        <div class="col-xl-9">
-            <div class="d-flex align-items-center mb-2">
-                <h3>@Html.DisplayFor(model => model.Item1.fCampsiteName)</h3>
-                <div class="d-flex ms-2">
-                    <div class="d-flex align-items-center star-container">
-                        @{ int star_avarage_count = 0;
-                            for (int i = 0; i < Math.Round(ViewBag.reviews_score, 0); i++)
-                            {
-                <i class="fas fa-star"></i> star_avarage_count++;
-            }
-            for (int i = star_avarage_count; i < 5; i++)
-            {
-<i class="far fa-star"></i> } }
-                    </div>
-                    <a href="" class="ms-2">顯示評論</a>
-                </div>
-            </div>
-            <div class="d-sm-flex align-items-center justify-content-between border-bottom">
-                <div class="d-sm-flex">
-                    <p>@Html.DisplayFor(model => model.Item1.fCampsiteCity)@Html.DisplayFor(model => model.Item1.fCampsiteAddress)</p>
-                    <a href="" class="ms-sm-2">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>在地圖上顯示</span>
-                    </a>
-                </div>
-                <div class="text-end">
-                    <a href="" class="fs-5 pe-2"><i class="fas fa-heart"></i></a>
-                    <a href="" class="fs-5"> <i class="fas fa-share-alt"></i></a>
-                </div>
-            </div>
-            <div class="pe-xl-5 py-3 introduction">
-                @Html.DisplayFor(model => model.Item1.fCampsiteIntroduction)
-            </div>
-        </div>
-        <div class="col-xl-3 ps-xl-5 mt-xl-0">
-            <div class="d-flex flex-wrap tags-container">
-                @{ if (Model.Item3.Count <= 0)
+    <br>
+    <!-- ======= -->
+    <div class="row">
+        <!-- 資訊、介紹、tags -->
+        <div class="d-xl-flex mb-3">
+            <div class="col-xl-9">
+                <div class="d-flex align-items-center mb-2">
+                    <h3 class="letter-spacing-1">@Html.DisplayFor(model => model.Item1.fCampsiteName)</h3>
+                    <div class="d-flex ms-2">
+                        <div class="d-flex align-items-center star-container">
+                            @{ int star_avarage_count = 0;
+                                for (int i = 0; i < Math.Round(ViewBag.reviews_score, 0); i++)
                                 {
-                    <div>尚無任何標籤</div> }
-                                foreach (CTags item in Model.Item3)
-                                {<div>@item.fTagName</div>} }
-            </div>
-        </div>
-    </div>
-    <div class="fs-3">空位情況</div>
-    <!-- 月曆 -->
-    <div class="mb-3">
-        <div class="calendar-text p-3 mb-3">
-            <div class="fs-5">您預計什麼時候入住？</div>
-            <div class="d-flex align-items-center my-2">
-                <div class="col-4">
-                    <div>
-                        入住日期 <i class="fas fa-exclamation-circle ms-1 exclamation-start hide-exclamation"></i>
+                    <i class="fas fa-star"></i> star_avarage_count++;
+                }
+                for (int i = star_avarage_count; i < 5; i++)
+                {
+    <i class="far fa-star"></i> } }
+                        </div>
+                        <a href="#Review" class="ms-2">顯示評論</a>
                     </div>
-                    <input type="text" value="請選擇" readonly="readonly" class="input_startDate">
                 </div>
-                <div class="ms-5 col-4">
-                    <div>
-                        離開日期 <i class="fas fa-exclamation-circle ms-1 exclamation-end hide-exclamation"></i>
+                <div class="d-sm-flex align-items-center justify-content-between border-bt position-relative" id="forFavorEvent">
+                    <div class="d-sm-flex">
+                        <p>@Html.DisplayFor(model => model.Item1.fCampsiteCity)。@Html.DisplayFor(model => model.Item1.fCampsiteAddress)</p>
+                        <a href="" class="ms-sm-2">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>在地圖上顯示</span>
+                        </a>
                     </div>
-                    <input type="text" value="請選擇" readonly="readonly" class="input_endDate">
+                    <div class="text-end" id="FavorIcon">
+                        @*<i class="fs-5 fas fa-share-alt"></i>*@
+                    </div>
+                    <div tabindex='-1' class='position-absolute favorMsg text-center opacity-0'>
+                        <div id='NoLoginMsg' class='d-none'>
+                            <div>尚未登入</div>
+                            <div class='text-warning cursor-pointer'><u>點我登入</u></div>
+                        </div>
+                        <div id='favorAddSucMsg' class='d-none'>已收藏</div>
+                        <div id='favorDelSucMsg' class='d-none'>已取消收藏</div>
+                    </div>
+
+                </div>
+                <div class="pe-xl-5 py-3 introduction">
+                    @Html.DisplayFor(model => model.Item1.fCampsiteIntroduction)
                 </div>
             </div>
-            <a href="#tent_wrapper" class="btn btn-secondary w-100" id="gotoTent">查看方案</a>
-        </div>
-        <div class="calendar">
-            <div class="year">
-                <span id="pre_year">＜</span>
-                <span id="t_year">2022</span>
-                <span id="next_year">＞</span>
-            </div>
-            <div class="month">
-                <select name="" id="month">
-                    <option value="0">1</option>
-                    <option value="1">2</option>
-                    <option value="2">3</option>
-                    <option value="3">4</option>
-                    <option value="4">5</option>
-                    <option value="5">6</option>
-                    <option value="6">7</option>
-                    <option value="7">8</option>
-                    <option value="8">9</option>
-                    <option value="9">10</option>
-                    <option value="10">11</option>
-                    <option value="11">12</option>
-                </select>
-                <span>月</span>
-            </div>
-            <div class="day">
-                <ul>
-                    <li>日</li>
-                    <li>一</li>
-                    <li>二</li>
-                    <li>三</li>
-                    <li>四</li>
-                    <li>五</li>
-                    <li>六</li>
-                </ul>
-            </div>
-            <div class="date"></div>
-        </div>
-    </div>
-    <!-- tent -->
-    <div class='d-md-flex flex-wrap mb-3'>
-        <div class='d-flex justify-content-center col-12 col-md-8'>
-            <div class="w-95" id="tent_wrapper">
-            </div>
-        </div>
-        <div class='mt-2 col-12 my-md-0 col-md-4 d-flex justify-content-center'>
-            <div class='w-95' id="order_result">
-            </div>
-        </div>
-    </div>
-    <!-- 須知 -->
-    <div class="p-3 lh-lg mb-3 border-top border-bottom bg-light">
-        <div class="d-flex align-items-center mb-50px">
-            <div class="d-flex align-items-center notion">
-                <i class="fas fa-check"></i>
-                <p>入營時間：</p>
-            </div>
-            <div class="CheckInBar">
-                <div class="CheckInTime">
-                    <div class="CheckInTimeText">@Html.DisplayFor(model => model.Item1.fCampsiteCheckInTime)以後</div>
+            <div class="col-xl-3 ps-xl-5 mt-xl-0">
+                <div class="d-flex flex-wrap tags-container">
+                    @{ if (Model.Item3.Count <= 0)
+                                    {
+                        <div>尚無任何標籤</div> }
+                                    foreach (CTags item in Model.Item3)
+                                    {<div>@item.fTagName</div>} }
                 </div>
             </div>
         </div>
-        <div class="d-flex align-items-center mb-50px">
-            <div class="d-flex align-items-center notion">
-                <i class="fas fa-times"></i>
-                <p>退營時間：</p>
+        <div class="fs-3 letter-spacing-1 mt-4">空房情況</div>
+        <!-- 月曆 -->
+        <div class="mb-3">
+            <div class="calendar-text p-3">
+                <div class="fs-5 letter-spacing-1">您預計什麼時候入住？</div>
+                <div class="d-flex align-items-center my-2">
+                    <div class="col-3">
+                        <div>
+                            入住日期<i class="fas fa-exclamation-circle ms-1 exclamation-start hide-exclamation"></i>
+                        </div>
+                        <input type="text" value="於月曆選擇" readonly="readonly" class="input_startDate">
+                    </div>
+                    <div class="ms-2 ms-lg-5 col-3">
+                        <div>
+                            離開日期<i class="fas fa-exclamation-circle ms-1 exclamation-end hide-exclamation"></i>
+                        </div>
+                        <input type="text" value="於月曆選擇" readonly="readonly" class="input_endDate">
+                    </div>
+                    <a href="#tent_wrapper" class="align-self-end ms-3" id="gotoTent">查看方案</a>
+                </div>
+
             </div>
-            <div class="CheckInBar">
-                <div class="CheckOutTime">
-                    <div class="CheckOutTimeText">@Html.DisplayFor(model => model.Item1.fCampsiteCheckOutTime)以前</div>
+            <div class="calendar">
+                <div class="year">
+                    <span id="pre_year">＜</span>
+                    <span id="t_year">2022</span>
+                    <span id="next_year">＞</span>
+                </div>
+                <div class="month">
+                    <select name="" id="month">
+                        <option value="0">1</option>
+                        <option value="1">2</option>
+                        <option value="2">3</option>
+                        <option value="3">4</option>
+                        <option value="4">5</option>
+                        <option value="5">6</option>
+                        <option value="6">7</option>
+                        <option value="7">8</option>
+                        <option value="8">9</option>
+                        <option value="9">10</option>
+                        <option value="10">11</option>
+                        <option value="11">12</option>
+                    </select>
+                    <span>月</span>
+                </div>
+                <div class="day">
+                    <ul>
+                        <li class="bg-third-color">日</li>
+                        <li>一</li>
+                        <li>二</li>
+                        <li>三</li>
+                        <li>四</li>
+                        <li>五</li>
+                        <li class="bg-third-color">六</li>
+                    </ul>
+                </div>
+                <div class="date"></div>
+            </div>
+        </div>
+        <!-- tent -->
+        <div class='d-md-flex flex-wrap mb-3'>
+            <div class='d-flex justify-content-center col-12 '>
+                <div id="tent_wrapper">
+                </div>
+            </div>
+            <div class='mt-2 col-12 my-md-0 d-flex justify-content-center'>
+                <div id="order_result">
                 </div>
             </div>
         </div>
-        <div class="d-flex align-items-center">
-            <div class="d-flex align-items-center notion">
-                <i class="fas fa-mountain"></i>
-                <p>海拔：</p>
+        <!-- 須知 -->
+        <p class="letter-spacing-1 fs-3 my-4">營區須知</p>
+        <div class="d-flex justify-content-center">
+            <div class="p-3 lh-lg mb-3 rounded-3 border-dashed bg-secondary-color notion-section">
+                <div class="d-flex align-items-center mb-50px">
+                    <div class="d-flex align-items-center notion">
+                        <i class="fas fa-check"></i>
+                        <p>入營時間：</p>
+                    </div>
+                    <div class="CheckInBar">
+                        <div class="CheckInTime">
+                            <div class="CheckInTimeText">
+                                @Html.DisplayFor(model => model.Item1.fCampsiteCheckInTime).ToString().Substring(0, 2)
+                                :@Html.DisplayFor(model => model.Item1.fCampsiteCheckInTime).ToString().Substring(2, 2)以後
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mb-50px">
+                    <div class="d-flex align-items-center notion">
+                        <i class="fas fa-times"></i>
+                        <p>退營時間：</p>
+                    </div>
+                    <div class="CheckInBar">
+                        <div class="CheckOutTime">
+                            <div class="CheckOutTimeText">
+                                @Html.DisplayFor(model => model.Item1.fCampsiteCheckOutTime).ToString().Substring(0, 2)
+                                :@Html.DisplayFor(model => model.Item1.fCampsiteCheckOutTime).ToString().Substring(2, 2)以前
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center notion">
+                        <i class="fas fa-mountain"></i>
+                        <p>海拔：</p>
+                    </div>
+                    <span>@Html.DisplayFor(model => model.Item1.fCampsiteAltitude)</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center notion">
+                        <i class="far fa-calendar-times"></i>
+                        <p>公休日：</p>
+                    </div>
+                    <span id="closeDay"></span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center notion">
+                        <i class="fas fa-phone"></i>
+                        <p>聯絡營主：</p>
+                    </div>
+                    <span>@Html.DisplayFor(model => model.Item1.fCampsitePhone)</span>
+                </div>
             </div>
-            <span>@Html.DisplayFor(model => model.Item1.fCampsiteAltitude)</span>
         </div>
-        <div class="d-flex align-items-center">
-            <div class="d-flex align-items-center notion">
-                <i class="far fa-calendar-times"></i>
-                <p>公休日：</p>
-            </div>
-            <span>@Html.DisplayFor(model => model.Item1.fCampsiteClosedDay)</span>
-        </div>
-        <div class="d-flex align-items-center">
-            <div class="d-flex align-items-center notion">
-                <i class="far fa-calendar-times"></i>
-                <p>聯絡營主：</p>
-            </div>
-            <span>@Html.DisplayFor(model => model.Item1.fCampsitePhone)</span>
-        </div>
-    </div>
-    <!-- 評論 -->
-    <div>
-        <div class="d-md-flex flex-wrap review-wrapper">
-            <div class="col-md-4 col-lg-3 mb-3 review-container">
-                <div class="w-95">
-                    <div class="h-100 p-3 lh-lg fs-4 d-flex flex-column align-items-center justify-content-around">
+        <!-- 評論 -->
+        <p class="letter-spacing-1 fs-3 my-4"><span class="fw-bolder">@Html.DisplayFor(model => model.Item1.fCampsiteName)</span>的評論</p>
+        <div class="review-wrapper" id="Review">
+            <div class="mb-3  w-100 review-container d-flex justify-content-center">
+                <div class="review-result">
+                    <div class="h-100 p-3 lh-lg fs-4 d-flex flex-column align-items-center justify-content-around letter-spacing-1">
                         <p>總評價</p>
-                        <p>平均<span>@ViewBag.reviews_score</span>顆星</p>
-                        <p>總共<span>@Model.Item2.Count()</span>則評論</p>
+                        <p>平均<span class="fw-bolder">@ViewBag.reviews_score</span>顆星</p>
+                        <p>總共<span class="fw-bolder">@Model.Item2.Count()</span>則評論</p>
 
                         <div class="d-flex align-items-center star-container fs-4 py-2">
                             @{ for (int i = 0; i < Math.Round(ViewBag.reviews_score, 0); i++)
@@ -220,12 +239,12 @@
             <!-- 用戶評論 -->
             @foreach (var item in Model.Item2)
             {
-<div class="col-md-4 col-lg-3 mb-3 review-container">
-    <div class="w-95">
+<div class="mb-3 review-container  d-flex justify-content-center">
+    <div class="review">
         <div class="p-3 lh-lg">
-            <p>@Html.DisplayFor(model => item.tMember.fName)</p>
-            <p>@item.fCommentTime.ToString("yyyy/MM/dd")</p>
-            <div class="d-flex align-items-center star-container fs-5 py-2 border-bottom">
+            <p>旅客名稱：@Html.DisplayFor(model => item.tMember.fName)</p>
+            <p>評論時間：@item.fCommentTime.ToString("yyyy/MM/dd")</p>
+            <div class="d-flex align-items-center star-container fs-5 py-2 border-bt">
                 @{ int star_count = 0;
                     for (int i = 0; i < item.fCommentScore; i++)
                     {
@@ -234,10 +253,12 @@
 for (int j = star_count; j < 5; j++)
 {<i class="far fa-star"></i> } }
             </div>
-            <div class="review-content mt-4 mb-5">
+            <div class="review-content mt-4 mb-3">
                 <p>@Html.DisplayFor(model => item.fComment)</p>
             </div>
-            <div class="col-11 btn btn-outline-secondary">看更多</div>
+            <div class="d-flex justify-content-center">
+                <button class="w-75">看更多</button>
+            </div>
         </div>
     </div>
 </div>}
@@ -246,11 +267,23 @@ for (int j = star_count; j < 5; j++)
     </div>
 </div>
 <div id="fCampsiteID">@Html.DisplayFor(m => Model.Item1.fCampsiteID)</div>
-<div id="test"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="~/Scripts/CampSite.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+    //評論看更多
+    var reviewWrapper = document.querySelector(".review-wrapper");
+    reviewWrapper.addEventListener("click", e => {
+        if (e.target.textContent == "看更多") {
+            Swal.fire({
+                title: "", //標題
+                text: e.target.parentNode.previousElementSibling.firstElementChild.textContent, //訊息內容(可省略)
+            }
+            );
+        }
+    })
+
     //月曆建立
     let month = document.querySelector("#month");
     let t_year = document.querySelector("#t_year");
@@ -294,6 +327,13 @@ for (int j = star_count; j < 5; j++)
         let date = new Date(parseInt(t_year.innerHTML), parseInt(month.value) + 1, 0);
         return date.getDate();
     }
+    var SelectedIndexStart = 0;
+    var SelectedIndexEnd = 0;
+    var IsSelectStart = false;
+    var IsSelectEnd = false;
+    var input_startDate = document.querySelector(".input_startDate");
+    var input_endDate = document.querySelector(".input_endDate");
+    var DateIsAdded = false; //false才getAjax()
     //建立日
     function addDates() {
         let date_count = 0;
@@ -327,7 +367,7 @@ for (int j = star_count; j < 5; j++)
         }
         //選取範圍跨月
         if (
-            new Date(selectedStartDate).getMonth() < month.value ||
+            new Date(selectedStartDate).getMonth() <= month.value ||
             new Date(selectedStartDate).getFullYear() < t_year.textContent
         ) {
             if (IsSelectStart) {
@@ -351,46 +391,77 @@ for (int j = star_count; j < 5; j++)
             }
         } else {
             IsSelectStart = false;
+            IsSelectEnd = false;
+            input_startDate.value = "於月曆選擇";
+            input_endDate.value = "於月曆選擇";
         }
+        unavailablDate();
         GetAjax()
     }
     let id = $("#fCampsiteID").innerHTML;
     $(function () {
         addDates();
     })
-    month.addEventListener("change", addDates)
-    t_year.addEventListener("DOMNodeInserted", addDates)
-    //=====月曆建立結束
+    month.addEventListener("change", () => {
+        DateIsAdded = false;
+        addDates()
+    })
+    t_year.addEventListener("DOMNodeInserted", () => {
+        DateIsAdded = false;
+        addDates()
+    })
+
+    //不能點擊不超過今日的日期
+    function unavailablDate() {
+        let nowDate = document.querySelector(".date");
+        let date_array = [];
+        for (let i = 0; i < nowDate.children.length; i++) {
+            let ddd = getYYYYMMDD(
+                nowDate.children[i],
+                nowDate.children[i].firstElementChild.textContent
+            );
+            date_array.push(new Date(ddd).getTime());
+        }
+        for (var time in date_array) {
+            if (date_array[time] < now.getTime()) {
+                let index = date_array.indexOf(date_array[time]);
+                nowDate.children[index].classList.add("calendar-unavailable");
+            }
+        }
+    }
+
+   //=====月曆建立結束
     //選取日期範圍的funtion開始
-    var SelectedIndexStart = 0;
-    var SelectedIndexEnd = 0;
-    var IsSelectStart = false;
-    var IsSelectEnd = false;
     var selectedStartDate;
     var selectedEndDate;
-    var input_startDate = document.querySelector(".input_startDate");
-    var input_endDate = document.querySelector(".input_endDate");
     var input_date;
     let exclamation_start = document.querySelector(".exclamation-start");
     let exclamation_end = document.querySelector(".exclamation-end");
-    function getSelectedDateTime(e, index) {
+    function getYYYYMMDD(element, d) {
         let y =
-            month.value == 0 && e.target.classList.contains("preMonth")
+            month.value == 0 && element.classList.contains("preMonth")
                 ? parseInt(t_year.textContent) - 1
-                : month.value == 11 && e.target.classList.contains("nextMonth")
+                : month.value == 11 && element.classList.contains("nextMonth")
                     ? parseInt(t_year.textContent) + 1
                     : t_year.textContent;
-        let m = e.target.classList.contains("thisMonth")
+        let m = element.classList.contains("thisMonth")
             ? parseInt(month.value) + 1
-            : e.target.classList.contains("preMonth") && month.value == 0
+            : element.classList.contains("preMonth") && month.value == 0
                 ? 12
-                : e.target.classList.contains("preMonth")
+                : element.classList.contains("preMonth")
                     ? parseInt(month.value)
-                    : e.target.classList.contains("nextMonth") && month.value == 11
+                    : element.classList.contains("nextMonth") && month.value == 11
                         ? 1
                         : parseInt(month.value) + 2;
-        let d = parseInt(date.children[index].firstElementChild.textContent);
         let dd = `${y}/${m}/${d}`;
+        return dd;
+    }
+
+    function getSelectedDateTime(element, index) {
+        let dd = getYYYYMMDD(
+            element,
+            parseInt(date.children[index].firstElementChild.textContent)
+        );
         input_date = dd;
         dd = new Date(dd).getTime();
         return dd;
@@ -411,7 +482,7 @@ for (int j = star_count; j < 5; j++)
             });
         }
         date.children[SelectedIndexStart].classList.add("dateIsSelected");
-        selectedStartDate = getSelectedDateTime(e, SelectedIndexStart);
+        selectedStartDate = getSelectedDateTime(e.target, SelectedIndexStart);
         input_startDate.value = input_date;
         IsSelectStart = true;
     }
@@ -430,7 +501,7 @@ for (int j = star_count; j < 5; j++)
                 if (date.children[i].classList.contains("dateMouse"))
                     date.children[i].classList.remove("dateMouse");
             }
-            input_endDate.value = "請選擇";
+            input_endDate.value = "於月曆選擇";
 
         }
         if (!IsSelectStart) {
@@ -438,7 +509,7 @@ for (int j = star_count; j < 5; j++)
             input_startDate.value = input_date;
         } else if (!IsSelectEnd) {
             SelectedIndexEnd = Array.prototype.indexOf.call(date.children, e.target);
-            selectedEndDate = getSelectedDateTime(e, SelectedIndexEnd);
+            selectedEndDate = getSelectedDateTime(e.target, SelectedIndexEnd);
             input_endDate.value = input_date;
             if (parseInt(selectedStartDate) < parseInt(selectedEndDate)) {
                 date.children[SelectedIndexEnd].classList.add("dateIsSelected");
@@ -453,13 +524,13 @@ for (int j = star_count; j < 5; j++)
             } else if (parseInt(selectedStartDate) === parseInt(selectedEndDate)) {
                 IsSelectStart = true;
                 selectStart(e);
-                input_endDate.value = "請選擇";
+                input_endDate.value = "於月曆選擇";
             } else {
                 IsSelectStart = false;
                 date.children[SelectedIndexStart].classList.remove("dateIsSelected");
                 selectedStartDate = selectedEndDate;
                 selectStart(e);
-                input_endDate.value = "請選擇";
+                input_endDate.value = "於月曆選擇";
             }
         }
         //如果已經選擇消除驚嘆號
@@ -490,9 +561,7 @@ for (int j = star_count; j < 5; j++)
         }
     });
 
-   //讀取方案的Ajax方法
-    var orderArray = [];
-
+       //讀取方案的Ajax方法
     function GetAjax() {
         //取得月曆是幾年幾月，當月有幾天
         var nowMonth = parseInt(month.value) + 1;
@@ -520,138 +589,197 @@ for (int j = star_count; j < 5; j++)
                 "CheckoutDate": CheckoutDate,
             },
             success: function (data) {
-                console.log(data)
-                var thisMonthText = document.querySelectorAll(".thisMonthText");
-                var nextMonth = document.querySelectorAll(".nextMonth");
-                var nextMonthText = document.querySelectorAll(".nextMonthText");
-                var preMonth = document.querySelectorAll(".preMonth");
-                var preMonthText = document.querySelectorAll(".preMonthText");
-                var totalQuantity = 0;
-                //讀取月曆上總數量
-                //#region
-                //方案總數
-                totalQuantity = data.tents.length
-                //1.本月總數量======
-                //月曆上本月總數量先填上
-                for (let i = 0; i < thisMonthText.length; i++) {
-                    thisMonthText[i].textContent = totalQuantity;
-                }
-                //如果有讀取到被訂走的資料更新總數量
-                if (data.ThisM_TentsBooked.length > 0) {
-                    for (var item in data.ThisM_TentsBooked) {
-                        thisMonthText[data.ThisM_TentsBooked[item].fCheckinDate - 1].textContent
-                            = totalQuantity - parseInt(data.ThisM_TentsBooked[item].BookedCount);
+                if (!DateIsAdded) {
+                    var thisMonthText = document.querySelectorAll(".thisMonthText");
+                    var nextMonth = document.querySelectorAll(".nextMonth");
+                    var nextMonthText = document.querySelectorAll(".nextMonthText");
+                    var preMonth = document.querySelectorAll(".preMonth");
+                    var preMonthText = document.querySelectorAll(".preMonthText");
+                    var totalQuantity = 0;
+                    //讀取月曆上總數量
+                    //#region
+                    //方案總數
+                    totalQuantity = data.tents.length
+                    //1.本月總數量======
+                    //月曆上本月總數量先填上
+                    for (let i = 0; i < thisMonthText.length; i++) {
+                        thisMonthText[i].textContent = totalQuantity;
                     }
-                }
-                //2.上月總數量======
-                //如果有讀取到被訂走的資料，先填上
-                if (data.PreM_TentsBooked.length > 0) {
-                    for (var item in data.PreM_TentsBooked) {
-                        for (let i = 0; i < preMonth.length; i++) {
-                            if (data.PreM_TentsBooked[item].fCheckinDate == parseInt(preMonth[i].textContent))
-                                preMonthText[i].textContent = totalQuantity - parseInt(data.PreM_TentsBooked[item].BookedCount)
+                    //如果有讀取到被訂走的資料更新總數量
+                    if (data.ThisM_TentsBooked.length > 0) {
+                        for (var item in data.ThisM_TentsBooked) {
+                            thisMonthText[data.ThisM_TentsBooked[item].fCheckinDate - 1].textContent -= parseInt(data.ThisM_TentsBooked[item].BookedCount);
+                            if (thisMonthText[data.ThisM_TentsBooked[item].fCheckinDate - 1].textContent <= 0) {
+                                thisMonthText[data.ThisM_TentsBooked[item].fCheckinDate - 1].textContent = "滿";
+                                thisMonthText[data.ThisM_TentsBooked[item].fCheckinDate - 1].classList.add("fw-bolder");
+                                thisMonthText[data.ThisM_TentsBooked[item].fCheckinDate - 1].classList.add("text-danger");
+                            }
                         }
                     }
-                }
-                //沒有訂單的那天填上總數量
-                for (let i = 0; i < preMonthText.length; i++) {
-                    if (preMonthText[i].textContent == "")
-                    preMonthText[i].textContent = totalQuantity;
-                }
-                //3.下月總數量======
-                //如果有讀取到被訂走的資料，先填上
-                for (var item in data.NextM_TentsBooked) {
-                    for (let i = 0; i < nextMonth.length; i++) {
-                        if (data.NextM_TentsBooked[item].fCheckinDate == parseInt(nextMonth[i].textContent))
-                            nextMonthText[i].textContent = totalQuantity - parseInt(data.NextM_TentsBooked[item].BookedCount);
+                    //2.上月總數量======
+                    //如果有讀取到被訂走的資料，先填上
+                    if (data.PreM_TentsBooked.length > 0) {
+                        for (var item in data.PreM_TentsBooked) {
+                            for (let i = 0; i < preMonth.length; i++) {
+                                if (data.PreM_TentsBooked[item].fCheckinDate == parseInt(preMonth[i].textContent))
+                                    preMonthText[i].textContent -= parseInt(data.PreM_TentsBooked[item].BookedCount)
+                            }
+                        }
                     }
+                    for (let i = 0; i < preMonthText.length; i++) {
+                        if (preMonthText[i].textContent == "")
+                            preMonthText[i].textContent = totalQuantity;
+                        else
+                            preMonthText[i].textContent = parseInt(preMonthText[i].textContent) + totalQuantity;
+                        if (parseInt(preMonthText[i].textContent) <= 0 && data.PreM_TentsBooked.length > 0) {
+                            preMonthText[i].textContent = "滿"
+                            preMonthText[i].classList.add("fw-bolder");
+                            preMonthText[i].classList.add("text-danger");
+                        }
+                    }
+                    //3.下月總數量======
+                    //如果有讀取到被訂走的資料，先填上
+                    if (data.NextM_TentsBooked.length > 0) {
+                        for (var item in data.NextM_TentsBooked) {
+                            for (let i = 0; i < nextMonth.length; i++) {
+                                if (data.NextM_TentsBooked[item].fCheckinDate == parseInt(nextMonth[i].textContent))
+                                    nextMonthText[i].textContent -= parseInt(data.NextM_TentsBooked[item].BookedCount)
+                            }
+                        }
+                    }
+                    for (let i = 0; i < nextMonthText.length; i++) {
+                        if (nextMonthText[i].textContent == "")
+                            nextMonthText[i].textContent = totalQuantity;
+                        else
+                            nextMonthText[i].textContent = parseInt(nextMonthText[i].textContent) + totalQuantity;
+                        if (parseInt(nextMonthText[i].textContent) <= 0 && data.NextM_TentsBooked.length>0) {
+                            nextMonthText[i].textContent = "滿"
+                            nextMonthText[i].classList.add("fw-bolder");
+                            nextMonthText[i].classList.add("text-danger");
+                        }
+                    }
+                    let ddd = document.querySelector(".date");
+                    let closeText = document.querySelector("#closeDay")
+
+                    //處理公休日
+                    closedayArr = [];
+                    for (let i = 0; i < data.tents[0].fCampsiteClosedDay.length; i++) {
+                        if (data.tents[0].fCampsiteClosedDay[i] == "7")
+                            closedayArr.push("0")
+                        else
+                            closedayArr.push(data.tents[0].fCampsiteClosedDay.slice(i, i + 1))
+                    }
+                    if (closedayArr.length > 0) {
+                        closeText.textContent = "星期";
+                        closedayArr.forEach(i => {
+                            let k = i;
+                            while (k < ddd.children.length) {//在月曆上添加公休日
+                                ddd.children[k].lastChild.innerHTML = "<i class='far fa-times-circle'></i>";
+                                k = parseInt(k) + 7
+                            }
+                            switch (i) {
+                                case "0": closeText.textContent += "日、"; break;
+                                case "1": closeText.textContent += "一、"; break;
+                                case "2": closeText.textContent += "二、"; break;
+                                case "3": closeText.textContent += "三、"; break;
+                                case "4": closeText.textContent += "四、"; break;
+                                case "5": closeText.textContent += "五、"; break;
+                                case "6": closeText.textContent += "六、"; break;
+                                case "無": closeText.textContent = "無公休日"; break;
+                                case "公": closeText.textContent = "無公休日"; break;
+                                case "休": closeText.textContent = "無公休日"; break;
+                                case "日": closeText.textContent = "無公休日"; break;
+                            }
+                        })
+                        if (closeText.textContent[0] == "星")
+                            closeText.textContent = closeText.textContent.slice(0, closeText.textContent.length - 1);
+                    }
+                    DateIsAdded = true
+                    //#endregion
                 }
-                //沒有訂單的那天填上總數量
-                for (let i = 0; i < nextMonthText.length; i++) {
-                    if (nextMonthText[i].textContent == "")
-                        nextMonthText[i].textContent = totalQuantity;
-                }
-                //#endregion
+
                 //選擇入住日離開日後的讀取方案
                 //#region
-                //1.列出有不重複方案名稱
-                var tentname = data.tents.map(function (item) {
-                    return item.fTentName
-                })
-                var norepeat_tentname = tentname.filter(function (item, index, array) {
-                    return array.indexOf(item) === index
-                })
-                //2.歸類重複方案名稱，抓出各方案的總數量
-                var tentsGroupByName = [];
-                for (var j in norepeat_tentname) {
-                    let array = [];
-                    for (var i in data.tents) {
-                        if (data.tents[i].fTentName == norepeat_tentname[j]) {
-                            array.push(data.tents[i])
+                if (CheckinDate != undefined && CheckoutDate != undefined) {
+                    //1.列出有不重複方案名稱
+                    var tentname = data.tents.map(function (item) {
+                        return item.fTentName
+                    })
+                    var norepeat_tentname = tentname.filter(function (item, index, array) {
+                        return array.indexOf(item) === index
+                    })
+                    //2.歸類重複方案名稱，抓出各方案的總數量
+                    var tentsGroupByName = [];
+                    for (var j in norepeat_tentname) {
+                        let array = [];
+                        for (var i in data.tents) {
+                            if (data.tents[i].fTentName == norepeat_tentname[j]) {
+                                array.push(data.tents[i])
+                            }
                         }
+                        tentsGroupByName.push(array);
                     }
-                    tentsGroupByName.push(array);
-                }
-                console.log(tentsGroupByName);
+                    console.log(tentsGroupByName);
 
-                //3.選擇哪幾天?
-                //取得兩日期之間的所有日期方法
-                var selectedDateArr = [];
-                function getDateTime(datestr) {
-                    var temp = datestr.split("/");
-                    var date = new Date(temp[0], parseInt(temp[1]) - 1, temp[2]);
-                    return date;
-                }
-                var startTime = getDateTime(CheckinDate);
-                var endTime = getDateTime(CheckoutDate);
-                while ((endTime.getTime() - startTime.getTime()) >= 0) {
-                    var year = startTime.getFullYear();
-                    var month = parseInt(startTime.getMonth()) + 1;
-                    var day = startTime.getDate();
-                    selectedDateArr.push(year + "/" + month + "/" + day);
-                    startTime.setDate(startTime.getDate() + 1);
-                }
-                /*console.log(selectedDateArr)*/
+                    //3.選擇哪幾天?
+                    //取得兩日期之間的所有日期方法
+                    var selectedDateArr = [];
+                    function getDateTime(datestr) {
+                        var temp = datestr.split("/");
+                        var date = new Date(temp[0], parseInt(temp[1]) - 1, temp[2]);
+                        return date;
+                    }
+                    var startTime = getDateTime(CheckinDate);
+                    var endTime = getDateTime(CheckoutDate);
+                    while ((endTime.getTime() - startTime.getTime()) >= 0) {
+                        var year = startTime.getFullYear();
+                        var month = parseInt(startTime.getMonth()) + 1;
+                        var day = startTime.getDate();
+                        selectedDateArr.push(year + "/" + month + "/" + day);
+                        startTime.setDate(startTime.getDate() + 1);
+                    }
+                    /*console.log(selectedDateArr)*/
 
-                //4.依照選擇日期、方案名稱，列出每天可訂的tentId
-                var tentsGroupByName_remain = [];
-                for (var date in selectedDateArr) {
-                    var arrayA = [];
-                    arrayA.push(selectedDateArr[date])
-                    for (var name in tentsGroupByName) {
-                        let arrayB = [];
-                        arrayB.push(tentsGroupByName[name][0].fTentName);
-                        arrayB.push(tentsGroupByName[name][0].fTentCategory);
-                        arrayB.push(tentsGroupByName[name][0].fTentPeople);
-                        if (new Date(selectedDateArr[date]).getDay() === 0 || new Date(selectedDateArr[date]).getDay() === 6)//假日價格
-                            arrayB.push(tentsGroupByName[name][0].fTentPriceWeekend);
-                        else//平日價格
-                            arrayB.push(tentsGroupByName[name][0].fTentPriceWeekday);
-                        let arrayC = [];
-                        for (var id in tentsGroupByName[name]) {
-                            arrayC.push(tentsGroupByName[name][id].fTentId);
+                    //4.依照選擇日期、方案名稱，列出每天可訂的tentId
+                    var tentsGroupByName_remain = [];
+                    for (var date in selectedDateArr) {
+                        var arrayA = [];
+                        arrayA.push(selectedDateArr[date])
+                        for (var name in tentsGroupByName) {
+                            let arrayB = [];
+                            arrayB.push(tentsGroupByName[name][0].fTentName);
+                            arrayB.push(tentsGroupByName[name][0].fTentCategory);
+                            arrayB.push(tentsGroupByName[name][0].fTentPeople);
+                            if (new Date(selectedDateArr[date]).getDay() === 0 || new Date(selectedDateArr[date]).getDay() === 6)//假日價格
+                                arrayB.push(tentsGroupByName[name][0].fTentPriceWeekend);
+                            else//平日價格
+                                arrayB.push(tentsGroupByName[name][0].fTentPriceWeekday);
+                            let arrayC = [];
+                            for (var id in tentsGroupByName[name]) {
+                                arrayC.push(tentsGroupByName[name][id].fTentId);
+                            }
+                            arrayB.push(arrayC);
+                            arrayA.push(arrayB);
                         }
-                        arrayB.push(arrayC);
-                        arrayA.push(arrayB);
+                        tentsGroupByName_remain.push(arrayA)
                     }
-                    tentsGroupByName_remain.push(arrayA)
-                }
-/*                console.log(tentsGroupByName_remain)*/
-                //5.找出選擇之日期被訂走的，並從上步驟得來的陣列中刪除
-                for (var booked in data.tentsbooked) {
-                    for (var date in tentsGroupByName_remain) {
-                        if (new Date(tentsGroupByName_remain[date][0]).getTime() === new Date(data.tentsbooked[booked].fCheckinDate_dt).getTime()) {
-/*                            console.log("日期相等")*/
-                            for (var name in tentsGroupByName_remain[date]) {
-/*                                console.log(tentsGroupByName_remain[date][name][0])*/
-                                if (tentsGroupByName_remain[date][name][0] === data.tentsbooked[booked].fTentName) {
-/*                                    console.log("名字相等")*/
-                                    for (var id in tentsGroupByName_remain[date][name][4]) {
-                                        if (tentsGroupByName_remain[date][name][4][id] === data.tentsbooked[booked].fTentId) {
-                                            {
-                                                let del_index = tentsGroupByName_remain[date][name][4].indexOf(data.tentsbooked[booked].fTentId);
-                                                tentsGroupByName_remain[date][name][4].splice(del_index,1)
-/*                                                console.log("id相等")*/
+                    /*                console.log(tentsGroupByName_remain)*/
+                    //5.找出選擇之日期被訂走的，並從上步驟得來的陣列中刪除
+                    for (var booked in data.tentsbooked) {
+                        for (var date in tentsGroupByName_remain) {
+                            if (new Date(tentsGroupByName_remain[date][0]).getTime() === new Date(data.tentsbooked[booked].fCheckinDate_dt).getTime()) {
+                                /*                            console.log("日期相等")*/
+                                for (var name in tentsGroupByName_remain[date]) {
+                                    /*                                console.log(tentsGroupByName_remain[date][name][0])*/
+                                    if (tentsGroupByName_remain[date][name][0] === data.tentsbooked[booked].fTentName) {
+                                        /*                                    console.log("名字相等")*/
+                                        for (var id in tentsGroupByName_remain[date][name][4]) {
+                                            if (tentsGroupByName_remain[date][name][4][id] === data.tentsbooked[booked].fTentId) {
+                                                {
+                                                    let del_index = tentsGroupByName_remain[date][name][4].indexOf(data.tentsbooked[booked].fTentId);
+                                                    tentsGroupByName_remain[date][name][4].splice(del_index, 1)
+                                                    /*                                                console.log("id相等")*/
+                                                }
                                             }
                                         }
                                     }
@@ -659,144 +787,232 @@ for (int j = star_count; j < 5; j++)
                             }
                         }
                     }
-                }
-                console.log(tentsGroupByName_remain)
-                //6.取得這段選擇期間各方案最大可取得數量以及其他資訊
-                let min_quantity=0;
-                var length = 0;
-                var tent_wrapper = document.querySelector("#tent_wrapper");
-                var order_result = document.querySelector("#order_result");
-                tent_wrapper.innerHTML = "";
-                order_result.innerHTML = "";
-                for (let j = 1; j < tentsGroupByName_remain[length].length; j++) {
-                    min_quantity = tentsGroupByName_remain[length][j][4].length;
-                    while (length < tentsGroupByName_remain.length) {
-                        if (min_quantity > tentsGroupByName_remain[length][j][4].length)
-                            min_quantity = tentsGroupByName_remain[length][j][4].length;
-                        length++;
+                    console.log(tentsGroupByName_remain)
+                    //5.5處理公休日
+                    for (var item in tentsGroupByName_remain) {
+                        let day = new Date(tentsGroupByName_remain[item][0]).getDay();
+                        closedayArr.forEach(d => {
+                            if (day == d) {
+                                for (let i = 1; i < tentsGroupByName_remain[item].length; i++) {
+                                    tentsGroupByName_remain[item][i][4] = [];
+                                }
+                            }
+                        })
+                        console.log(tentsGroupByName_remain)
                     }
-                    length = 0;
 
-                    let people_icon = "";
-                    let tent_number = "";
-                    for (let i = 0; i < tentsGroupByName_remain[length][j][2]; i++) {
-                        people_icon += "<i class='fas fa-male pe-1'></i>";
-                    }
-                    for (let i = 0; i <= min_quantity; i++)
-                        tent_number += `<option value='${i}'>${i}</option>`
-                    tent_wrapper.innerHTML +=
-                        "<div class='tent-container p-3'>" +
-                        `<h5 class='py-2 border-bottom'>${tentsGroupByName_remain[length][j][0]}</h5>` +
-                        `<p class='py-2 border-bottom'>${tentsGroupByName_remain[length][j][1]}</p>` +
-                        "<div class='py-2 border-bottom'>" + people_icon +
-                        `<span class='ms-2'>適合人數：${tentsGroupByName_remain[length][j][2]}人</span>` +
-                        "</div>" +
-                        "<div class='py-2 border-bottom'>" +
-                    "<span>TWD </span>" +
-                    `<span id='tent_select_cost'>${tentsGroupByName_remain[length][j][3] * selectedDateArr.length}</span>` +
-                        "</div>" +
-                        "<div class='pb-2'>" +
-                        "<select name='' id='tent_select_count' class='col-12'>" + tent_number + "</select>" +
-                        "</div>" +
-                        "<a href='' class='col-12 btn btn-outline-secondary'>查看照片</a>" +
-                        "</div>";
-                }
-                order_result.innerHTML +=
-                    "<div class='tent-container p-3 h-100'>" +
-                    "<div class='tent-unselected' id='tent_result'>" +
-                    "<p id='tent_result_text'></p>" +
-                    "<span id='tent_result_cost'></span>" +
-                    "</div>" +
-                    "<button class='col-12 btn btn-outline-success' id='orderBtn'>現在就預定</button>" +
-                    "<ul>" +
-                    "<li>只需泡一杯咖啡的時間</li>" +
-                    "<li>立即確認</li>" +
-                    "<li>不收取訂位手續費</li>" +
-                    "</ul>" +
-                    "</div>";
-                //#endregion
-                //印出訂單結果的js
-                var tent_result = document.querySelector("#tent_result");
-                var tent_result_cost = document.querySelector("#tent_result_cost");
-                var orderBtn = document.querySelector("#orderBtn");
-                var tent_result_text = document.querySelector("#tent_result_text");
-                var tent_select_count = document.querySelectorAll("#tent_select_count");
-                tent_wrapper.addEventListener("change", () => {
-                    let total_count = 0;
-                    let total_cost = 0;
-                    for (var count in tent_select_count) {
-                        if (tent_select_count[count].value > 0) {
-                            total_count += parseInt(tent_select_count[count].value);
-                            total_cost +=
-                                tent_select_count[count].value *
-                                tent_select_count[count].parentNode.previousElementSibling.lastChild.textContent;
+                    //6.取得這段選擇期間各方案最大可取得數量以及其他資訊
+                    let min_quantity = 0;
+                    var length = 0;
+                    var tent_wrapper = document.querySelector("#tent_wrapper");
+                    var order_result = document.querySelector("#order_result");
+                    tent_wrapper.innerHTML = "";
+                    order_result.innerHTML = "";
+                    for (let j = 1; j < tentsGroupByName_remain[length].length; j++) {
+                        min_quantity = tentsGroupByName_remain[length][j][4].length;
+                        while (length < tentsGroupByName_remain.length) {
+                            if (min_quantity > tentsGroupByName_remain[length][j][4].length)
+                                min_quantity = tentsGroupByName_remain[length][j][4].length;
+                            length++;
                         }
+                        length = 0;
+
+                        let people_icon = "";
+                        let tent_number = "";
+                        for (let i = 0; i < tentsGroupByName_remain[length][j][2]; i++) {
+                            people_icon += "<i class='fas fa-male pe-1'></i>";
+                        }
+                        for (let i = 0; i <= min_quantity; i++)
+                            tent_number += `<option value='${i}'>${i}</option>`
+                        tent_wrapper.innerHTML +=
+                            "<div class='tent-container p-3'>" +
+                            `<h5 class='py-2 border-bt letter-spacing-1 fw-bolder'>${tentsGroupByName_remain[length][j][0]}</h5>` +
+                            `<p class='py-2 border-bt'>${tentsGroupByName_remain[length][j][1]}</p>` +
+                            "<div class='py-2 border-bt'>" + people_icon +
+                            `<span class='ms-2'>適合人數：<span class='fw-bolder'>${tentsGroupByName_remain[length][j][2]}</span>人</span>` +
+                            "</div>" +
+                            "<div class='py-2'>" +
+                        "<span class='c-red'> TWD </span > " +
+                        `<span id='tent_select_cost' class='fw-bolder c-red'>${tentsGroupByName_remain[length][j][3] * selectedDateArr.length}</span>` +
+                            "</div>" +
+                            "<div class='pb-2'>" +
+                            "<select name='' id='tent_select_count' class='col-12'>" + tent_number + "</select>" +
+                            "</div>" +
+                            "<a href='' class='col-6'>查看照片</a>" +
+                            "<a href='#Reserve' class='col-6' id='selfOrderBtn'>馬上預定<i class='ms-1 fas fa-level-down-alt'></i></a>" +
+                            "</div>";
                     }
-                    tent_result_text.textContent = `${total_count}間帳篷的價格`;
-                    tent_result_cost.textContent = `TWD ${total_cost}`;
-                    if (total_count == 0) {
-                        tent_result.classList.remove("tent-selected");
-                        tent_result.classList.add("tent-unselected");
-                        orderBtn.textContent = "現在就預定";
-                    } else {
-                        tent_result.classList.remove("tent-unselected");
-                        tent_result.classList.add("tent-selected");
-                        orderBtn.textContent = "馬上預定";
-                    }
-                });
-                //下單按鈕
-                orderBtn.addEventListener("click", () => {
-                    while (length < tentsGroupByName_remain.length) {
+                    order_result.innerHTML +=
+                        "<div class='tent-container-order h-100' id='Reserve'>" +
+                        "<div class='d-none' id='tent_result'>" +
+                        "<p id='tent_result_text' class='letter-spacing-1'></p>" +
+                        "<span id='tent_result_cost' class='c-red fs-5'></span>" +
+                        "</div>" +
+                        "<button class='col-12 border-0 my-2' id='orderBtn'>現在就預定</button>" +
+                        "<ul>" +
+                        "<li>。只需泡一杯咖啡的時間</li>" +
+                        "<li>。立即確認</li>" +
+                        "<li>。不收取訂位手續費</li>" +
+                        "</ul>" +
+                        "</div>";
+
+                    //印出訂單結果的js
+                    var tent_result = document.querySelector("#tent_result");
+                    var tent_result_cost = document.querySelector("#tent_result_cost");
+                    var orderBtn = document.querySelector("#orderBtn");
+                    var tent_result_text = document.querySelector("#tent_result_text");
+                    var tent_select_count = document.querySelectorAll("#tent_select_count");
+                    tent_wrapper.addEventListener("change", () => {
+                        let total_count = 0;
+                        let total_cost = 0;
                         for (var count in tent_select_count) {
                             if (tent_select_count[count].value > 0) {
-                                for (let j = 1; j < tentsGroupByName_remain[length].length; j++) {
-                                    if (tentsGroupByName_remain[length][j][0] == tent_select_count[count].parentNode.parentNode.firstChild.textContent) {
-                                        let idArray = tentsGroupByName_remain[length][j][4].slice(0, parseInt(tent_select_count[count].value))
-                                        for (var id in idArray) {
-                                            let object = {};
-                                            object.tentID = idArray[id]
-/*                                            object.checkinDate = new Date(tentsGroupByName_remain[length][0]);*/
-                                            object.checkinDate = tentsGroupByName_remain[length][0]
-                                            object.price = tentsGroupByName_remain[length][j][3]
-                                            orderArray.push(object);
+                                total_count += parseInt(tent_select_count[count].value);
+                                total_cost +=
+                                    tent_select_count[count].value *
+                                    tent_select_count[count].parentNode.previousElementSibling.lastChild.textContent;
+                            }
+                        }
+                        tent_result_text.textContent = `${total_count}間帳篷的價格`;
+                        tent_result_cost.innerHTML = `TWD <span class='fw-bolder'>${total_cost.toLocaleString()}</span>`;
+                        if (total_count == 0) {
+                            tent_result.classList.add("d-none");
+                            orderBtn.textContent = "現在就預定";
+                        } else {
+                            tent_result.classList.remove("d-none");
+                            orderBtn.textContent = "馬上預定";
+                        }
+                    });
+
+                    tent_wrapper.addEventListener("click", function (e) {
+                        //跳轉到下面的「馬上預定」按鈕
+                        if (e.target.id == "selfOrderBtn") {//點選馬上預定跳轉到下面的結果前先檢查是否選擇數量了
+                            if (e.target.previousSibling.previousSibling.firstChild.value == 0) {
+                                e.preventDefault();
+                                Swal.fire({
+                                    title: "移動失敗",
+                                    text: "請先選擇預定的數量",
+                                    icon: "error"
+                                })
+                            }
+                        }
+                        //打開查看照片
+                    })
+                    //下單按鈕
+                var orderArray = [];
+                orderBtn.addEventListener("click", () => {
+                    if (!tent_result.classList.contains("d-none")) {
+                        orderArray = [];
+                        while (length < tentsGroupByName_remain.length) {
+                            for (var count in tent_select_count) {
+                                if (tent_select_count[count].value > 0) {
+                                    for (let j = 1; j < tentsGroupByName_remain[length].length; j++) {
+                                        if (tentsGroupByName_remain[length][j][0] == tent_select_count[count].parentNode.parentNode.firstChild.textContent) {
+                                            let idArray = tentsGroupByName_remain[length][j][4].slice(0, parseInt(tent_select_count[count].value))
+                                            for (var id in idArray) {
+                                                let object = {};
+                                                object.tentID = idArray[id]
+                                                object.checkinDate = tentsGroupByName_remain[length][0]
+                                                object.price = tentsGroupByName_remain[length][j][3]
+                                                orderArray.push(object);
+                                            }
                                         }
                                     }
                                 }
                             }
+                            length++;
                         }
-                        length++;
+                        length = 0;
+                        console.log(orderArray)
+                        console.log(JSON.stringify(orderArray))
+                        $.ajax({
+                            type: "get",
+                            async: false,
+                            dataType: 'html',
+                            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                            url: '@Url.Action("GenerateOrder", "CampOrder")',
+                            data: {
+                                "orderJson": JSON.stringify(orderArray),
+                            },
+                            success: function () {
+                                window.location.href = this.url;
+                            }
+                        })
                     }
-                    length = 0;
-                    console.log(orderArray)
-                    console.log(JSON.stringify(orderArray))
-                    $.ajax({
-                        type: "get",
-                        async: false,
-                        dataType:'html',
-                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-/*                        contentType: "application/json; charset=utf-8",*/
-                        url: '@Url.Action("GenerateOrder", "CampOrder")',
-                        data: {
-                            "orderJson": JSON.stringify(orderArray),
-                        },
-                        success: function (data) {
-                            window.location.href = this.url;
-                        },
-                        error: function () {
-                            alert("失敗");
-                        }
-                    })
+                    else {
+                        Swal.fire({
+                            title: "預定失敗",
+                            text: "請先選擇預定的數量",
+                            icon:"error"
+                        })
+                    }
                 })
-            },
-            error: function () {
-                alert("Found error when using Ajax!!");
+                    //#endregion
+                }
+
+                //收藏功能
+                console.log(data.isFavored)
+                var FavorIcon = document.querySelector("#FavorIcon")
+                if ("@User.Identity.Name" != "") {//先讀取是否有登入是否有收藏
+                    if (data.isFavored == false)
+                        FavorIcon.innerHTML = "<i class='fs-5 pe-2 favorite-icon fas fa-heart'></i>"
+                    else
+                        FavorIcon.innerHTML = "<i class='fs-5 pe-2 favorite-icon fas fa-heart c-red'></i>"
+                }
+                else
+                    FavorIcon.innerHTML = "<i class='fs-5 pe-2 favorite-icon fas fa-heart'></i>"
+                var forFavorEvent = document.querySelector("#forFavorEvent");
+                forFavorEvent.addEventListener("click", (e) => {
+                    if (e.target.classList.contains("favorite-icon")) {
+                        if ("@User.Identity.Name" != "") {
+                            let campid = document.querySelector("#fCampsiteID");
+                                $.ajax({
+                                    type: "post",
+                                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                                    dataType: "json",
+                                    url: "@Url.Action("AddDeleteFavor", "CampSite")",
+                                    data: { "campId": campid.textContent },
+                                    success: function (data) {
+                                        console.log(data)
+                                        e.target.parentNode.nextElementSibling.classList.remove("opacity-0")//FavorMsg
+                                        if (e.target.classList.contains("c-red")) {//取消收藏
+                                            e.target.classList.remove("c-red")
+                                            e.target.parentNode.nextElementSibling.lastElementChild.classList.remove("d-none")
+                                            e.target.parentNode.nextElementSibling.children[1].classList.add("d-none")
+                                            e.target.parentNode.nextElementSibling.focus() //出現時就聚焦，失焦前要先有focus
+                                            e.target.parentNode.nextElementSibling.onblur = function () { //添加事件，失焦時隱藏
+                                                this.classList.add("opacity-0");
+                                            }
+                                        }
+                                        else {//加入收藏
+                                            e.target.classList.add("c-red")
+                                            e.target.parentNode.nextElementSibling.lastElementChild.classList.add("d-none")
+                                            e.target.parentNode.nextElementSibling.children[1].classList.remove("d-none")
+                                            e.target.parentNode.nextElementSibling.focus()//出現時就聚焦，失焦前要先有focus
+                                            e.target.parentNode.nextElementSibling.onblur = function () {//添加事件，失焦時隱藏
+                                                this.classList.add("opacity-0");
+                                            }
+                                        }
+                                    }
+                                })
+                        }
+                        else {//未登入出現請先登入
+                            e.target.parentNode.nextElementSibling.classList.remove("opacity-0")
+                            e.target.parentNode.nextElementSibling.firstElementChild.classList.remove("d-none")
+                            e.target.parentNode.nextElementSibling.focus()//出現時就聚焦，失焦前要先有focus
+                            e.target.parentNode.nextElementSibling.onclick = function (e) {
+                                if (e.target.textContent == "點我登入")
+                                    location.href = "@Url.Action("Login","Member")"
+                            }
+                            e.target.parentNode.nextElementSibling.onblur = function () {//添加事件，失焦時隱藏
+                                this.classList.add("opacity-0");
+                            }
+                        }
+                    }
+                })
             }
         })
     }
-    //傳送到訂單的ajax
-
-
-
 </script>
 
 <!--入營退營時間 -->
@@ -808,5 +1024,4 @@ for (int j = star_count; j < 5; j++)
     CheckInTime.style.width = CheckInTimeWidth + "px"
     CheckOutTime.style.width = CheckOutTimeWidth + "px";
 </script>
-
 

@@ -32,7 +32,7 @@ namespace CampWebsite.Controllers
         public ActionResult GenerateOrder(IEnumerable<PreOrderInfoViewModel> newOrderList, string fClientName, string fClientEmail, string fClientPhone)
         {
             new COrderFactory().SaveOrder2DB(newOrderList, User.Identity.Name, fClientName, fClientEmail, fClientPhone);
-            return RedirectToAction("ListOrder","TempTentList" );
+            return RedirectToAction("Index","Home" );
         }
 
     }

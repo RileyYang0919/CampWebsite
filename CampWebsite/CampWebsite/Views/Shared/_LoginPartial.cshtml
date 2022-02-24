@@ -15,7 +15,7 @@
            aria-expanded="false">
             <img onerror="this.src='/Images/Members/default.jpg'" src='@(userPhoto)' class="rounded-circle" width="30" height="30" alt="" loading="lazy" /> @userName
         </a>
-        @if (userGroup == "gCustomer")
+        @if (userGroup == "0")
         {
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                 <li><h6 class="dropdown-header">一般會員</h6></li>
@@ -27,7 +27,7 @@
                 <li><a class="dropdown-item" href="/Member/Logout">登出</a></li>
             </ul>
         }
-        else if (userGroup == "gVendor")
+        else if (userGroup == "1")
         {
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                 <li><h6 class="dropdown-header">一般會員</h6></li>

@@ -155,22 +155,22 @@ namespace CampWebsite.Controllers
             }
             else
             {
-                if (photoVM.Photo != null)
-                {
-                    var pName = Path.GetFileName(photoVM.Photo.FileName);
-                    var path = Path.Combine(Server.MapPath("~/Images/Campsites/") + photoVM.CampsiteName + "/" + pName);
-                    tTentPhoto ttp = new tTentPhoto
-                    {
-                        fTentID = photoVM.TentID,
-                        fTentPhotoURL = path
-                    };
-                    dbCampEntities campEntities = new dbCampEntities();
-                    campEntities.tTentPhoto.Add(ttp);
-                    campEntities.SaveChanges();
-                    photoVM.Photo.SaveAs(path);
-                    ViewBag.UploadStat = true;
-                    return View(photoVM);
-                }
+                //if (photoVM.Photo != null)
+                //{
+                //    var pName = Path.GetFileName(photoVM.Photo.FileName);
+                //    var path = Path.Combine(Server.MapPath("~/Images/Campsites/") + photoVM.CampsiteName + "/" + pName);
+                //    //tTentPhoto ttp = new tTentPhoto
+                //    //{
+                //    //    fTentID = photoVM.TentID,
+                //    //    fTentPhotoURL = path
+                //    //};
+                //    dbCampEntities campEntities = new dbCampEntities();
+                //    campEntities.tTentPhoto.Add(ttp);
+                //    campEntities.SaveChanges();
+                //    photoVM.Photo.SaveAs(path);
+                //    ViewBag.UploadStat = true;
+                //    return View(photoVM);
+                //}
                 //foreach (photoVM.HttpPostdFileBase[] f in newPhotoVM.UploadedPhoto)
                 //{
                 //    var path = "";

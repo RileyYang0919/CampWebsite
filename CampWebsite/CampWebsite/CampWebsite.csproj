@@ -160,6 +160,7 @@
     <Compile Include="Models\CAuthenticationFactory.cs" />
     <Compile Include="Models\CCampFavoriteFactory.cs" />
     <Compile Include="Models\CMailVerifyFactory.cs" />
+    <Compile Include="Models\CMemberFavor.cs" />
     <Compile Include="Models\CMemberProfileFactory.cs" />
     <Compile Include="Models\COrderFactory.cs" />
     <Compile Include="Models\COrderJsonModel.cs" />
@@ -197,13 +198,7 @@
     <Compile Include="Models\tMember.cs">
       <DependentUpon>dbCamp.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tOptionCase.cs">
-      <DependentUpon>dbCamp.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\tOrder.cs">
-      <DependentUpon>dbCamp.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tRent.cs">
       <DependentUpon>dbCamp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tTag.cs">
