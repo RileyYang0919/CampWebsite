@@ -1,5 +1,6 @@
 ﻿@model CampWebsite.ViewModels.MyOrderDetailViewModel
 
+<link href="~/Content/CommentStar.css" rel="stylesheet" />
 @{
     ViewBag.Title = "OrderDetail";
 }
@@ -14,6 +15,7 @@
     var checkinEnd = Model.fCheckinEnd;
     var stayNight = Model.fStayNight;
     var totalPrice = Model.fTotalPrice;
+    var myOrderCode = Model.fOrderCode;
     foreach (var i in Model.tOrders)
     {
         totalPrice += i.fOrderPrice;
@@ -23,7 +25,7 @@
 <div class="container d-flex justify-content-center mt-5">
     <div class="col-12 col-lg-6 border shadow">
         <div class="justify-content-center px-5">
-            <p class="mt-4">訂單編號: @Model.fOrderCode</p>
+            <p class="mt-4">訂單編號: @myOrderCode</p>
             <div class="d-flex">
                 <img src="https://fakeimg.pl/70/" />
                 <div class="mx-3">
@@ -54,20 +56,99 @@
             <hr />
             @foreach (var i in Model.tOrders)
             {
-                if (i.fCheckinDate != firstDay)
+                if (i.fCheckinDate == firstDay)
                 {
-                    return;
-                }
-                <div class="border my-3 py-3">
-                    <div>帳篷名稱: @i.tTent.fTentName</div>
-                    <div>最大人數上限: @i.tTent.fTentPeople 人</div>
-                    <div>房客姓名: @i.fClientName </div>
-                    <div>房客電話: @i.fClientPhone </div>
-                </div>
-                <hr />
-                <br />
-            }
+                    <div class="border my-3 py-3">
+                        <div>帳篷名稱: @i.tTent.fTentName</div>
+                        <div>最大人數上限: @i.tTent.fTentPeople 人</div>
+                        <div>房客姓名: @i.fClientName </div>
+                        <div>房客電話: @i.fClientPhone </div>
+                    </div>
+                    <hr />
 
+                }
+            }
+            @{
+                if (Model.tOrders.Last().fCheckinDate < DateTime.Today && Model.hasComment==false)
+                {
+                    <div class=" my-3 py-3 " id="commentArea">
+                        @*<h2>營區評論</h2>*@
+
+                        <div class=" py-1  mt-1 d-flex justify-content-between ">
+                            <div class="d-flex align-items-center">
+                                您對住宿的整體評價為何:
+                            </div>
+
+                            <div class="rating" id="commentRate">
+                                @for (int i = 5; i >= 1; i--)
+                                {
+                                    <input type="radio" name="rating" value="@(i)" id="@(i)" />
+                                    <label for="@(i)">☆</label>
+                                }
+                            </div>
+                        </div>
+                        <textarea class="form-control" style="resize:none" rows="5" placeholder="分享您對住宿體驗的想法" required></textarea>
+                        <button class="my-3 " id="commentBtn">送出評論</button>
+                    </div>
+                    <br />
+                }
+            }
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $(function () {
+        let rating = 5;
+        $("#commentRate input").click(function () {
+            rating = $(this).val();
+        })
+        $("#commentBtn").click(function (event) {
+            event.preventDefault();
+            let fCampsiteID = '@Model.tOrders.First().tTent.fCampsiteID';
+            let fOrderID = '@Model.fOrderCode';
+            let fCommentScore = rating;
+            let fComment = $("#commentArea textarea").val();
+            console.log("-----------------------------------");
+            console.log("營區ID:" + fCampsiteID);
+            console.log("訂單ID:" + fOrderID);
+            console.log("分數:" + fCommentScore);
+            console.log("評論內容:" + fComment);
+            console.log("評分:" + rating);
+            console.log("-----------------------------------");
+            let userComment = {
+                'fCampsiteID': fCampsiteID,
+                'fOrderConfirmCode': fOrderID,
+                'fCommentScore': fCommentScore,
+                'fComment': fComment
+            }
+            $.ajax({
+                url: '@Url.Action("SaveUserComments", "Member")', //請求的url地址
+                dataType: "html", //返回格式為json
+                async: false, //請求是否非同步，預設為非同步
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: userComment, //資料
+                type: "get", //請求方式
+                beforeSend: function () {
+                    //請求前的處理
+                },
+                success: function (response) {
+                    console.log(this);
+                    console.log(this.url);
+                    console.log(response);
+                    alert("成功");
+                    window.location.replace(this.url);
+                },
+                //complete: function () {
+                //    alert("完成");
+                //},
+                error: function () {
+                    alert("失敗");
+                }
+            });
+
+        });
+
+    })
+</script>

@@ -120,8 +120,14 @@ namespace CampWebsite.Models
                 priceSum += one.Price;
             }
             tentSum = tentIDs.Count();
+            var userComment = (from x in db.tComment
+                              where x.fOrderConfirmCode == orderCode
+                              select x);
+            
 
             MyOrderDetailViewModel getTheOrderDetails = new MyOrderDetailViewModel(); //everyOrder 每一筆訂單卡片
+            if (userComment != null) { getTheOrderDetails.hasComment = true; }
+            else { getTheOrderDetails.hasComment= false; }
             getTheOrderDetails.fOrderCode = orderCode;
             getTheOrderDetails.fCampsiteName = fCampsiteName;
             getTheOrderDetails.fCampsitePhone = fCampsitePhone;

@@ -108,7 +108,9 @@
   <ItemGroup>
     <Content Include="Content\AC.css" />
     <Content Include="Content\campsite.css" />
+    <Content Include="Content\CommentStar.css" />
     <Content Include="Content\homeindex.css" />
+    <Content Include="Content\memberRigister.css" />
     <Content Include="Content\search.css" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

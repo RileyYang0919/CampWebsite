@@ -20,7 +20,10 @@ namespace CampWebsite.Controllers
         [Authorize]
         public ActionResult GenerateOrder(string orderJson)
         {
-            //var jasonString = fakeJSON(); //this is fake data.                
+            if (orderJson == null || orderJson.Length <= 2)
+            {
+                return Json(null);
+            }             
             List<PreOrderInfoViewModel> newOrderList = new COrderFactory().OrderJason2VM(orderJson, User.Identity.Name);
             return View(newOrderList.AsEnumerable());
         }

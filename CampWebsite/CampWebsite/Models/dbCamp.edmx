@@ -48,7 +48,7 @@
           <Property Name="fComment" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="fCommentScore" Type="int" Nullable="false" />
           <Property Name="fCommentTime" Type="datetime" Nullable="false" />
-          <Property Name="fOrderID" Type="int" Nullable="false" />
+          <Property Name="fOrderConfirmCode" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="tCommentLike">
           <Key>
@@ -444,7 +444,7 @@
           <Property Name="fComment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fCommentScore" Type="Int32" Nullable="false" />
           <Property Name="fCommentTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="fOrderID" Type="Int32" Nullable="false" />
+          <Property Name="fOrderConfirmCode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="tCampsite" Relationship="Self.FK__tComment__fCamps__7A672E12" FromRole="tComment" ToRole="tCampsite" />
           <NavigationProperty Name="tMember" Relationship="Self.FK__tComment__fMembe__797309D9" FromRole="tComment" ToRole="tMember" />
           <NavigationProperty Name="tMember1" Relationship="Self.tCommentLike" FromRole="tComment" ToRole="tMember" />
@@ -772,7 +772,7 @@
                 <ScalarProperty Name="fComment" ColumnName="fComment" />
                 <ScalarProperty Name="fCommentScore" ColumnName="fCommentScore" />
                 <ScalarProperty Name="fCommentTime" ColumnName="fCommentTime" />
-                <ScalarProperty Name="fOrderID" ColumnName="fOrderID" />
+                <ScalarProperty Name="fOrderConfirmCode" ColumnName="fOrderConfirmCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

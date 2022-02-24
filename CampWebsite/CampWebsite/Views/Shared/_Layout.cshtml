@@ -13,55 +13,27 @@
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="~/Content/campsite.css">
-    <link href="~/Content/homeindex.css" rel="stylesheet" />
-    <link href="~/Content/search.css" rel="stylesheet" />
+
 
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-md navbar-light p-3 bg-light border-bottom">
-            <div class="container-lg col-lg-10 d-flex flex-wrap align-items-center justify-content-center">
-                <a class="navbar-brand d-flex align-items-center" href=".">
-                    <img src="~/images/Asset 3.png" alt=""
-                         height="40" />
-                    <span class="px-2">露過人間</span>
-                </a>
-                <ul class="nav navbar-nav col-md-10 col-12 col-lg-auto me-lg-auto justify-content-center mb-md-0 align-items-center py-md-2">
-                    <li class="nav-item">
-                        <a href="/Home/Index" class="nav-link link-light active">主頁</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/Home/search" class="nav-link link-light">營地搜尋</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link link-light">會員登入</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link link-light">加入我們</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link link-light">關於我們</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/CampSite/List" class="nav-link link-light">Camp List</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/TempTentList/ListTent" class="nav-link link-light">Tent List</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/TempTentList/ListOrder" class="nav-link link-light">Order List</a>
-                    </li>
-                </ul>
+        <nav class="navbar navbar-expand navbar-light p-1 bg-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="/Home/Index"><img src="~/images/Asset 3.png" alt="" height="30" />露過人間</a>
+                <div class="d-flex">
 
-                @*<button type="button"
-                            class="btn btn-outline-secondary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#loginModal"
-                            style="min-width: 100px">
-                        AA登入AA
-                    </button>*@
-                @Html.Partial("_LoginPartial")
+                    <ul class="navbar-nav">
+                        <li class="nav-item mx-2">
+                            <a class="nav-link active d-flex flex-column text-center" aria-current="page" href="/Home/search"><i class="fa-solid fa-magnifying-glass-location"></i><span class="small">Search</span></a>
+                        </li>
+
+                        <li class="nav-item mx-2">
+                            <a class="nav-link active d-flex flex-column text-center" aria-current="page" href="#"><i class="fa-solid fa-circle-info"></i><span class="small">About</span></a>
+                        </li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </nav>
     </header>
@@ -132,11 +104,10 @@
             </div>
         </div>*@
     <!-- login Modal end-->
-
     @*<div class="container mt-2">
-        @RenderBody()
-    </div>*@
-    <div >
+            @RenderBody()
+        </div>*@
+    <div>
         @RenderBody()
     </div>
 
@@ -160,5 +131,21 @@
     @*@Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
+    <script>
+        $(function () {
+            $("#linkProfile").click(function () {
+                console.log("p1Profile");
+                localStorage.setItem("activeTab", "#p1Profile");
+            });
+            $("#linkFavorite").click(function () {
+                console.log("p2Favorite");
+                localStorage.setItem("activeTab", "#p2Favorite");
+            });
+            $("#linkOrder").click(function () {
+                console.log("p3Order");
+                localStorage.setItem("activeTab", "#p3Order");
+            });
+        });
+    </script>
 </body>
 </html>

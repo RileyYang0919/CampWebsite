@@ -1,47 +1,72 @@
-﻿
+﻿<link href="~/Content/memberRigister.css" rel="stylesheet" />
 @{
     ViewBag.Title = "Login";
 }
 
-<h2>請登入</h2>
 
-<form action="@Url.Action("Login")" method="post">
-    <div class="form-horizontal">
-        <hr />
-        <div class="form-group">
-            <span class="control-label col-md-2">Email</span>
-            <div class="col-md-5 w-md-50">
-                <input type="text" name="fEmail" id="fEmail" required="required" class="form-control" />
-            </div>
-        </div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-material login-block">
+        <div class="auth-box card ">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-center heading">會員登入</h1>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <span class="control-label col-md-2">Password</span>
-            <div class="col-md-5 w-md-50">
-                <input type="password" name="fPassword" id="fPassword" required="required" class="form-control" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-5 w-md-50">
-                @Html.CheckBox("fRemember", false, new { fRemember = "checkbox" })
-                <span class="control-label col-md-2">記住我</span>
-            </div>
-        </div>
-        <div class="form-group" style="display: none">
-            <input type="hidden" name="returnUrl" value=@ViewData["returnUrl"] />
-        </div>
-        <div class="form-group">
-            <div class="col-md-10 col-md-offset-2">
-                <input type="submit" value="登入" required="required" class=" btn-default " />
-            </div>
-            <div class="toSignup text">
-                <p>尚未成為會員</p>
-                <span>登記註冊代表你接受我們的條款和隱私政策。</span>
-                <a href="/Member/Register" type="button" class="member">註冊</a>
-            </div>
-            @ViewBag.Message
-        </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="fEmail" value="" placeholder="Email" id="email" required="required" />
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="fPassword" placeholder="Password" value="" id="password" required="required" />
+                </div>
+                <div class="form-group">
+                    <div class="col-md-5 w-md-50">
+                        @Html.CheckBox("fRemember", false, new { fRemember = "checkbox" })
+                        <label for="fRemember" class="control-label ">記住我</label>
+                    </div>
 
+
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-danger">@ViewBag.Message</p>
+                        <input type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center w-100 m-b-20" name="submit" value="登入" />
+                    </div>
+                </div>
+                <div class="form-group" style="display: none">
+                    <input type="hidden" name="returnUrl" value=@ViewData["returnUrl"] />
+                </div>
+                <br />
+                <p class="text-inverse text-center">尚未註冊嗎? <a href="/Member/Register">立即註冊</a></p>
+                <div class="or-container">
+                    <div class="line-separator"></div>
+                    <div class="or-label">Demo</div>
+                    <div class="line-separator"></div>
+                </div>
+                <div class="">
+                    <button class="btn btn-outline-info btn-sm me-2" id="iAmCustomer" type="button">一般會員: Doreen</button>
+                    <button class="btn btn-outline-info btn-lg" id="iAmVendor" type="button">營主: Alex</button>
+                </div>
+            </div>
+        </div>
     </div>
-</form>
+}
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#iAmCustomer").click(function () {
+            $("#email").val('doren@gmail.com');
+            $("#password").val('12345678');
+        });
+        $("#iAmVendor").click(function () {
+            $("#email").val('alex@gmail.com');
+            $("#password").val('12345678');
+        })
+    })
+</script>

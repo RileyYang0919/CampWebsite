@@ -1,67 +1,60 @@
 ﻿@model CampWebsite.ViewModels.RegisterViewModel
-
+<link href="~/Content/memberRigister.css" rel="stylesheet" />
 @{
     ViewBag.Title = "Register";
 }
 
 <h2>Register</h2>
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>註冊帳號</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-material login-block">
+        <div class="auth-box card ">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-center heading">會員註冊</h1>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="fName" value="" placeholder="Display name" id="first_name" />
+                    @Html.ValidationMessageFor(model => model.fName, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="fEmail" value="" placeholder="Email" id="email" />
+                    @Html.ValidationMessageFor(model => model.fEmail, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="fPassword" placeholder="Password" value="" id="password" />
+                    @Html.ValidationMessageFor(model => model.fPassword, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="ConfirmPassword" placeholder="Repeat password" value="" id="password_confirm" />
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group d-flex justify-content-around ">
+                    <input type="radio" class="btn-check" name="fGroup" id="gCustomer" value="gCustomer" autocomplete="off" checked>
+                    <label class="btn btn-outline-success" for="gCustomer">一般會員</label>
 
-    <div style="max-width:500px" class=" m-auto">
-        <div class="modal-header align-items-center">
-            <h3>註冊帳號</h3>
-        </div>
-        @*Body*@
-    <div class="modal-body1">
-        <div class="form-group">
-            @Html.EditorFor(model => model.fName, new { htmlAttributes = new { @class = "form-control text-box single-line", placeholder = "姓名" } })
-            @Html.ValidationMessageFor(model => model.fName, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.EditorFor(model => model.fEmail, new { htmlAttributes = new { @class = "form-control account", placeholder = "example@email.com" } })
-            @Html.ValidationMessageFor(model => model.fEmail, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.EditorFor(model => model.fPassword, new { htmlAttributes = new { @class = "form-control password", placeholder = "Password" } })
-            @Html.ValidationMessageFor(model => model.fPassword, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control password", placeholder = "Double Confirm Password" } })
-            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group"><input type="checkbox" class="remember" /> 記住我</div>
-        @*送出資料*@
-        <div class="form-group">
-            <div class="btn btn-info col">
-                <input type="submit" value="創建帳號" class="btn btn-default" />
-            </div>
-            <p class="text-danger">@ViewBag.Message</p>
-        </div>
-    </div>
-        @*Footer*@
-        <div class="modal-footer">
-            <div class="toSignup">
-                <span>已經是會員?</span>
-                <a href="/Member/Login" type="button" class="member">登入</a>
+                    <input type="radio" class="btn-check" name="fGroup" id="gVendor" value="gVendor" autocomplete="off">
+                    <label class="btn btn-outline-success" for="gVendor">成為營主</label>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-danger">@ViewBag.Message</p>
+                        <input type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center w-100 m-b-20" name="submit" value="快速註冊" />
+                    </div>
+                </div>
+                <br />
+                <p class="text-inverse text-center">已經有會員帳號了嗎? <a href="/Member/Login">Login</a></p>
             </div>
         </div>
     </div>
-</div>
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@

@@ -1,33 +1,61 @@
-﻿
-@if (User.Identity.IsAuthenticated)
+﻿@if (User.Identity.IsAuthenticated)
 {
-    using (Html.BeginForm("Logout", "Member", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-        @Html.AntiForgeryToken()
+    FormsIdentity id = (FormsIdentity)User.Identity;
+    FormsAuthenticationTicket ticket = id.Ticket;
+    var userGroup = ticket.UserData.Split(new char[] { ',' })[0];
+    var userName = ticket.UserData.Split(new char[] { ',' })[1];
+    var userPhoto = "/Images/Members/user" + User.Identity.Name + ".jpg";
 
-<ul class="nav navbar-nav navbar-right">
-    @Html.ActionLink("新增營區", "AddNewCampsite", "CampSite")
-    @Html.ActionLink("檢視", "personalProfile", "Member")
-    <li><a href="#">Welcome : @Session["currentUserName"]</a></li>
-    <li></li>
-    <li class="nav-item ml-4">
-        @Html.ActionLink("登出", "Logout", "Member")
-    </li>
-</ul>
-    }
+    <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle d-flex align-items-center"
+           href="#"
+           id="navbarDropdownMenuLink"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false">
+            <img onerror="this.src='/Images/Members/default.jpg'" src='@(userPhoto)' class="rounded-circle" width="30" height="30" alt="" loading="lazy" /> @userName
+        </a>
+        @if (userGroup == "gCustomer")
+        {
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <li><h6 class="dropdown-header">一般會員</h6></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="/Member/personalProfile" id="linkProfile">會員資料</a></li>
+                <li><a class="dropdown-item" href="/Member/personalProfile" id="linkFavorite">收藏清單</a></li>
+                <li><a class="dropdown-item" href="/Member/personalProfile" id="linkOrder">歷史訂單</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="/Member/Logout">登出</a></li>
+            </ul>
+        }
+        else if (userGroup == "gVendor")
+        {
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <li><h6 class="dropdown-header">一般會員</h6></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="/Member/personalProfile" id="linkProfile">會員資料</a></li>
+                <li><a class="dropdown-item" href="/Member/personalProfile" id="linkFavorite">收藏清單</a></li>
+                <li><a class="dropdown-item" href="/Member/personalProfile" id="linkOrder">歷史訂單</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="#">營區管理</a></li>
+                <li><a class="dropdown-item" href="#">訂單管理</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="/Member/Logout">登出</a></li>
+            </ul>
+        }
+        else
+        {
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <li><h6 class="dropdown-header">userGroup</h6></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="/Member/Logout">登出</a></li>
+            </ul>
+        }
+    </div>
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("你還沒登入", "Login", "Member", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-        
-    </ul>
-@*<button type="button"
-        class="btn btn-outline-secondary"
-        data-bs-toggle="modal"
-        data-bs-target="#loginModal"
-        style="min-width: 100px">
-    登入
-</button>*@
-    
+    <div class="nav-item d-flex align-items-center">
+        <img src='/Images/Members/default.jpg' class="rounded-circle" height="30" alt="" loading="lazy" />
+        <a href="/Member/Login">登入</a> / <a href="/Member/Register">註冊</a>
+    </div>
 }  

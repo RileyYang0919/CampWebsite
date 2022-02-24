@@ -144,7 +144,7 @@ namespace CampWebsite.Controllers
             string userData = (editMember.fGroup).ToString() + "," + editMember.fName;
             string userID = (editMember.fMemberID).ToString();
             new CAuthenticationFactory().SetAuthenTicket(userData, userID);
-            return RedirectToAction("List", "Member");
+            return RedirectToAction("Index", "Home");
         }
         /// <summary>
         /// MyOrders 用戶的歷史訂單(卡片)
@@ -189,28 +189,50 @@ namespace CampWebsite.Controllers
                 if (httpPostedFile != null && httpPostedFile.ContentLength != 0)
                 {
                     httpPostedFile.SaveAs(path + Path.GetFileName("user" + myID + ".jpg"));
-                    //var editMember = db.tMember.Where(i => i.fMemberID == myID).FirstOrDefault();
-                    //editMember.fPhoto = "/Images/Members/user" + myID + ".jpg";
-                    //db.SaveChanges();
                 }
             }
             return Json(new { isUploaded = true, result = "成功囉" }, "text/html");
         }
-
-
-        // 顯示所有會員-限開發用
-        public ActionResult List()
+        /// <summary>
+        /// 會員的營區留言功能
+        /// </summary>
+        public ActionResult SaveUserComments(tComment userComment)
         {
-            var members = db.tMember.OrderBy(m => m.fMemberID).ToList();
-            return View(members);
+            if (userComment == null)
+            {
+                return Json(null);
+            }
+            else if (string.IsNullOrEmpty(userComment.fComment))
+            {
+                return Json("msg:'No Comment'");
+            }
+            tComment myComment = userComment;
+            myComment.fMemberID = Convert.ToInt32(User.Identity.Name);
+            myComment.fCommentTime = DateTime.Now;
+            db.tComment.Add(myComment);
+            db.SaveChanges();
+            return RedirectToAction("Details", "CampSite", new { id = userComment.fCampsiteID });
         }
-
         //登出
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             Session.Clear();
             return Redirect("/Home/Index");
+        }
+        //查詢我的收藏
+        public ActionResult MyFavorite()
+        {
+            int myID = Convert.ToInt32(User.Identity.Name);
+            var myFavorites = new CCampFavoriteFactory().QueryByFid(myID);
+            return View(myFavorites);
+        }
+
+        // 顯示所有會員-限開發用
+        public ActionResult List()
+        {
+            var members = db.tMember.OrderBy(m => m.fMemberID).ToList();
+            return View(members);
         }
         //身分群組測試頁面
         [Authorize]
@@ -223,14 +245,6 @@ namespace CampWebsite.Controllers
         public ActionResult forGroup2()
         {
             return View();
-        }
-
-        //查詢我的收藏
-        public ActionResult MyFavorite()
-        {
-            int myID = Convert.ToInt32(User.Identity.Name);
-            var myFavorites = new CCampFavoriteFactory().QueryByFid(myID);
-            return View(myFavorites);
         }
     }
 }

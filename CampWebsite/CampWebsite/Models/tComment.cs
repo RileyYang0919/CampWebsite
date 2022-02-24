@@ -26,7 +26,7 @@ namespace CampWebsite.Models
         public string fComment { get; set; }
         public int fCommentScore { get; set; }
         public System.DateTime fCommentTime { get; set; }
-        public int fOrderID { get; set; }
+        public string fOrderConfirmCode { get; set; }
     
         public virtual tCampsite tCampsite { get; set; }
         public virtual tMember tMember { get; set; }

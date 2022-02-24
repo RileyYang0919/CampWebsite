@@ -28,5 +28,6 @@ namespace CampWebsite.ViewModels
         //會使用System.Web.Mvc.Compare，是因為引入System.ComponentModel.DataAnnotations時會有衝突的產生
         [Compare("fPassword", ErrorMessage = "兩次輸入的密碼必須相符！")]
         public string ConfirmPassword { get; set; }
+        public string fGroup { get; set; }
     }
 }
