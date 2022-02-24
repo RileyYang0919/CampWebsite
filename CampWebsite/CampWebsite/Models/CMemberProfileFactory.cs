@@ -42,6 +42,7 @@ namespace CampWebsite.Models
                                      orderby x.fCheckinDate
                                      select new
                                      {
+                                         //CampsiteID = c.fCampsiteID,
                                          CampsiteName = c.fCampsiteName,
                                          TentID = x.fTentID,
                                          CheckinDate = x.fCheckinDate,
@@ -88,6 +89,7 @@ namespace CampWebsite.Models
                             orderby x.fCheckinDate
                             select new
                             {
+                                CampsiteID = c.fCampsiteID,
                                 tTent = t,
                                 tOrder = x,
                                 CampsiteName = c.fCampsiteName,
@@ -96,6 +98,7 @@ namespace CampWebsite.Models
                                 CheckinDate = x.fCheckinDate,
                                 Price = x.fOrderPrice
                             }).ToList();
+            int CampsiteID = myOrders[0].CampsiteID;
             string fCampsiteName = myOrders[0].CampsiteName;
             string fCampsitePhone = myOrders[0].CampsitePhone;
             string fCampsiteAddress = myOrders[0].CampsiteAddress;
@@ -124,6 +127,7 @@ namespace CampWebsite.Models
                               where x.fOrderConfirmCode == orderCode
                               select x).FirstOrDefault();
             MyOrderDetailViewModel getTheOrderDetails = new MyOrderDetailViewModel(); //everyOrder 每一筆訂單卡片
+            getTheOrderDetails.fCampsiteID = CampsiteID;
             getTheOrderDetails.tComment = userComment;            
             getTheOrderDetails.fOrderCode = orderCode;
             getTheOrderDetails.fCampsiteName = fCampsiteName;

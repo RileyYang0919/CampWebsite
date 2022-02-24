@@ -16,6 +16,7 @@
     var stayNight = Model.fStayNight;
     var totalPrice = Model.fTotalPrice;
     var myOrderCode = Model.fOrderCode;
+    var campsitePhoto = "/Images/Campsites/Campsite" + Model.fCampsiteID + "/Cover.jpg";
     foreach (var i in Model.tOrders)
     {
         totalPrice += i.fOrderPrice;
@@ -27,7 +28,7 @@
         <div class="justify-content-center px-5">
             <p class="mt-4">訂單編號: @myOrderCode</p>
             <div class="d-flex">
-                <img src="https://fakeimg.pl/70/" />
+                <img src=" @campsitePhoto" />
                 <div class="mx-3">
                     <p class="m-0">營區名稱: @Model.fCampsiteName</p>
                     <p class="m-0">營區電話: @Model.fCampsitePhone</p>

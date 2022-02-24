@@ -104,12 +104,13 @@
                                 <div class="row d-flex justify-content-center">
                                     <div class="card col-8 col-lg-6 my-2">
                                         <div class="imageBox">
-                                            <img class="card-img-top image100" alt="@Favorite.fCampsiteName" onerror="this.src='/Images/Campsite/CampDefault.jpg'" src=@Favorite.fPhotoUrl />
+                                            <img class="card-img-top image100" alt="@Favorite.fCampsiteName" onerror="this.src='/Images/Campsistes/Cover_default.jpg'" src=@Favorite.fPhotoUrl />
                                         </div>
                                         <div class="card-body">
                                             <h5 class="card-title">@Favorite.fCampsiteName</h5>
                                             <div class="d-flex justify-content-between">
                                                 <div>
+                                                    評分: @Favorite.fScore
                                                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                                                 </div>
                                                 <p><i class="fa-solid fa-location-dot"></i> @Favorite.fCity</p>

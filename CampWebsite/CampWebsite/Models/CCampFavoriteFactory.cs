@@ -10,7 +10,7 @@ namespace CampWebsite.Models
     public class CCampFavoriteFactory
     {
         //查詢資料-單筆
-        public List<MyCampFavoriteViewModel> QueryByFid(int fId = 1009)
+        public List<MyCampFavoriteViewModel> QueryByFid(int fId)
         {
             string sql = "SELECT tCampFavorite.fMemberID,tCampFavorite.fCampsiteID, fCampsiteName, fCampsiteCity "
                         + "FROM tCampFavorite "
@@ -22,7 +22,7 @@ namespace CampWebsite.Models
             paras.Add(new SqlParameter("K_fMemberID", (object)fId));
             List<MyCampFavoriteViewModel> myFavorites = QueryBySql(sql, paras);
             if (myFavorites.Count == 0)
-                return null;
+                return null;            
             return myFavorites;
         }
 
@@ -49,10 +49,24 @@ namespace CampWebsite.Models
                     fCampsiteName = reader["fCampsiteName"].ToString(),
                     fCity = reader["fCampsiteCity"].ToString(),
                     fScore = 2,
-                    fPhotoUrl = "/Images/Campsites/Campsite" + CampID + "/" + CampID + "Cover.jpg",
+                    fPhotoUrl = "/Images/Campsites/Campsite" + CampID + "/Cover.jpg",
                 });
             }
             con.Close();
+            foreach(var camp in myFavorites)
+            {
+                //評價讀取
+                var reviews = new CTentsFactory().QueryAllReviews(camp.fCampsiteID);
+                //計算總平均評論分數
+                double score = 0;
+                if (reviews.Count != 0)
+                {//如果評論數不是0才計算否則傳到view的總平均為0
+                    foreach (var review in reviews)
+                        score += (double)review.fCommentScore;
+                    score = Math.Round(score / reviews.Count(), 1);
+                }
+                camp.fScore = score;
+            }
             return myFavorites;
         }
     }

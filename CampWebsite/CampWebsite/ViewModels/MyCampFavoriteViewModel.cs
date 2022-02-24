@@ -10,7 +10,7 @@ namespace CampWebsite.ViewModels
         public int fCampsiteID { get; set; }
         public string fCampsiteName { get; set; }
         public string fCity { get; set; }
-        public int fScore { get; set; }
+        public double fScore { get; set; }
         public string fPhotoUrl { get; set; }
     }
 }

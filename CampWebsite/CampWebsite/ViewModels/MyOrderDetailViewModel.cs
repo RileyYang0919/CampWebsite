@@ -8,6 +8,7 @@ namespace CampWebsite.ViewModels
 {
     public class MyOrderDetailViewModel
     {
+        public int fCampsiteID { get; set; }
         public string fOrderCode { get; set; }
         public string fCampsiteName { get; set; }
         public string fCampsitePhone { get; set; }
