@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -115,23 +116,48 @@ namespace CampWebsite.Controllers
             }
             else
             {
-                dbCampEntities camp = new dbCampEntities();
-                tCampsite c = new tCampsite();
 
-                c = vm.tCampsite;
+                tCampsite c = vm.tCampsite;
                 c.fMemberID = Convert.ToInt32(User.Identity.Name);
-                c.fCampsiteAltitude = vm.withoutAltitude ? "無資料" : vm.tCampsite.fCampsiteAltitude.ToString();
+                c.fCampsiteCheckInTime = Regex.Replace(c.fCampsiteCheckInTime, ":", String.Empty);
+                c.fCampsiteCheckOutTime = Regex.Replace(c.fCampsiteCheckOutTime, ":", String.Empty);
+
+                if (vm.withoutAltitude)
+                    c.fCampsiteAltitude = "無資料";
+
+                c.fCampsiteClosedDay = "0";
+                if (vm.DayOffs[7].Checked)
+                {
+                    c.fCampsiteClosedDay = "0";
+                }
+                else
+                {
+                    c.fCampsiteClosedDay = "";
+                    foreach (var item in vm.DayOffs)
+                    {
+                        if (item.Checked)
+                        {
+                            c.fCampsiteClosedDay += item.Value;
+                        }
+                    }
+                }
+                if (c.fCampsiteClosedDay == "")
+                {
+                    c.fCampsiteClosedDay = "0";
+                }
+
+                dbCampEntities camp = new dbCampEntities();
                 camp.tCampsite.Add(c);
                 camp.SaveChanges();
 
                 //Images/Campsites/Campsite27/Cover
                 //find campsite and use it's id 
-                var newCSite =
-                    from cSite in camp.tCampsite
-                    where cSite.fCampsiteName == vm.tCampsite.fCampsiteName
-                    select cSite;
+                var newSite =
+                    from nSite in camp.tCampsite
+                    where nSite.fCampsiteName == vm.tCampsite.fCampsiteName
+                    select nSite;
 
-                int newID = newCSite.FirstOrDefault().fCampsiteID;
+                int newID = newSite.FirstOrDefault().fCampsiteID;
                 string virtualPath = "~/Images/Campsites/Campsite" + newID.ToString();
                 string physicalPath = Server.MapPath(virtualPath);
 
@@ -139,10 +165,7 @@ namespace CampWebsite.Controllers
                 if (!Directory.Exists(virtualPath))
                     Directory.CreateDirectory(physicalPath);
 
-                vm.CoverPhoto.SaveAs(Server.MapPath(virtualPath + "/" + "Cover"));
-
-
-
+                vm.CoverPhoto.SaveAs(Server.MapPath(virtualPath + "/" + "Cover.jpg"));
                 return RedirectToAction("FindMyCampsites");
             }
         }
@@ -184,7 +207,7 @@ namespace CampWebsite.Controllers
         //
         // New Tents
 
-        [Authorize(Roles = "gVendor")]
+        [Authorize(Roles = "1")]
         public ActionResult NewTent(int cID, string cName)
         {
             NewTentViewModel vm = new NewTentViewModel
@@ -224,7 +247,7 @@ namespace CampWebsite.Controllers
         //
         // New Photo
 
-        [Authorize(Roles = "gVendor")]
+        [Authorize(Roles = "1")]
         public ActionResult NewPhoto(string tName, int cID, string cName)
         {
             NewPhotoViewModel vm = new NewPhotoViewModel
@@ -276,22 +299,6 @@ namespace CampWebsite.Controllers
             return RedirectToAction("TentsInCampsite", vm.CampsiteID);
         }
     }
-
-    //public void SavePhotos(HttpPostedFileBase photo, int cID, string fileName)
-    //{
-
-    //    //Images/Campsites/Campsite27/tName_fileName
-    //    string shortPath = "~/Images/Campsites/Campsite" + cID.ToString();
-    //    string longPath = Server.MapPath(shortPath);
-
-    //    if (!Directory.Exists(shortPath))
-    //    {
-    //        Directory.CreateDirectory(longPath);
-    //    }
-    //    photo.SaveAs(longPath +"/" + fileName);
-
-
-    //}
 
 
 }

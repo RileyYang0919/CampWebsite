@@ -1,15 +1,15 @@
 ﻿using CampWebsite.Models;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace CampWebsite.ViewModels
 {
     public class NewCampsiteViewModel
     {
+
         // Entity
 
         public bool withoutAltitude { get; set; }
@@ -65,5 +65,18 @@ namespace CampWebsite.ViewModels
                 new SelectListItem {Text="花蓮縣", Value="花蓮縣" },
                 new SelectListItem { Text = "台東縣", Value = "台東縣" },
         };
+
+        public List<DayOff> DayOffs = new List<DayOff>()
+        {
+            new DayOff { Day ="星期一", Value = "1", Checked = false },
+            new DayOff { Day ="星期二", Value = "2", Checked = false },
+            new DayOff { Day ="星期三", Value = "3", Checked = false },
+            new DayOff { Day ="星期四", Value = "4", Checked = false },
+            new DayOff { Day ="星期五", Value = "5", Checked = false },
+            new DayOff { Day ="星期六", Value = "6", Checked = false },
+            new DayOff { Day ="星期七", Value = "7", Checked = false },
+            new DayOff { Day ="無公休日", Value = "0", Checked = false },
+        };
+
     }
 }

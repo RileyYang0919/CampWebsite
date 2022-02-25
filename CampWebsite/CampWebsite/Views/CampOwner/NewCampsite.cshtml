@@ -8,13 +8,12 @@
         content: " *";
         color: red;
     }
-    .input-validation-error {
-        border: 2px solid red;
-    }
+
     .error-type::before {
         content: "注意!! ";
         color: red;
     }
+
     .error-type {
         color: red;
     }
@@ -31,13 +30,14 @@
 
     @using (Html.BeginForm("NewCampsite", "CampOwner", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-            @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
         <div class="col-md-10 col-lg-8">
-            
+
             @*名稱*@
             <div class="form-group mb-5">
                 @Html.LabelFor(model => model.tCampsite.fCampsiteName, new { @class = "control-label card-title required" })
+                <br />
                 <span class="form-text">最多12個字唷</span>
                 @Html.EditorFor(model => model.tCampsite.fCampsiteName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.tCampsite.fCampsiteName, "", new { @class = "text-danger" })
@@ -48,7 +48,7 @@
             <div class="form-group mb-5">
                 @Html.LabelFor(model => model.tCampsite.fCampsiteIntroduction, new { @class = "control-label card-title required" })
                 <br />
-                @Html.TextAreaFor(model => model.tCampsite.fCampsiteIntroduction, new { @class = "form-control w-100" })
+                <textarea class="form-control w-100" cols="20" data-val="true" data-val-required="必填欄位" id="tCampsite_fCampsiteIntroduction" name="tCampsite.fCampsiteIntroduction" rows="5"></textarea>
                 @Html.ValidationMessageFor(model => model.tCampsite.fCampsiteIntroduction, "", new { @class = "text-danger" })
             </div>
 
@@ -94,7 +94,7 @@
                 <div class="d-flex justify-content-center">
                     <div>0</div>
                     <div class="w-100 px-3">
-                        <input type="range" id="tCampsite_fCampsiteAltitude" name="fCampsiteAltitude" min="0" max="2500" step="100" class="form-range" value="0">
+                        <input type="range" id="tCampsite_fCampsiteAltitude" name="tCampsite.fCampsiteAltitude" min="0" max="2500" step="100" class="form-range" value="0">
                     </div>
                     <div>2500</div>
                 </div>
@@ -107,42 +107,23 @@
             @*公休日*@
             <div class="form-group mb-5">
                 @Html.LabelFor(model => model.tCampsite.fCampsiteClosedDay, new { @class = "control-label card-title" })
-                <span id="dayOffDisplay"> </span>
                 <br />
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input dayOff" type="checkbox" id="Monday" value="1">
-                    <label class="form-check-label" for="Monday">星期一</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input dayOff" type="checkbox" id="Tuesday" value="2">
-                    <label class="form-check-label" for="Tuesday">星期二</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input dayOff" type="checkbox" id="Wednesday" value="3">
-                    <label class="form-check-label" for="Wednesday">星期三</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input dayOff" type="checkbox" id="Thursday" value="4">
-                    <label class="form-check-label" for="Thursday">星期四</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input dayOff" type="checkbox" id="Friday" value="5">
-                    <label class="form-check-label" for="Friday">星期五</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input dayOff" type="checkbox" id="Saturday" value="6">
-                    <label class="form-check-label" for="Saturday">星期六</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input dayOff" type="checkbox" id="Sunday" value="7">
-                    <label class="form-check-label" for="Sunday">星期天</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input dayOff" type="checkbox" id="closedDayNone" value="0">
-                    <label class="form-check-label" for="closedDayOne">無</label>
-                </div>
-                @Html.HiddenFor(model => model.tCampsite.fCampsiteClosedDay, new { value = "0" })
-                @Html.ValidationMessageFor(model => model.tCampsite.fCampsiteClosedDay, "", new { @class = "text-danger" })
+                @for (int i = 0; i < Model.DayOffs.Count(); i++)
+                {
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="@Model.DayOffs[i].Day" name="@Model.DayOffs[i]" value="@Model.DayOffs[i].Value">
+                        <label class="form-check-label" for="@Model.DayOffs[i].Day">@Model.DayOffs[i].Day</label>
+                    </div>
+                }
+
+                @*<div class="form-check form-check-inline">
+                        <input class="form-check-input dayOff" type="checkbox" id="Monday" name="tCampsite.fCampsiteClosedDay" value="1">
+                        <label class="form-check-label" for="Monday">星期一</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input dayOff" type="checkbox" id="closedDayNone" name="tCampsite.fCampsiteClosedDay" value="0">
+                        <label class="form-check-label" for="closedDayOne">無</label>
+                    </div>*@
             </div>
 
 
@@ -152,16 +133,12 @@
                     <div class="col">
                         @Html.LabelFor(model => model.tCampsite.fCampsiteCheckInTime, new { @class = "control-label card-title" })
                         <span id="checkinDisplay"></span>
-                        <input class="form-control text-box single-line" id="visibleCheckIn" type="time" step="">
-                        @Html.HiddenFor(model => model.tCampsite.fCampsiteCheckInTime)
-                        @Html.ValidationMessageFor(model => model.tCampsite.fCampsiteCheckInTime, "", new { @class = "text-danger" })
+                        <input class="form-control text-box single-line" id="visibleCheckIn" name="tCampsite.fCampsiteCheckInTime" type="time" value="12:00">
                     </div>
                     <div class="col">
                         @Html.LabelFor(model => model.tCampsite.fCampsiteCheckOutTime, new { @class = "control-label card-title" })
                         <span id="checkoutDisplay"></span>
-                        <input class="form-control text-box single-line" id="visibleCheckOut" type="time" step="">
-                        @Html.HiddenFor(model => model.tCampsite.fCampsiteCheckOutTime)
-                        @Html.ValidationMessageFor(model => model.tCampsite.fCampsiteCheckOutTime, "", new { @class = "text-danger" })
+                        <input class="form-control text-box single-line" id="visibleCheckOut" name="tCampsite.fCampsiteCheckOutTime" type="time" value="12:00">
                     </div>
                 </div>
             </div>
@@ -176,42 +153,79 @@
             </div>
 
             <div class="form-group">
-                    <button type="submit" class="btn btn-success" id="btnSend">新增營區</button>
+                <button type="submit" class="btn btn-success" id="btnSend">新增營區</button>
             </div>
         </div>
 
     }
 </div>
 
-    <script>
-        //coverPhoto
-        const coverInput = document.getElementById("coverPhotoInput");
-        const coverPreview = document.getElementById("coverPhotoPreview");
-        const coverMessage = document.getElementById("coverPhotoMessage");
-        const send = document.getElementById("btnSend");
+<script>
+    //coverPhoto
+    const coverInput = document.getElementById("coverPhotoInput");
+    const coverPreview = document.getElementById("coverPhotoPreview");
+    const coverMessage = document.getElementById("coverPhotoMessage");
+    const send = document.getElementById("btnSend");
 
-        function loadCover(e) {
-            if (coverInput.files.length == 0) {
-                return;
-            } else if (!coverInput.files[0].type.startsWith("image/")) {
-                send.disabled = true;
-                coverPreview.src = "";
-                coverMessage.classList.add("error-type");
-                return;
-            } else {
-                coverMessage.classList.remove("error-type");
-                send.disabled = false;
-                coverPreview.src = URL.createObjectURL(e.target.files[0]);
-                coverPreview.onLoad = function () {
-                    URL.revokeObjectURL(coverPreview.src);
-                }
+    function loadCover(e) {
+        if (coverInput.files.length == 0) {
+            return;
+        } else if (!coverInput.files[0].type.startsWith("image/")) {
+            send.disabled = true;
+            coverPreview.src = "";
+            coverMessage.classList.add("error-type");
+            return;
+        } else {
+            coverMessage.classList.remove("error-type");
+            send.disabled = false;
+            coverPreview.src = URL.createObjectURL(e.target.files[0]);
+            coverPreview.onLoad = function () {
+                URL.revokeObjectURL(coverPreview.src);
             }
         }
-    </script>
-    @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-        <script src="~/Scripts/jquery.validate.min.js"></script>
-        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
-    <script>
+    }
+</script>
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+<script>
+
+
+        //jQuery
+    $(  function () {
+        //area & city
+        $("#tCampsite_fCampsiteArea").change(function () {
+            ChangeCities()
+        });
+
+    });
+
+
+        const  ChangeCities = function() {
+            let selectedArea = $("#tCampsite_fCampsiteArea option:selected").val();
+            if (    $.trim(selectedArea).length > 0     ) {
+                GetCities(selectedArea);
+            }
+        }
+        function GetCities(selectedArea) {
+            $.ajax({
+                url: '@Url.Action("GetCities", "CampOwner")',
+                data: { area: selectedArea },
+                type: "post",
+                cache: false,
+                async: false,
+                dataType: "json",
+                success: function (data) {
+                    $("#tCampsite_fCampsiteCity").empty();
+                    if (data.length > 0) {
+                        $("#tCampsite_fCampsiteCity").append($("<option></option>").val("").text("請選擇縣市"));
+                        $.each(data, function (i, item) {
+                            $("#tCampsite_fCampsiteCity").append($("<option></option>").val(item.Key).text(item.Value));
+                        });
+                    }
+                }
+            });
+        }
         const appendAddress = function (e) {
             e.preventDefault();
             document.getElementById("tCampsite_fCampsiteAddress").value = $("#tCampsite_fCampsiteCity option:selected").val();
@@ -219,92 +233,7 @@
         }
 
 
-    $(  function () {
-        //area & city
-        $("#tCampsite_fCampsiteArea").change(function () {
-            ChangeCities()
-        });
-
-        //dat off
-        $(""
-        $("#tCampsite_fCampsiteClosedDay").value = "0";
-        $("#Monday").change(function () {
-            if (this.checked) {
-                document.getElementById("tCampsite_fCampsiteClosedDay").value += "1";
-                $("#dayOffDisplay").append("星期一");
-            }
-            if (document.getElementById("tCampsite_fCampsiteClosedDay").value.startsWith("0")) {
-                document.getElementById("tCampsite_fCampsiteClosedDay").value.slice(1);
-            }
-            document.getElementById("tCampsite_fCampsiteClosedDay").value = [...new Set(uni.split(""))].sort().join("");
-        })
-          
-        $("#Mnday").change(function () {
-            if (this.checked) {
-                document.getElementById("tCampsite_fCampsiteClosedDay").value += "1";
-                $("#dayOffDisplay").append("星期一");
-            }
-            if (document.getElementById("tCampsite_fCampsiteClosedDay").value.startsWith("0")) {
-                document.getElementById("tCampsite_fCampsiteClosedDay").value.slice(1);
-            }
-            document.getElementById("tCampsite_fCampsiteClosedDay").value = [...new Set(uni.split(""))].sort().join("");
-        })
-
-        $("#Monday").change(function () {
-            if (this.checked) {
-                document.getElementById("tCampsite_fCampsiteClosedDay").value += "1";
-                $("#dayOffDisplay").append("星期一");
-            }
-            if (document.getElementById("tCampsite_fCampsiteClosedDay").value.startsWith("0")) {
-                document.getElementById("tCampsite_fCampsiteClosedDay").value.slice(1);
-            }
-            document.getElementById("tCampsite_fCampsiteClosedDay").value = [...new Set(uni.split(""))].sort().join("");
-            console.log("origin: " + document.getElementById("tCampsite_fCampsiteClosedDay").value)
-        })
-
-        $("#Monday").change(function () {
-            if (this.checked) {
-                document.getElementById("tCampsite_fCampsiteClosedDay").value += "1";
-                $("#dayOffDisplay").append("星期一");
-            }
-            if (document.getElementById("tCampsite_fCampsiteClosedDay").value.startsWith("0")) {
-                document.getElementById("tCampsite_fCampsiteClosedDay").value.slice(1);
-            }
-            document.getElementById("tCampsite_fCampsiteClosedDay").value = [...new Set(uni.split(""))].sort().join("");
-            console.log("origin: " + document.getElementById("tCampsite_fCampsiteClosedDay").value)
-        })
-
-
-
-    });
-
-
-    const  ChangeCities = function() {
-        let selectedArea = $("#tCampsite_fCampsiteArea option:selected").val();
-        if (    $.trim(selectedArea).length > 0     ) {
-            GetCities(selectedArea);
-        }
-    }
-    function GetCities(selectedArea) {
-        $.ajax({
-            url: '@Url.Action("GetCities", "CampOwner")',
-            data: { area: selectedArea },
-            type: "post",
-            cache: false,
-            async: false,
-            dataType: "json",
-            success: function (data) {
-                $("#tCampsite_fCampsiteCity").empty();
-                if (data.length > 0) {
-                    $("#tCampsite_fCampsiteCity").append($("<option></option>").val("").text("請選擇縣市"));
-                    $.each(data, function (i, item) {
-                        $("#tCampsite_fCampsiteCity").append($("<option></option>").val(item.Key).text(item.Value));
-                    });
-                }
-            }
-        });
-    }
-    //refactory
+        //refactory
 
     //altitude
     const slider = document.getElementById("tCampsite_fCampsiteAltitude");
@@ -312,7 +241,8 @@
     display.innerHTML = slider.value;
     slider.oninput = function () {
         display.innerHTML = this.value;
-    }
+        }
+
     const noAltitude = document.getElementById("withoutAltitude");
     noAltitude.onchange = function () {
         if (this.checked) {
@@ -322,15 +252,5 @@
             slider.disabled = false;
             slider.innerHTML = 0;
         }
-        }
-        //dayoff
-
-    const checkIn = document.getElementById("visibleCheckIn");
-    const checkOut = document.getElementById("visibleCheckOut");
-    checkIn.onchange = function () {
-    document.getElementById("tCampsite_fCampsiteCheckinTime").value = this.value.replace(":","")
-    }
-    checkOut.onchange = function () {
-    document.getElementById("tCampsite_fCampsiteCheckOutTime").value = this.value.replace(":","")
-    }
-    </script>
+     }
+</script>
