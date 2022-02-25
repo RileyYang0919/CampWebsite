@@ -46,7 +46,14 @@ namespace CampWebsite.Controllers
                 where t.fCampsiteID == cID
                 orderby t.fTentName
                 select t;
-            return View(Tents);
+            if (Tents.Count() != 0)
+            {
+                return View(Tents);
+            }
+            else
+            {
+                return Json(null);
+            }
         }
 
         [Authorize(Roles = "1")]
@@ -65,7 +72,7 @@ namespace CampWebsite.Controllers
             }
             else
             {
-                return Redirect(Request.UrlReferrer.PathAndQuery);
+                return Json(null);
             }
         }
 
@@ -87,10 +94,8 @@ namespace CampWebsite.Controllers
             }
             else
             {
-                //tell users no results
-                return Redirect(Request.UrlReferrer.PathAndQuery);
+                return Json(null);
             }
-
         }
 
 
@@ -160,6 +165,12 @@ namespace CampWebsite.Controllers
                 int newID = newSite.FirstOrDefault().fCampsiteID;
                 string virtualPath = "~/Images/Campsites/Campsite" + newID.ToString();
                 string physicalPath = Server.MapPath(virtualPath);
+
+                tTentPhoto tp = new tTentPhoto();
+                tp.fTentPhotoURL = "/Images/Campsites/Campsite" + newID + "/Cover.jpg";
+                tp.fCampsiteID = newID;
+                camp.tTentPhoto.Add(tp);
+                camp.SaveChanges();
 
                 // find  or create Directory
                 if (!Directory.Exists(virtualPath))
@@ -238,7 +249,7 @@ namespace CampWebsite.Controllers
                     camp.tTent.Add(myTent);
                 }
                 camp.SaveChanges();
-                return RedirectToAction("TentsInCampsite", new { campsiteID = vm.CampsiteID });
+                return RedirectToAction("TentsInCampsite", new { cID = vm.CampsiteID, cName = vm.CampsiteName });
             }
         }
 
@@ -269,8 +280,6 @@ namespace CampWebsite.Controllers
             }
             else
             {
-
-
                 //Images/Campsites/Campsite27/tName_fileName
                 string virtualPath = "~/Images/Campsites/Campsite" + vm.CampsiteID.ToString();
                 string physicalPath = Server.MapPath(virtualPath);
@@ -296,10 +305,8 @@ namespace CampWebsite.Controllers
                     camp.SaveChanges();
                 }
             }
-            return RedirectToAction("TentsInCampsite", vm.CampsiteID);
+            return RedirectToAction("TentsInCampsite", new { cID = vm.CampsiteID, cName = vm.CampsiteName });
         }
     }
-
-
 }
 

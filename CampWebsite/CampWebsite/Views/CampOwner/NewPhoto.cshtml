@@ -26,7 +26,7 @@
     }
 </style>
 
-<div class="container">
+<div class="container ">
     <div class="page-header mb-3">
         <h3>
             新增帳篷照片
@@ -38,7 +38,6 @@
     @using (Html.BeginForm("NewPhoto", "CampOwner", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
-        @Html.HiddenFor(model => model.TentID)
         @Html.HiddenFor(model => model.TentName)
         @Html.HiddenFor(model => model.CampsiteID)
         @Html.HiddenFor(model => model.CampsiteName)
@@ -48,8 +47,7 @@
 
             @*campsite name*@
             <div class="card-body py-3">
-                <label class="col-form-label">營區：</label>
-                @Html.LabelFor(item => item.CampsiteName)
+                <label class="col-form-label">營區：</label> @Model.CampsiteName
             </div>
 
 
@@ -59,24 +57,12 @@
                 <label class="col-form-label">@Model.TentName </label>
             </div>
 
-            @* cover photo *@
-            @*
-                <div class="card-body py-3">
-                    <div class="col-md-8">
-                        <label class="col-form-label w-100 required">封面照片</label>
-                        <img src="" alt="" id="coverPhotoPreview" height="200" />
-                        <input data-val="true" id="coverPhotoInput" name="CoverPhoto" type="file" accept="image/*" onchange="loadCover(event)" class="form-control">
-                        <span class="form-text" id="coverPhotoMessage">只接受圖檔：jpg   jpeg  png  gif</span>
-                    </div>
-                </div>
-            *@
-
 
             @* other photos *@
             <div class="form-group">
                 <label class="col-form-label w-100">其他照片</label>
                 <br />
-                <input data-val="true" id="otherPhotosInput" name="OtherPhotos" type="file" accept="image/*" onchange="loadOthers(event)" class="form-control" multiple>
+                <input data-val="true" id="otherPhotosInput" name="OtherPhotos" type="file" accept="image/*" onchange="loadOthers(event)" class="form-control" multiple required>
                 <span class="form-text" id="otherPhotosMessage">只接受圖檔：jpg   jpeg  png  gif</span>
             </div>
 
@@ -86,31 +72,30 @@
                     送出
                 </button>
             </div>
-
         </div>
     }
 </div>
 
-    <script>
-        const othersInput = document.getElementById("otherPhotosInput");
-        const othersMessage = document.getElementById("otherPhotosMessage");
+<script>
+    const othersInput = document.getElementById("otherPhotosInput");
+    const othersMessage = document.getElementById("otherPhotosMessage");
 
-        function loadOthers(e) {
-            const photos = othersInput.files;
-            for (var i = 0; i < photos.length; i++) {
-                if (!photos[i].type.startsWith("image/")) {
-                    document.getElementById("btnSend").disabled = true;
-                    othersMessage.classList.add("error-type");
-                    return;
-                } else {
-                    document.getElementById("btnSend").disabled = false;
-                }
+    function loadOthers(e) {
+        const photos = othersInput.files;
+        for (var i = 0; i < photos.length; i++) {
+            if (!photos[i].type.startsWith("image/")) {
+                document.getElementById("btnSend").disabled = true;
+                othersMessage.classList.add("error-type");
+                return;
+            } else {
+                document.getElementById("btnSend").disabled = false;
             }
         }
-    </script>
+    }
+</script>
 
 
 
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

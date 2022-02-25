@@ -18,7 +18,7 @@
         color: red;
     }
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>*@
 
 <div class="container">
     <div class="page-header mb-3">
@@ -104,6 +104,26 @@
                 </div>
             </div>
 
+            @*tags
+                <div class="form-group mb-5">
+                    @Html.LabelFor(model => model.PickTags, new { @class = "control-label card-title" })
+                    <br />
+                    @{  var index = 0;}
+                    @foreach (var item in Model.PickTags)
+                    {
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input dayOffCheck" type="checkbox" value="@item.fTagID" name="PickTags[@index].fTagID">
+                            <label class="form-check-label" for="item.fTagID">@item.fTagName</label>
+                        </div>
+
+                        index++;
+                    }
+
+
+                </div>*@
+
+
+
             @*公休日*@
             <div class="form-group mb-5">
                 @Html.LabelFor(model => model.tCampsite.fCampsiteClosedDay, new { @class = "control-label card-title" })
@@ -111,19 +131,10 @@
                 @for (int i = 0; i < Model.DayOffs.Count(); i++)
                 {
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="@Model.DayOffs[i].Day" name="@Model.DayOffs[i]" value="@Model.DayOffs[i].Value">
+                        <input class="form-check-input dayOffCheck" type="checkbox" id="@Model.DayOffs[i].Day" name="@Model.DayOffs[i]" value="@Model.DayOffs[i].Value">
                         <label class="form-check-label" for="@Model.DayOffs[i].Day">@Model.DayOffs[i].Day</label>
                     </div>
                 }
-
-                @*<div class="form-check form-check-inline">
-                        <input class="form-check-input dayOff" type="checkbox" id="Monday" name="tCampsite.fCampsiteClosedDay" value="1">
-                        <label class="form-check-label" for="Monday">星期一</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input dayOff" type="checkbox" id="closedDayNone" name="tCampsite.fCampsiteClosedDay" value="0">
-                        <label class="form-check-label" for="closedDayOne">無</label>
-                    </div>*@
             </div>
 
 
@@ -185,21 +196,28 @@
         }
     }
 </script>
-@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
 <script>
-
-
         //jQuery
-    $(  function () {
-        //area & city
-        $("#tCampsite_fCampsiteArea").change(function () {
-            ChangeCities()
+        $(  function () {
+            //area & city
+            $("#tCampsite_fCampsiteArea").change(function () {
+                ChangeCities()
+            });
         });
 
-    });
+        $(function () {
+            $(".dayOffCheck").click(function () {
+                if (this.checked == true) {
+                    if (this.value == "0") {
+                        console.log("Sunday");
+                        $(".dayOffCheck").prop('checked',false);
+                        this.prop('checked', true);
+                    }
 
+                }
+
+            })
+        })
 
         const  ChangeCities = function() {
             let selectedArea = $("#tCampsite_fCampsiteArea option:selected").val();
@@ -231,8 +249,6 @@
             document.getElementById("tCampsite_fCampsiteAddress").value = $("#tCampsite_fCampsiteCity option:selected").val();
             console.log("success");
         }
-
-
         //refactory
 
     //altitude

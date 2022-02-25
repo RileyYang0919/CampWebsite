@@ -16,7 +16,7 @@
     }
 </style>
 
-<div class="container-xl" style="">
+<div class="container-xl min-vh-100" style="">
     <div class="mb-5"></div>
     <div class="page-header mb-3">
         <h2>@ViewBag.tName</h2>
@@ -45,12 +45,7 @@
                 <th class="text-bold">
                     @Html.DisplayNameFor(model => model.fOrderPrice)
                 </th>
-                <th class="text-bold">
-                    應付訂金
-                </th>
-                <th class="text-bold">
-                    已收款項
-                </th>
+                
                 <th class="text-bold">
                     @Html.DisplayNameFor(model => model.fOrderIsPaid)
                 </th>
@@ -84,20 +79,12 @@
                         @*@Html.DisplayFor(modelItem => item.fCheckinDate.)*@
                     </td>
                     <td>
-                        @{ 
-                            string p = String.Format("{0:N}",  item.fOrderPrice.ToString());
-                        }
-                        @String.Format("{0:N}", item.fOrderPrice.ToString())
+                        
                         @Html.DisplayFor(modelItem => item.fOrderPrice)
                     </td>
-                    <td class="text-secondary">
-                        300
-                    </td>
-                    <td class="text-secondary">
-                        300
-                    </td>
+                    
                     <td>
-                        @Html.DisplayFor(modelItem => item.fOrderIsPaid)
+                        <i class="fa-solid fa-check">已付款</i>
                     </td>
                     <td>
                         @item.fOrderCreatedTime.ToShortDateString()

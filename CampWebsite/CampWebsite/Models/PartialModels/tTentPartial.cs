@@ -23,7 +23,7 @@ namespace CampWebsite.Models
             public string fTentName { get; set; }
 
 
-            [DisplayName("選項分類")]
+            [DisplayName("住宿分類")]
             public string fTentCategory { get; set; }
 
 
@@ -34,12 +34,12 @@ namespace CampWebsite.Models
 
 
             [Required]
-            [DisplayName("平日價格")]
+            [DisplayName("平日收費")]
             public int fTentPriceWeekday { get; set; }
 
 
             [Required]
-            [DisplayName("例假日價格")]
+            [DisplayName("假日收費")]
             public int fTentPriceWeekend { get; set; }
 
         }

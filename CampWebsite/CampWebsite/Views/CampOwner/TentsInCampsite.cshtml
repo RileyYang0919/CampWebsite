@@ -14,9 +14,11 @@
         text-align: center;
         min-width: 3rem;
     }
+
+    
 </style>
 
-<div class="container">
+<div class="container min-vh-100">
     <div class="mb-5"></div>
     <div class="page-header mb-3">
         <h2>@ViewBag.cName</h2>
@@ -27,7 +29,6 @@
     <table class="table table-hover table-striped align-middle" style="user-select:none">
         <thead class="">
             <tr>
-
                 <th class="text-bold" min-width>
                     @Html.DisplayNameFor(model => model.fTentName)
                 </th>
@@ -50,16 +51,14 @@
                     未來訂單
                 </th>
                 <th class="text-bold">
-                    @*上傳封面*@
+                    上傳封面
                 </th>
             </tr>
         </thead>
         <tbody class="align-middle">
-
             @foreach (var item in Model)
             {
                 <tr style="justify-content:center">
- 
                     <td>
                         @Html.DisplayFor(modelItem => item.fTentName)
                     </td>
@@ -79,13 +78,50 @@
                         (有/無)
                     </td>
                     <td>
-                        @Html.ActionLink("未來訂單", "FutureOrdersForTent", new { tID = item.fTentID, tName = item.fTentName }, new { @class = "link-primary" })
+                        @*<a href="#" class="showAllTents link-primary" id="@item.fCampsiteID" value="@item.fCampsiteName">所有帳篷</a>*@
+
+                        <a href="#" class="showFutureOrders link-primary" id="@item.fTentID" value="@item.fTentName">未來訂單</a>
                     </td>
                     <td>
-                        @Html.ActionLink("上傳照片", "NewPhoto", new { tName = item.fTentName, cID = item.tCampsite.fCampsiteID, cName = item.tCampsite.fCampsiteName} , new { @class = "link-secondary" })
+                        @Html.ActionLink("上傳照片", "NewPhoto", new { tName = item.fTentName, cID = item.tCampsite.fCampsiteID, cName = item.tCampsite.fCampsiteName }, new { @class = "link-primary" })
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+@*<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>*@
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+        $(".showFutureOrders").click(function () {
+        const linkID = this.id;
+        const linkName = this.value;
+        $.ajax({
+            url: "@Url.Action("FutureOrdersForTent","CampOwner")",
+            data: { "tID": linkID, "tName": linkName },
+            type: "get",
+            cache: false,
+            async: false,
+            dataType: "html",
+            success: function (data) {
+                window.location.href = this.url;
+                console.log("success"+data)
+            },
+            error: function (data) {
+                Swal.fire({
+                    title: '未來沒有訂單唷',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                })
+            }
+        })
+    })
+
+
+</script>

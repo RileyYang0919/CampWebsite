@@ -15,203 +15,177 @@
         text-align: center;
         min-width: 3rem;
     }
+
+    .heroAlert {
+        font-size: 5rem;
+    }
+
+/*    table {
+        min-height: 80vh;
+    }*/
 </style>
 
-<div class="container-xl" style="">
-    <div class="mb-5"></div>
-    <div class="page-header mb-3">
-        <h2>我的營區們</h2>
+
+
+
+@if (Model.Count() == 0)
+{
+    <div class="container-xl min-vh-100" style="">
+        <div class="mb-5"></div>
+        <div class="page-header mb-3">
+            <h2>我的營區們</h2>
+            <br />
+        </div>
+        <p class="heroAlert">你還沒有已經登記的營區歐!</p>
+        <button type="button" class="btn mb-3" style="background-color: #95a59d; color:white">
+            @Html.ActionLink("+註冊營區", "NewCampsite")
+        </button>
         <br />
     </div>
-    <button type="button" class="btn mb-3" style="background-color: #95a59d; color:white">
-        @Html.ActionLink("+註冊營區", "NewCampsite")
-    </button>
-    <br />
-    @*table*@
-    <div class="table-responsive" style="user-select:none">
-        <table class="table table-hover table-striped align-middle" style="user-select:none">
-            <thead class="">
-                <tr>
-                    <th class="text-bold">
-                        @Html.DisplayNameFor(model => model.fCampsiteName)
-                    </th>
-                    <th class="text-bold">
-                        @Html.DisplayNameFor(model => model.fCampsitePhone)
-                    </th>
-                    <th class="text-bold">
-                        @Html.DisplayNameFor(model => model.fCampsiteClosedDay)
-                    </th>
-                    <th class="text-bold">
-                        @Html.DisplayNameFor(model => model.fCampsiteCheckInTime)
-                    </th>
-                    <th class="text-bold">
-                        @Html.DisplayNameFor(model => model.fCampsiteCheckOutTime)
-                    </th>
-                    <th class="text-bold">
-                        住宿總數
-                    </th>
-                    <th class="text-bold">
-                        今日尚有
-                    </th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr class="">
-                        <td style="text-align:center">
-                            @Html.DisplayFor(modelItem => item.fCampsiteName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.fCampsitePhone)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.fCampsiteClosedDay)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.fCampsiteCheckInTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.fCampsiteCheckOutTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelitem => item.tTent.Count)
-                        </td>
-                        <td class="text-secondary">
-                            (剩下:)
-                        </td>
-                        <td>
-                            @Html.ActionLink("所有住宿", "TentsInCampsite", new { cID = item.fCampsiteID, cName = item.fCampsiteName }, new { @class = "link-primary" })
-                        </td>
-                        <td>
-                            @Html.ActionLink("所有訂單", "HistoryOrders", new { cID = item.fCampsiteID, cName = item.fCampsiteName }, new { @class = "link-secondary, disabled"})
-                        </td>
-                        <td>
-                            @Html.ActionLink("新增住宿", "NewTent", new { cID = item.fCampsiteID, cName = item.fCampsiteName }, new { @class = "link-primary" })
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
-
-
-<div class="d-flex flex-column p-3 bg-light rounded fixed-bottom" style="width: 210px; border:1px solid blue">
-    <p class="text-center fs-3">
-        管理功能
-    </p>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-            <a href="#" class="nav-link active">
-                我的營區
-            </a>
-        </li>
-        <li>
-            @Html.ActionLink("所有訂單", "HistoryOrders" @*, new { cID = item.fCampsiteID, cName = item.fCampsiteName }*@);
-        </li>
-        <li>
-            <a href="/CampOwner/HistoryOrders" class="nav-link link-dark">
-                所有訂單
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link link-dark disabled">
-                訂房情況
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link link-dark disabled">
-                查詢評價
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link link-dark disabled">
-                客戶管理
-            </a>
-        </li>
-    </ul>
-</div>
-
-
-@*
-    <div class="container-xl" style="border: 1px solid black">
-            <div class="mb-5"></div>
-            <div class="page-header mb-3">
-                <h2>我的營區們</h2>
-                <br />
-            </div>
-            <button type="button" class="btn mb-3" style="background-color: #95a59d; color:white">
-                @Html.ActionLink("+註冊營區", "NewCampsite")
-            </button>
+}
+else
+{
+    <div class="container-xl min-vh-100" style="">
+        <div class="mb-5"></div>
+        <div class="page-header mb-3">
+            <h2>我的營區們</h2>
             <br />
-            <div class="table-responsive" style="user-select:none">
-                <table class="table table-hover table-striped align-middle" style="user-select:none">
-                    <thead class="thead-middle">
-                        <tr>
-                            <th class="text-bold">
-                                @Html.DisplayNameFor(model => model.fCampsiteName)
-                            </th>
-                            <th class="text-bold">
-                                @Html.DisplayNameFor(model => model.fCampsitePhone)
-                            </th>
-                            <th class="text-bold">
-                                @Html.DisplayNameFor(model => model.fCampsiteClosedDay)
-                            </th>
-                            <th class="text-bold">
-                                @Html.DisplayNameFor(model => model.fCampsiteCheckInTime)
-                            </th>
-                            <th class="text-bold">
-                                @Html.DisplayNameFor(model => model.fCampsiteCheckOutTime)
-                            </th>
-                            <th class="text-bold">
-                                住宿總數
-                            </th>
-                            <th class="text-bold">
-                                今日尚有
-                            </th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr class="">
-                                <td style="text-align:center">
-                                    @Html.DisplayFor(modelItem => item.fCampsiteName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.fCampsitePhone)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.fCampsiteClosedDay)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.fCampsiteCheckInTime)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.fCampsiteCheckOutTime)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelitem => item.tTent.Count)
-                                </td>
-                                <td class="text-secondary">
-                                    剩下:
-                                </td>
-                                <td>
-                                    @Html.ActionLink("所有住宿", "TentsInCampsite", new { cID = item.fCampsiteID }, new { @class = "link-primary" })
-                                </td>
-                                <td>
-                                    @Html.ActionLink("新增住宿", "NewTent", new { cID = item.fCampsiteID, cName = item.fCampsiteName }, new { @class = "link-primary" })
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
         </div>
-*@
+        <button type="button" class="btn mb-3" style="background-color: #95a59d; color:white">
+            @Html.ActionLink("+註冊營區", "NewCampsite")
+        </button>
+        <br />
+        @*table*@
+        <div class="table-responsive" style="user-select:none">
+            <table class="table table-hover table-striped align-middle" style="user-select:none">
+                <thead class="">
+                    <tr>
+                        <th class="text-bold">
+                            @Html.DisplayNameFor(model => model.fCampsiteName)
+                        </th>
+                        <th class="text-bold">
+                            @Html.DisplayNameFor(model => model.fCampsitePhone)
+                        </th>
+                        @*<th class="text-bold">
+                                @Html.DisplayNameFor(model => model.fCampsiteClosedDay)
+                            </th>*@
+                        <th class="text-bold">
+                            @Html.DisplayNameFor(model => model.fCampsiteCheckInTime)
+                        </th>
+                        <th class="text-bold">
+                            @Html.DisplayNameFor(model => model.fCampsiteCheckOutTime)
+                        </th>
+                        <th class="text-bold">
+                            住宿總數
+                            @*換成tag*@
+                        </th>
+                        <th class="text-bold">
+                            今日尚有
+                        </th>
+                        <th>所有帳篷</th>
+                        <th>所有訂單</th>
+                        <th>新增住宿</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="">
+                            <td style="text-align:center">
+                                @Html.DisplayFor(modelItem => item.fCampsiteName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fCampsitePhone)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.fCampsiteClosedDay)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fCampsiteCheckInTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fCampsiteCheckOutTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelitem => item.tTent.Count)
+                            </td>
+                            <td class="text-secondary">
+                                (剩下:)
+                            </td>
+                            <td>
+                                <a href="#" class="showAllTents link-primary" id="@item.fCampsiteID" value="@item.fCampsiteName">所有帳篷</a>
+                            </td>
+                            <td>
+                                <a href="#" class="showAllOrders link-primary" id="@item.fCampsiteID" value="@item.fCampsiteName">所有訂單</a>
+                            </td>
+                            <td>
+                                @Html.ActionLink("新增住宿", "NewTent", new { cID = item.fCampsiteID, cName = item.fCampsiteName }, new { @class = "link-primary" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@*<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>*@
+<script>
+
+    $(".showAllTents").click(function () {
+        const linkID = this.id;
+        const linkName = this.value;
+        $.ajax({
+            url: "@Url.Action("TentsInCampsite", "CampOwner")",
+            data: { "cID": linkID, "cName": linkName },
+            type: "get",
+            cache: false,
+            async: false,
+            dataType: "html",
+            success: function (data) {
+                window.location.href = this.url;
+            },
+            error: function (data) {
+                Swal.fire({
+                    title: '你沒有帳篷Q',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                })
+            }
+        })
+    })
+    $(".showAllOrders").click(function () {
+        const linkID = this.id;
+        const linkName = this.value;
+        $.ajax({
+            //url: "/CampOwner/HistoryOrders",
+            url: "@Url.Action("HistoryOrders", "CampOwner")",
+            data: { "cID": linkID, "cName": linkName },
+            type: "get",
+            cache: false,
+            async: false,
+            dataType: "html",
+            success: function (data) {
+                window.location.href = this.url;
+            },
+            error: function (data) {
+                Swal.fire({
+                    title: '查無訂單',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                })
+            }
+        })
+    })
+
+</script>
