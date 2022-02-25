@@ -41,6 +41,8 @@ namespace CampWebsite.Models
                 photo.fTentPhotoURL = reader["fTentPhotoURL"].ToString();
                 photoList.Add(photo);
             }
+            reader.Close();
+            con.Close();
             return photoList;
         }
         //找所有營區
