@@ -96,7 +96,7 @@ namespace CampWebsite.Models
                                 CampsitePhone = c.fCampsitePhone,
                                 CampsiteAddress = c.fCampsiteAddress,
                                 CheckinDate = x.fCheckinDate,
-                                Price = x.fOrderPrice
+                                Price = x.fOrderPrice,
                             }).ToList();
             int CampsiteID = myOrders[0].CampsiteID;
             string fCampsiteName = myOrders[0].CampsiteName;
@@ -123,12 +123,13 @@ namespace CampWebsite.Models
                 priceSum += one.Price;
             }
             tentSum = tentIDs.Count();
+            // userComment 抓取留言，只要一筆
             var userComment = (from x in db.tComment
-                              where x.fOrderConfirmCode == orderCode
-                              select x).FirstOrDefault();
+                               where x.fOrderConfirmCode == orderCode
+                               select x).FirstOrDefault();
             MyOrderDetailViewModel getTheOrderDetails = new MyOrderDetailViewModel(); //everyOrder 每一筆訂單卡片
             getTheOrderDetails.fCampsiteID = CampsiteID;
-            getTheOrderDetails.tComment = userComment;            
+            getTheOrderDetails.tComment = userComment;
             getTheOrderDetails.fOrderCode = orderCode;
             getTheOrderDetails.fCampsiteName = fCampsiteName;
             getTheOrderDetails.fCampsitePhone = fCampsitePhone;

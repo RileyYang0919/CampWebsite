@@ -70,7 +70,26 @@
                 }
             }
             @{
-                if (Model.tOrders.Last().fCheckinDate < DateTime.Today )
+                if (Model.tComment != null)
+                {
+                    <div class=" my-3 py-3 " id="commentArea">
+                        @*<h2>營區評論</h2>*@
+
+                        <div class=" py-1  mt-1 d-flex justify-content-between ">
+                            <div class="d-flex align-items-center">
+                                您對住宿的整體評價為:
+                            </div>
+
+                            <div class="rating" id="commentRate">
+                                @Model.tComment.fCommentScore 分
+                            </div>
+                        </div>
+                        <textarea class="form-control" style="resize:none" rows="5" placeholder="分享您對住宿體驗的想法" readonly> @Model.tComment.fComment</textarea>
+
+                    </div>
+                    <br />
+                }
+                else if (Model.tOrders.Last().fCheckinDate < DateTime.Today)
                 {
                     <div class=" my-3 py-3 " id="commentArea">
                         @*<h2>營區評論</h2>*@

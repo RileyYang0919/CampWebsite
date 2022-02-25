@@ -19,6 +19,7 @@ namespace CampWebsite.ViewModels
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "您必須輸入密碼！")]
         [StringLength(16, MinimumLength = 8, ErrorMessage = "請設定8~16字元密碼")]
+        [RegularExpression(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$", ErrorMessage = "須包含大小寫英文字母與數字")]
         public string fPassword { get; set; }
 
         [Display(Name = "再次確認密碼")]

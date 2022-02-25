@@ -1,0 +1,55 @@
+﻿@model CampWebsite.Models.tMember
+
+<img class="rounded-circle border border-primary mx-auto d-flex my-2" width="150" height="150" onerror="this.src='/Images/Members/default.jpg'" src="@Model.fPhoto" />
+
+<label class="btn btn-info mx-auto btn-sm d-flex col-2">
+    <input id="ChangePic" style="display:none;" type="file" accept="image/*">
+    <i class="fas fa-pen m-auto"></i> 上傳圖片
+</label>
+
+<hr />
+<div class="form-group mt-3">
+    <label for="fName" class="">姓名</label>
+    <input type="text" class="form-control" name="fName" value=" @Model.fName" required />
+</div>
+<div class="form-group mt-3">
+    <label for="fEmail" class="">Email</label>
+    <input type="email" class="form-control" name="fEmail" value="@Model.fEmail" disabled readonly />
+</div>
+<div class="form-group mt-3">
+    <label for="fPassword" class="">密碼</label> <i class="fa-solid fa-eye-slash" id="psShowHide"></i>
+    <input type="password" class="form-control" name="fPassword" id="userPW" value="@Model.fPassword" required />
+</div>
+<div class="form-group mt-3">
+    <label for="fPhoneNumber" class="">電話</label>
+    <input type="tel" class="form-control" name="fPhoneNumber" value="@Model.fPhoneNumber" maxlength="10" minlength="10" />
+</div>
+<div class="form-group mt-3">
+    <label>性別</label>
+    <br />
+    @Html.RadioButtonFor(model => model.fSex, "0", new { @class = "form-check-input", id = "none", name = "fSex" })
+    <label for="none" class="">不表態</label>
+    @Html.RadioButtonFor(model => model.fSex, "1", new { @class = "form-check-input", id = "male", name = "fSex" })
+    <label for="male" class="">男生</label>
+    @Html.RadioButtonFor(model => model.fSex, "2", new { @class = "form-check-input", id = "female", name = "fSex" })
+    <label for="female" class="">女生</label>
+</div>
+<div class="form-group mt-3">
+    <label for="name" class="">生日</label>
+    <input type="date" class="form-control" name="fBirthday" value="@ViewBag.Birthday" />
+</div>
+
+<div class="form-group mt-3">
+    <label for="name" class="">Email驗證</label>
+    @{
+        if (Model.fVerified == true)
+        { <p><i class="fa-solid fa-circle-check"></i>已驗證</p>}
+        else
+        { <p><i class="fa-solid fa-circle-exclamation"></i>尚未驗證</p>}
+    }
+</div>
+<div class="form-group mt-3">
+    <input type="submit" value="儲存修改" class="btn btn-info mx-auto d-flex" />
+</div>
+<br />
+

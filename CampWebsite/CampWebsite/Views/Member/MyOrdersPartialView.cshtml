@@ -1,0 +1,40 @@
+﻿@model List<CampWebsite.ViewModels.MyOrdersViewModel>
+
+@if (Model == null)
+{
+    <h2>目前沒有訂單</h2>
+}
+else
+{
+    foreach (var item in Model)
+    {
+        <div class="card mt-3">
+            <div class="card-header d-flex justify-content-between">
+                <div>
+                    訂單編號: @item.fOrderCode
+                </div>
+
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0 ">
+                    <div class="d-flex justify-content-between">
+                        <div class="test">
+                            <p>@item.fCampsiteName</p>
+                            <p>入住日期: @item.fCheckinStart</p>
+                            <p>退房日期: @item.fCheckinEnd</p>
+                            <p>@item.fTentCount 個營位</p>
+                        </div>
+                        <div class="">
+                            <p>TWD @item.fTotalPrice</p>
+                            @Html.ActionLink("訂單細節", "OrderDetail", new { OrderCode = item.fOrderCode })
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <footer class="blockquote-footer   ">@(item.fZDay > 0? "再" + item.fZDay + "天就見面囉": "謝謝惠顧" )</footer>
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <br />
+    }
+}

@@ -1,0 +1,46 @@
+﻿@model List<CampWebsite.ViewModels.MyCampFavoriteViewModel>
+
+@{
+    if (Model == null)
+    {
+        <h3>目前沒有任何收藏</h3>
+    }
+    else
+    {
+        foreach (var Favorite in Model)
+        {
+            var stars = Convert.ToInt32(Math.Floor(@Favorite.fScore));
+            <div class="row d-flex justify-content-center">
+                <div class="card col-8 col-lg-6 my-2">
+                    <div class="imageBox">
+                        <img class="card-img-top image100" alt="@Favorite.fCampsiteName" onerror="this.src='/Images/Campsites/Cover_default.jpg'" src=@Favorite.fPhotoUrl />
+                    </div>
+                    <div class="card-body">
+                        <p><i class="fa-solid fa-location-dot"></i> @Favorite.fCity</p>
+                        <h5 class="card-title">@Favorite.fCampsiteName</h5>
+                        <div class="d-flex justify-content-between">
+                            <div>
+
+                                @for (int i = 1; i <= stars; i++)
+                                {
+                                    <i class="fa-solid fa-star"></i>
+                                }
+                                @for (int j = 1; j <= (5 - stars); j++)
+                                {
+                                    <i class="fa-regular fa-star"></i>
+                                }
+                            </div>
+
+                        </div>
+                        <div class="d-flex p-3">
+                            @Html.ActionLink("查看住宿", "Details", "CampSite", new { id = Favorite.fCampsiteID }, new { @class = "btn border-success text-center m-auto" })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    }
+}
+

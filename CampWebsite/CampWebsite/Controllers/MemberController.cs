@@ -105,11 +105,34 @@ namespace CampWebsite.Controllers
             //另一種驗證方式FormsAuthentication.RedirectFromLoginPage(member.Email, true);
             return Redirect(returnUrl);
         }
+        ////////////////////////////////////////////////////////////////////////////////////////會員資料頁面///
         /// <summary>
         /// 會員資料、營區收藏、歷史訂單
         /// </summary>
         [Authorize]
         public ActionResult personalProfile()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult personalProfile(tMember tMember)
+        {
+            int myID = Convert.ToInt32(User.Identity.Name);
+            var editMember = db.tMember.Where(i => i.fMemberID == myID).FirstOrDefault();
+            editMember.fName = tMember.fName;
+            editMember.fPassword = tMember.fPassword;
+            editMember.fPhoneNumber = tMember.fPhoneNumber;
+            editMember.fSex = tMember.fSex;
+            editMember.fBirthday = tMember.fBirthday;
+            db.SaveChanges();
+            //更新身分憑證
+            string userData = (editMember.fGroup).ToString() + "," + editMember.fName;
+            string userID = (editMember.fMemberID).ToString();
+            new CAuthenticationFactory().SetAuthenTicket(userData, userID);
+            return RedirectToAction("Index", "Home");
+        }
+        // MyProfile 用戶的個人資料
+        public ActionResult MyProfilePartialView()
         {
             int myID = Convert.ToInt32(User.Identity.Name);
             var member = db.tMember.Where(i => i.fMemberID == myID).FirstOrDefault();
@@ -118,59 +141,22 @@ namespace CampWebsite.Controllers
                 DateTime myBirthday = member.fBirthday.HasValue ? member.fBirthday.Value : DateTime.MinValue;
                 ViewBag.Birthday = myBirthday.ToString("yyyy-MM-dd");
             }
-            var myOrderList = new CMemberProfileFactory().getMyOrdersList(myID);
-            var myFavorites = new CCampFavoriteFactory().QueryByFid(myID);
-            Member3in1ViewModel memberProfileModel = new Member3in1ViewModel()
-            {
-                tMember = member,
-                myOrderList = myOrderList,
-                myCampFavorites = myFavorites,
-            };
-
-            return View(memberProfileModel);
+            return PartialView(member);
         }
-        [HttpPost]
-        public ActionResult personalProfile(tMember viewMember)
+        // MyOrders 用戶的歷史訂單(卡片)
+        public ActionResult MyOrdersPartialView()
         {
             int myID = Convert.ToInt32(User.Identity.Name);
-            var editMember = db.tMember.Where(i => i.fMemberID == myID).FirstOrDefault();
-            editMember.fName = viewMember.fName;
-            editMember.fPassword = viewMember.fPassword;
-            editMember.fPhoneNumber = viewMember.fPhoneNumber;
-            editMember.fSex = viewMember.fSex;
-            editMember.fBirthday = viewMember.fBirthday;
-            db.SaveChanges();
-            //更新身分憑證
-            string userData = (editMember.fGroup).ToString() + "," + editMember.fName;
-            string userID = (editMember.fMemberID).ToString();
-            new CAuthenticationFactory().SetAuthenTicket(userData, userID);
-            return RedirectToAction("Index", "Home");
+            var myOrderList = new CMemberProfileFactory().getMyOrdersList(myID);
+            return PartialView(myOrderList);
         }
-        /// <summary>
-        /// MyOrders 用戶的歷史訂單(卡片)
-        /// </summary>
-        //[Authorize]
-        //public ActionResult MyOrders()
-        //{
-        //    //這區塊好像沒用到，應該可以刪除
-        //    var myOrderList = new CMemberProfileFactory().getMyOrdersList(123);
-        //    return View(myOrderList);
-        //}
-        /// <summary>
-        /// 點選訂單卡片後，進入OrderDetail回傳訂單細節
-        /// </summary>
-        public ActionResult OrderDetail(string OrderCode)
+        //查詢我的收藏
+        public ActionResult MyFavoritePartialView()
         {
-            if (OrderCode == "" || OrderCode == null)
-            {
-                return View();
-            }
-            var myOrderDetail = new CMemberProfileFactory().getSingleOrderDetail(OrderCode);
-
-            return View(myOrderDetail);
+            int myID = Convert.ToInt32(User.Identity.Name);
+            var myFavorites = new CCampFavoriteFactory().QueryByFid(myID);
+            return PartialView(myFavorites);
         }
-    
-
         /// <summary>
         /// 上傳會員圖片
         /// </summary>
@@ -193,6 +179,21 @@ namespace CampWebsite.Controllers
             }
             return Json(new { isUploaded = true, result = "成功囉" }, "text/html");
         }
+        ////////////////////////////////////////////////////////////////////////////////////////會員資料頁面///結束
+        ///
+        /// <summary>
+        /// 點選訂單卡片後，進入OrderDetail回傳訂單細節
+        /// </summary>
+        public ActionResult OrderDetail(string OrderCode)
+        {
+            if (OrderCode == "" || OrderCode == null)
+            {
+                return View();
+            }
+            var myOrderDetail = new CMemberProfileFactory().getSingleOrderDetail(OrderCode);
+
+            return View(myOrderDetail);
+        }
         /// <summary>
         /// 會員的營區留言功能
         /// </summary>
@@ -206,10 +207,9 @@ namespace CampWebsite.Controllers
             {
                 return Json("msg:'No Comment'");
             }
-            tComment myComment = userComment;
-            myComment.fMemberID = Convert.ToInt32(User.Identity.Name);
-            myComment.fCommentTime = DateTime.Now;
-            db.tComment.Add(myComment);
+            userComment.fMemberID = Convert.ToInt32(User.Identity.Name);
+            userComment.fCommentTime = DateTime.Now;
+            db.tComment.Add(userComment);
             db.SaveChanges();
             return RedirectToAction("Details", "CampSite", new { id = userComment.fCampsiteID });
         }
@@ -220,13 +220,7 @@ namespace CampWebsite.Controllers
             Session.Clear();
             return Redirect("/Home/Index");
         }
-        //查詢我的收藏
-        public ActionResult MyFavorite()
-        {
-            int myID = Convert.ToInt32(User.Identity.Name);
-            var myFavorites = new CCampFavoriteFactory().QueryByFid(myID);
-            return View(myFavorites);
-        }
+
 
         // 顯示所有會員-限開發用
         public ActionResult List()

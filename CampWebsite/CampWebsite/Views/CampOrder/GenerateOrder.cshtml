@@ -82,8 +82,27 @@
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="sweetalert2.all.min.js"></script>
+<script>
+    $(function () {
+            $("input[type='submit']").click(function () {
+                //使用方式
+                swalConfirm("確定刪除？", "", function ()
+                 {
+                    //Loading畫面，出處:http://malsup.com/jquery/block/
+                    $.blockUI();
+                    $.ajax({
+                        url: "@Url.Action("MyAction", "MyController")",
+                        method: "post",
+                        data: { },
+                        success: function (result) {
+                        }, complete: function () {
+                            $.unblockUI();
+                        }
+                    });//End ajax
+                }//end function
+                );//end swalConfirm
+            });//end click event
+        });
+</script>

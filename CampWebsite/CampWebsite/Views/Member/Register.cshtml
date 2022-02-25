@@ -26,7 +26,7 @@
                     @Html.ValidationMessageFor(model => model.fEmail, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="fPassword" placeholder="Password" value="" id="password" />
+                    <input type="password" class="form-control" name="fPassword" placeholder="Password: 8-16個字元(須包含大小寫英文與數字)" value="" id="password" />
                     @Html.ValidationMessageFor(model => model.fPassword, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
@@ -55,6 +55,3 @@
 }
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@

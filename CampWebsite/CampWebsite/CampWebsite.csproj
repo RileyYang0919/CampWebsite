@@ -213,7 +213,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CampsiteDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Member3in1ViewModel.cs" />
     <Compile Include="ViewModels\MyCampFavoriteViewModel.cs" />
     <Compile Include="ViewModels\MyOrderDetailViewModel.cs" />
     <Compile Include="ViewModels\MyOrdersViewModel.cs" />
@@ -266,6 +265,9 @@
     <Content Include="Views\Member\Em.cshtml" />
     <Content Include="Views\CampOwner\FutureOrdersForTent.cshtml" />
     <Content Include="Views\CampOwner\HistoryOrders.cshtml" />
+    <Content Include="Views\Member\MyFavoritePartialView.cshtml" />
+    <Content Include="Views\Member\MyOrdersPartialView.cshtml" />
+    <Content Include="Views\Member\MyProfilePartialView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
