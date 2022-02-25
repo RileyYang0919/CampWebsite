@@ -1,13 +1,7 @@
 ﻿
 @{ ViewBag.Title = "Index"; }
 
-<!DOCTYPE html>
-<html lang="zh-tw">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>即時天氣</title>
 
     <style>
         * {
@@ -146,15 +140,15 @@
                     right: 10%;
                 }
     </style>
-</head>
-
-<body>
 
 
-    <div class="container">
+
+
+
+    <div class="container weatherArea p-3">
 
     </div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
 
 
@@ -192,7 +186,7 @@
                         Suggest = '記得攜帶雨具'
                     }
 
-                    var Card = document.querySelector(".container")
+                    var Card = document.querySelector(".weatherArea")
                     Card.innerHTML += `
             <div class="card">
                 <img src="${img_src}" alt="">
@@ -210,7 +204,3 @@
             });
 
     </script>
-
-</body>
-
-</html>

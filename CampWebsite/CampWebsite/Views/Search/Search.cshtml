@@ -259,6 +259,7 @@
                             object.fCampsiteAltitude = ob.fCampsiteAltitude.replace("公尺", "")
                             object.fCampsiteClosedDay = ob.fCampsiteClosedDay;
                             object.fAvgComment = ob.fAvgComment;
+                            object.fTentPhotoURL = ob.fTentPhotoURL;
                         }
                         object.TentnameQuantity = [];
                         data.Tents.forEach(t => {
@@ -422,7 +423,7 @@
         resultSection.innerHTML +=
             "<div class='row row-cols-3 item d-flex mb-3 g-0'>" +
             "<div class='col-5 img-left h-100 p-3 border-right'>" +
-            `<img src='@Url.Content("~/Images/campsite/alt.jpg")' class='h-100 w-100'>` +
+            `<img src='${decodeURI(D[i].fTentPhotoURL)}' class='h-100 w-100'>` +
             "</div>" +
             "<div class='col-5 d-flex ps-3 border-right position-relative'>" +
             "<div class='d-flex align-items-center position-absolute commentHeart'>" +

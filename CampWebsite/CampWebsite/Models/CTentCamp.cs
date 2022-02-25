@@ -14,6 +14,7 @@ namespace CampWebsite.Models
         public string fCampsiteClosedDay { get; set; }
         public string fCampsiteAltitude { get; set; }
         public double fAvgComment { get; set; }
+        public string fTentPhotoURL { get; set; }
 
     }
 }

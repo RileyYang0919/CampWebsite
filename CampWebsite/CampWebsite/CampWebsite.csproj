@@ -112,6 +112,7 @@
     <Content Include="Content\homeindex.css" />
     <Content Include="Content\memberRigister.css" />
     <Content Include="Content\search.css" />
+    <Content Include="Content\showtentphoto.css" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\1.jpeg" />
@@ -126,7 +127,15 @@
     <Content Include="Images\Asset 3.png" />
     <Content Include="Images\avatars\01.svg" />
     <Content Include="Images\bell-ring.png" />
+    <Content Include="Images\Campsites\Campsite12\Cover.jpg" />
+    <Content Include="Images\Campsites\Campsite12\碎石區_達官亭123.jpg" />
+    <Content Include="Images\Campsites\Campsite12\碎石區_達官亭456.jpg" />
+    <Content Include="Images\Campsites\Campsite12\碎石區_達官亭789.jpg" />
+    <Content Include="Images\Campsites\Campsite12\草地區-5帳包區_1234567.jpg" />
+    <Content Include="Images\Campsites\Campsite12\草地區-5帳包區_1567.jpg" />
+    <Content Include="Images\Campsites\Campsite12\草地區-5帳包區_227.jpg" />
     <Content Include="Images\Campsites\Cover_default.jpg" />
+    <Content Include="Images\Campsites\noPic.jpg" />
     <Content Include="Images\cat.png" />
     <Content Include="Images\main.jpg" />
     <Content Include="Images\Members\default.jpg" />
@@ -269,6 +278,7 @@
     <Content Include="Views\Member\MyFavoritePartialView.cshtml" />
     <Content Include="Views\Member\MyOrdersPartialView.cshtml" />
     <Content Include="Views\Member\MyProfilePartialView.cshtml" />
+    <Content Include="Views\CampSite\ShowTentPhoto.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

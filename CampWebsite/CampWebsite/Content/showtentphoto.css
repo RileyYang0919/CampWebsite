@@ -1,0 +1,58 @@
+﻿.img-container {
+    width: 80%;
+}
+
+body {
+    background-color: #e6e6e6;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+.count {
+    font-size: 2rem;
+}
+
+.line {
+    height: 1px;
+    border: 1px solid #234A63;
+    margin: 1rem 0 1rem 0;
+    width: 100%;
+    position: relative;
+    background-color: #234A63;
+    box-shadow: 2px 2px 5px gray;
+}
+
+    .line:before {
+        content: "";
+        height: 10px;
+        width: 40%;
+        position: absolute;
+        background-color: #234A63;
+        top: 0;
+        left: -1px;
+        box-shadow: 2px 2px 5px gray;
+    }
+
+img {
+    border: 3px solid #95a59d;
+    padding: 5px;
+    box-shadow: 2px 2px 5px gray;
+}
+
+h3 {
+    letter-spacing: 0.3rem;
+    font-weight: 600;
+}
+
+.noPhoto {
+    letter-spacing: 0.3rem;
+    font-weight: 600;
+    font-size: 2rem;
+    color: #b95159;
+}
+
+    .noPhoto i {
+        margin-top: 5rem;
+        color: #e5c45b;
+        -webkit-text-stroke: 2px black;
+        margin-right: 1rem;
+    }

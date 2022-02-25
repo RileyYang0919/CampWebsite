@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 
 namespace CampWebsite.Models
 {
@@ -219,6 +220,50 @@ namespace CampWebsite.Models
             reader.Close();
             con.Close();
             return isFavored;
+        }
+        public List<tTentPhoto> QueryCampPhotos(string campid)
+        {
+            string photoUrl = $"/Images/Campsites/Campsite{campid}";
+            SqlConnection con = ConnectSQL();
+            StringBuilder sb = new StringBuilder();
+            sb.Append(" and fTentPhotoURL like N'%'+@fTentPhotoURL+'%'");
+            string SQLstring = "select * from tTentPhoto where fCampsiteID = @fCampsiteID" + sb;
+            SqlCommand cmd = sqlcmd(con, SQLstring, campid);
+            cmd.Parameters.AddWithValue("@CampsiteID", campid);
+            cmd.Parameters.AddWithValue("@fTentPhotoURL", photoUrl);
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<tTentPhoto> photoList = new List<tTentPhoto>();
+            while (reader.Read())
+            {
+                tTentPhoto photo = new tTentPhoto();
+                photo.fTentPhotoURL = reader["fTentPhotoURL"].ToString();
+                photoList.Add(photo);
+            }
+            reader.Close();
+            con.Close();
+            return photoList;
+        }
+        public List<tTentPhoto> QueryTentPhoto(string campid, string tentName)
+        {
+            string photoUrl = $"/Images/Campsites/Campsite{campid}/{tentName}_";
+            SqlConnection con = ConnectSQL();
+            StringBuilder sb = new StringBuilder();
+            sb.Append(" and fTentPhotoURL like N'%'+@fTentPhotoURL+'%'");
+            string SQLstring = "select * from tTentPhoto where fCampsiteID = @fCampsiteID" + sb;
+            SqlCommand cmd = sqlcmd(con, SQLstring, campid);
+            cmd.Parameters.AddWithValue("@CampsiteID", campid);
+            cmd.Parameters.AddWithValue("@fTentPhotoURL", photoUrl);
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<tTentPhoto> photoList = new List<tTentPhoto>();
+            while (reader.Read())
+            {
+                tTentPhoto photo = new tTentPhoto();
+                photo.fTentPhotoURL = reader["fTentPhotoURL"].ToString();
+                photoList.Add(photo);
+            }
+            reader.Close();
+            con.Close();
+            return photoList;
         }
     }
 }

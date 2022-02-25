@@ -22,6 +22,27 @@ namespace CampWebsite.Models
             cmd.CommandText = SQLstring;
             return cmd;
         }
+        //所有找營區圖片
+        private List<tTentPhoto> QueryCampCovers()
+        {
+            SqlConnection con = ConnectSQL();
+            string SQLstring =
+                "select photo.fCampsiteID,photo.fTentPhotoURL " +
+                "from tCampsite as [camp] " +
+                "join tTentPhoto as [photo] on camp.fCampsiteID = photo.fCampsiteID " +
+                "where photo.fTentPhotoURL like N'/Images/Campsites/%/Cover%'";
+            SqlCommand cmd = sqlcmd(con, SQLstring);
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<tTentPhoto> photoList = new List<tTentPhoto>();
+            while (reader.Read())
+            {
+                tTentPhoto photo = new tTentPhoto();
+                photo.fCampsiteID = Convert.ToInt32(reader["fCampsiteID"]);
+                photo.fTentPhotoURL = reader["fTentPhotoURL"].ToString();
+                photoList.Add(photo);
+            }
+            return photoList;
+        }
         //找所有營區
         public List<CTentCamp> QueryAllCampsite()
         {
@@ -38,6 +59,7 @@ namespace CampWebsite.Models
             List<CTentCamp> campList = new List<CTentCamp>();
             while (reader.Read())
             {
+                List<tTentPhoto> photoList = QueryCampCovers();
                 CTentCamp tentcamp = new CTentCamp();
                 tentcamp.fCampsiteID = Convert.ToInt32(reader["fCampsiteID"]);
                 tentcamp.fCampsiteName = reader["fCampsiteName"].ToString();
@@ -45,6 +67,16 @@ namespace CampWebsite.Models
                 tentcamp.fCampsiteCity = reader["fCampsiteCity"].ToString();
                 tentcamp.fCampsiteClosedDay = reader["fCampsiteClosedDay"].ToString();
                 tentcamp.fCampsiteAltitude = reader["fCampsiteAltitude"].ToString();
+                if (photoList.Count > 0)
+                {
+                    for (int i = 0; i < photoList.Count; i++)
+                    {
+                        if (photoList[i].fCampsiteID == Convert.ToInt32(reader["fCampsiteID"]))
+                            tentcamp.fTentPhotoURL = photoList[i].fTentPhotoURL;
+                    }
+                }
+                else
+                    break;
                 if (!Convert.IsDBNull(reader["fAvgComment"])) { tentcamp.fAvgComment = Convert.ToDouble(reader["fAvgComment"]) * 1.0; }
                 campList.Add(tentcamp);
             }
