@@ -25,7 +25,7 @@
         <div class="justify-content-center px-5">
             <p class="mt-4">訂單編號: @myOrderCode</p>
             <div class="d-flex flex-column">
-                <img src=" @campsitePhoto" class="w-100" />
+                <img src=" @campsitePhoto" class="w-100 mb-3" />
                 <div class="mx-3">
                     <p class="m-0">營區名稱: @Model.fCampsiteName</p>
                     <p class="m-0">營區電話: @Model.fCampsitePhone</p>
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <hr />
-            <div class="d-flex">
+            <div class="d-flex px-2">
                 <div class="col-6">
                     <p>入住日期: @Model.fCheckinStart</p>
                     <p>退房日期: @Model.fCheckinEnd</p>
@@ -47,7 +47,7 @@
                     <p class="text-center">@Model.fStayNight</p>
                 </div>
             </div>
-            <div class="d-flex justify-content-between mt-3">
+            <div class="d-flex justify-content-between mt-3 px-2">
                 <div>訂單總金額: @Model.fTotalPrice</div>
                 <div>已付款</div>
             </div>
@@ -56,13 +56,12 @@
             {
                 if (i.fCheckinDate == firstDay)
                 {
-                    <div class="border my-3 py-3">
+                    <div class="border rounded border-success my-3 py-3 px-2">
                         <div>帳篷名稱: @i.tTent.fTentName</div>
                         <div>最大人數上限: @i.tTent.fTentPeople 人</div>
                         <div>房客姓名: @i.fClientName </div>
                         <div>房客電話: @i.fClientPhone </div>
                     </div>
-                    <hr />
 
                 }
             }

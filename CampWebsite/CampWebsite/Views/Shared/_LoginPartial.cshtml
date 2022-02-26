@@ -1,9 +1,11 @@
-﻿@if (User.Identity.IsAuthenticated)
+﻿@using CampWebsite.Models;
+@if (User.Identity.IsAuthenticated)
 {
     FormsIdentity id = (FormsIdentity)User.Identity;
     FormsAuthenticationTicket ticket = id.Ticket;
     var userGroup = ticket.UserData.Split(new char[] { ',' })[0];
     var userName = ticket.UserData.Split(new char[] { ',' })[1];
+    var mailVerify = ticket.UserData.Split(new char[] { ',' })[2];
     var userPhoto = "/Images/Members/user" + User.Identity.Name + ".jpg";
 
     <div class="nav-item dropdown">
@@ -29,6 +31,7 @@
         }
         else if (userGroup == "1")
         {
+            
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                 <li><h6 class="dropdown-header">一般會員</h6></li>
                 <li><hr class="dropdown-divider" /></li>
@@ -36,7 +39,14 @@
                 <li><a class="dropdown-item" href="/Member/personalProfile" id="linkFavorite">收藏清單</a></li>
                 <li><a class="dropdown-item" href="/Member/personalProfile" id="linkOrder">歷史訂單</a></li>
                 <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="/CampOwner/FindMyCampsites">營區管理</a></li>                
+                @if(mailVerify=="True")
+                {
+                    <li><a class="dropdown-item" href="/CampOwner/FindMyCampsites">營區管理</a></li>
+                }
+                else
+                {
+                    <li><a class="dropdown-item verifyEmailFirst" href="#">營區管理</a></li>
+                }                
                 <li><hr class="dropdown-divider" /></li>
                 <li><a class="dropdown-item" href="/Member/Logout">登出</a></li>
             </ul>
@@ -58,3 +68,15 @@ else
         <a href="/Member/Login">登入</a> / <a href="/Member/Register">註冊</a>
     </div>
 }  
+
+<script>
+    $(function () {
+        $(".verifyEmailFirst").click(function () {
+            Swal.fire(
+                '',
+                '請先進行Email驗證',
+                'warning'
+            )
+        })
+    })
+</script>

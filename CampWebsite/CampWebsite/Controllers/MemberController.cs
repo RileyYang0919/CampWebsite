@@ -47,7 +47,7 @@ namespace CampWebsite.Controllers
                     newUser.fVerified = false;
                     db.tMember.Add(newUser);
                     db.SaveChanges();
-                    string userData = (newUser.fGroup).ToString() + "," + newUser.fName;
+                    string userData = (newUser.fGroup).ToString() + "," + newUser.fName + ","+ newUser.fVerified;
                     string userID = (newUser.fMemberID).ToString();
                     new CAuthenticationFactory().SetAuthenTicket(userData, userID);
                     newUser.fPhoto = "/Images/Members/user" + userID + ".jpg"; //拿到userID後，產生一組photo url存進資料庫
@@ -107,7 +107,7 @@ namespace CampWebsite.Controllers
                 ViewData["returnUrl"] = returnUrl;
                 return View();
             }
-            string userData = (member.fGroup).ToString() + "," + member.fName;
+            string userData = (member.fGroup).ToString() + "," + member.fName + "," + member.fVerified;
             string userID = (member.fMemberID).ToString();
             new CAuthenticationFactory().SetAuthenTicket(userData, userID, fRemember);
             //另一種驗證方式FormsAuthentication.RedirectFromLoginPage(member.Email, true);
@@ -134,7 +134,7 @@ namespace CampWebsite.Controllers
             editMember.fBirthday = tMember.fBirthday;
             db.SaveChanges();
             //更新身分憑證
-            string userData = (editMember.fGroup).ToString() + "," + editMember.fName;
+            string userData = (editMember.fGroup).ToString() + "," + editMember.fName + "," + editMember.fVerified;
             string userID = (editMember.fMemberID).ToString();
             new CAuthenticationFactory().SetAuthenTicket(userData, userID);
             return RedirectToAction("Index", "Home");

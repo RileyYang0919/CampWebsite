@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Bootstrap\bootstrap.min.css" />
+    <Content Include="Images\chicken_logo.png" />
     <Content Include="Scripts\Bootstrap\bootstrap.bundle.min.js" />
     <Content Include="Content\AC.css" />
     <Content Include="Content\campsite.css" />

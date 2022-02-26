@@ -28,6 +28,8 @@ namespace CampWebsite.Models
                 var everyOrder = getSingleOrder(code);
                 myOrderList.Add(everyOrder);
             }
+            if (myOrderList.Count == 0)
+                return null;
             return myOrderList;
         }
         /// <summary>
