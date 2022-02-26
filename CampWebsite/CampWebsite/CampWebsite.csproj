@@ -269,7 +269,6 @@
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Member\personalProfile.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Member\List.cshtml" />
     <Content Include="Views\Home\search.cshtml" />
     <Content Include="Views\Shared\_LoginFloatPartial.cshtml" />
     <Content Include="Views\CampSite\Details.cshtml" />

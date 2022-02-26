@@ -19,6 +19,7 @@ namespace CampWebsite.Models
             //myOrderCode 選出用戶的每一筆訂單編號(不重複)
             var myOrderCode = (from c in db.tOrder
                                where c.fMemberID == myID
+                               orderby c.fOrderCreatedTime
                                select c.fOrderConfirmCode).Distinct().ToList();
             //使用訂單編號去抓訂單內容
             foreach (var code in myOrderCode)

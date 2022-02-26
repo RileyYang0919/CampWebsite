@@ -42,7 +42,7 @@ namespace CampWebsite.Models
         public void SaveOrder2DB(IEnumerable<PreOrderInfoViewModel> newOrderList, string theUserID, string fClientName, string fClientEmail, string fClientPhone)
         {
             int userID = Convert.ToInt32(theUserID);
-            string orderConfirmCode = "OD" + DateTime.Now.ToString("yyMMddff");
+            string orderConfirmCode = "OD" + DateTime.Now.ToString("yyMMddHHmmssff");
             //迭代每一筆newOrderList資料
             foreach (var item in newOrderList)
             {

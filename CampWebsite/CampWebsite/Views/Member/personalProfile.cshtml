@@ -18,7 +18,7 @@
     @Html.AntiForgeryToken()
 
     <div class="container d-flex justify-content-center mt-5">
-        <div class="col-12 col-lg-6 border shadow min-vh-100">
+        <div class="col-12 col-lg-6 border shadow">
             <ul class="nav nav-pills nav-justified" id="tabSwitch">
                 <li class="nav-item"><a class="nav-link " data-bs-toggle="pill" href="#p1Profile">會員資料</a></li>
                 <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#p2Favorite">我的收藏</a></li>
@@ -33,12 +33,10 @@
                 </div>
                 <!-- Favorite tab start                營區收藏頁面 -->
                 <div class="tab-pane fade p-5" id="p2Favorite">
-                    <h4 class="text-center">營區收藏</h4>
                     @Html.Action("MyFavoritePartialView")
                 </div>
                 <!-- Order History tab start           歷史訂單頁面-->
                 <div class="tab-pane fade my-4 justify-content-center px-5" id="p3Order">
-                    <h3 class="text-center">歷史訂單</h3>
                     @Html.Action("MyOrdersPartialView")
                 </div>
             </div>
@@ -46,8 +44,8 @@
     </div>
 }
 @section scriptBody{
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>*@
     <script>
     var picUrl = "";
     //script for 照片上傳

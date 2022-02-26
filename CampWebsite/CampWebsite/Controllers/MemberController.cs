@@ -18,6 +18,10 @@ namespace CampWebsite.Controllers
         /// </summary>
         public ActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             RegisterViewModel newMember = new RegisterViewModel();
             return View(newMember);
         }
@@ -83,6 +87,10 @@ namespace CampWebsite.Controllers
         /// </summary>
         public ActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             //得到原先頁面的完整URL
             string previousUrl = (Request.UrlReferrer == null) ? "" : Request.UrlReferrer.ToString();
             ViewData["returnUrl"] = previousUrl;

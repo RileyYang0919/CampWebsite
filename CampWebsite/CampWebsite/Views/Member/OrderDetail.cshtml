@@ -2,13 +2,10 @@
 
 <link href="~/Content/CommentStar.css" rel="stylesheet" />
 @{
-    ViewBag.Title = "OrderDetail";
+    ViewBag.Title = "訂單詳情";
 }
 
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 @{
     var firstDay = Model.tOrders.First().fCheckinDate;
     var checkinStart = Model.fCheckinStart;
@@ -23,7 +20,7 @@
     }
 }
 
-<div class="container d-flex justify-content-center mt-5">
+<div class="container d-flex justify-content-center my-5">
     <div class="col-12 col-lg-6 border shadow">
         <div class="justify-content-center px-5">
             <p class="mt-4">訂單編號: @myOrderCode</p>
@@ -116,7 +113,7 @@
         </div>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>*@
 
 <script>
     $(function () {
