@@ -92,6 +92,14 @@ namespace CampWebsite.Controllers
             return View();
         }
 
+        public ActionResult sendMail()
+        {
+            int myID = Convert.ToInt32(User.Identity.Name);
+            var user = db.tMember.Where(i => i.fMemberID == myID).FirstOrDefault();
+            new CMailVerifyFactory().SendVerificationMail(user.fEmail); //發送驗證信給new user, function by 俊丞
+            return Json(new { Message = "發送成功" });
+        }
+
         /// <summary>
         /// 登入會員
         /// </summary>
