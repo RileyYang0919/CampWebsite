@@ -40,19 +40,19 @@
                         <div class="col-sm-12 mb-2">
                             <div class="d-flex form-group">
                                 <div class="flex-column text-center me-2">姓名</div>
-                                <input class="rounded m-auto" type="text" placeholder="姓名" name="fClientName" value="@Model.First().tMember.fName" required/>
+                                <input class="rounded m-auto" type="text" placeholder="姓名" name="fClientName" value="@Model.First().tMember.fName" required />
                             </div>
                         </div>
                         <div class="col-sm-12 mb-2">
                             <div class="d-flex form-group">
                                 <div class="flex-column text-center me-2">信箱</div>
-                                <input class="rounded m-auto" type="text" placeholder="信箱" name="fClientEmail" value="@Model.First().tMember.fEmail" required/>
+                                <input class="rounded m-auto" type="text" placeholder="信箱" name="fClientEmail" value="@Model.First().tMember.fEmail" required />
                             </div>
                         </div>
                         <div class="col-sm-12 mb-2">
                             <div class="d-flex form-group">
                                 <div class="flex-column text-center me-2">電話</div>
-                                <input class="rounded m-auto" type="text" placeholder="電話" name="fClientPhone" value="@Model.First().tMember.fPhoneNumber" required/>
+                                <input class="rounded m-auto" type="text" placeholder="電話" name="fClientPhone" value="@Model.First().tMember.fPhoneNumber" required />
                             </div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                     }
                     @foreach (var item in Model)
                     {
-                        <div class="form-group" @(item.fCheckinStart == checkinStart ? "" : "style = display:none")>                            
+                        <div class="form-group" @(item.fCheckinStart == checkinStart ? "" : "style = display:none")>
                             <div class="card mt-3">
                                 <div class="card-header d-flex justify-content-between">
                                     <div>
@@ -92,7 +92,7 @@
                                 </div>
                             </div>
                         </div>
-                        index++;                        
+                        index++;
                     }
                     <div class="form-group">
                         <div class="d-flex justify-content-center my-3">
@@ -103,39 +103,40 @@
             }
 
         </div>
-            </div>
+    </div>
 </div>
 
+@section scriptBody{
+    <script>
+        $(function () {
+            $("Form").submit(function (e) {
+                /*            console.log("進入");*/
+                var currentTarget = e.target;
+                /*            console.log(currentTarget);*/
+                Swal.fire({
+                    title: '確認付款嗎',
+                    text: "請核對訂單內容後再付款",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '馬上付款!',
+                    cancelButtonText: '再考慮一下'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire(
+                            '付款成功!',
+                            '祝您有個美好的旅程',
+                            'success'
+                        ).then(function () {
+                            currentTarget.submit()
+                        })
+                    }
+                })
+                return false;
+            });
 
-
-<script>
-    $(function () {
-        $("Form").submit(function (e) {
-            console.log("進入");
-            var currentTarget = e.target;
-            console.log(currentTarget);
-            Swal.fire({
-                title: '確認付款嗎',
-                text: "請核對訂單內容後再付款",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: '馬上付款!',
-                cancelButtonText: '再考慮一下'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                        '付款成功!',
-                        '祝您有個美好的旅程',
-                        'success'
-                    ).then(function () {
-                        currentTarget.submit()
-                    })
-                }
-            })
-            return false;
         });
+    </script>
+}
 
-    });
-</script>

@@ -43,14 +43,11 @@
         </div>
     </div>
 }
-@section scriptBody{
-    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>*@
+@section scriptBody{   
     <script>
     var picUrl = "";
     //script for 照片上傳
     $("#ChangePic").change(function () {
-
         previewImg(this.files);
     });
     function previewImg(files) {
@@ -70,29 +67,28 @@
             };
         fr.readAsDataURL(file);
     }
-
     function sendAjax(data) {
         var ajaxRequest = $.ajax({
-                type: "POST",
-                url: "@Url.Action("uploadPersonalPic")",
-                    contentType: false,         // 告訴jQuery不要去設置Content-Type
-                    processData: false,         // 告訴jQuery不要去處理發送的數據
-                    dataType: "json",
-                    data: data
-            })
-                .done(function (data, textStatus) {
-                    Swal.fire({
-                        //position: 'top-end',
-                        icon: 'success',
-                        title: '會員照片上傳成功',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    $('#navUserPic').attr({ src: picUrl });
+            type: "POST",
+            url: "@Url.Action("uploadPersonalPic")",
+                contentType: false,         // 告訴jQuery不要去設置Content-Type
+                processData: false,         // 告訴jQuery不要去處理發送的數據
+                dataType: "json",
+                data: data
+        })
+            .done(function (data, textStatus) {
+                Swal.fire({
+                    //position: 'top-end',
+                    icon: 'success',
+                    title: '會員照片上傳成功',
+                    showConfirmButton: false,
+                    timer: 1500
                 })
-                .fail(function() {
-                    console.log("回傳失敗");
-                });
+                $('#navUserPic').attr({ src: picUrl });
+            })
+            .fail(function() {
+                console.log("回傳失敗");
+            });
     }
     </script>
     <script>
