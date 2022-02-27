@@ -3,13 +3,34 @@
 @{
     ViewBag.Title = "Em";
 }
+<style>
+    h2, h5 {
+        display: flex;
+        justify-content: center;
+    }
 
+    a {
+    }
+</style>
 <h2>
     恭喜註冊成功
-    <a href="~/Home/Index" class="nav-link link-blue active">返回主頁</a>
-
 </h2>
+<h5>
+    <a href="~/Home/Index" class="nav-link link-blue active"> 系統即將在 <span id="his">5</span> 秒後自動返回...</a>
 
+</h5>
+
+<a href="~/Home/Index" class="nav-link link-blue active"></a>
 <script>
-
+    var time = 4;
+    var timelong = 0;
+    function diplaytime() {
+        document.all.his.innerHTML = time - timelong;
+        timelong++;
+    }
+    function redirect() {
+        location.href = "/Member/Login";
+    }
+    timer = setInterval('diplaytime()', 1000);
+    timer = setTimeout('redirect()', time * 1300);
 </script>

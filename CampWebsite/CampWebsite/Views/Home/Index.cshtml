@@ -60,20 +60,32 @@
             </div>
             <div class="col px-0">
                 <div class="d-flex flex-column align-items-center justify-content-center cover cover-other shadow">
-                    <p class="fs-3 fw-bolder"></p>
+                    <p class="fs-3 fw-bolder">
+                        隨機抽一張<br>北中部天氣
+                    </p>
                 </div>
                 <div class="d-flex flex-column align-items-center justify-content-center back back-other shadow">
-                    <p class="fs-3 fw-bolder"></p>
+                    <p class="fs-3 fw-bolder">
+                        <div class="containee weatherArea1">
+
+                        </div>
+                    </p>
                 </div>
             </div>
         </div>
         <div class="row pb-5 letter-sp-1">
             <div class="col px-0">
                 <div class="d-flex flex-column align-items-center justify-content-center cover cover-other shadow">
-                    <p class="fs-3 fw-bolder"></p>
+                    <p class="fs-3 fw-bolder">
+                        隨機抽一張<br>東南部天氣
+                    </p>
                 </div>
                 <div class="d-flex flex-column align-items-center justify-content-center back back-other shadow">
-                    <p class="fs-3 fw-bolder"></p>
+                    <p class="fs-3 fw-bolder">
+                        <div class="containee weatherArea3">
+
+                        </div>
+                    </p>
                 </div>
             </div>
             <div class="col px-0" id="south">
@@ -99,6 +111,7 @@
         </div>
     </div>
 </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     var north = document.querySelector("#north");
@@ -186,4 +199,180 @@
             dateFormat: "yy/mm/dd"
         });
     });
+
+</script>
+
+
+<script>
+    fetch('https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-C0381432-3F43-4477-BD17-A8A71C74F54E')
+        .then(function (response) {
+            return response.json();
+        })
+
+        .then(function (weatherData) {
+            console.log(weatherData);
+            var arrayName = ["臺北市", "新北市", "桃園市", "臺中市", "新竹縣", "苗栗縣", "彰化縣", "南投縣", "雲林縣", "金門縣", "連江縣", "基隆市", "新竹市"];
+            var i = Math.floor((Math.random() * 13) + 0);
+            var Card = document.querySelector(".weatherArea1")
+            var Location = weatherData.records.location
+            Location.forEach(element => {
+
+                var Name = element.locationName
+                var sen = element.weatherElement[3].time[0].parameter.parameterName
+                var WX = element.weatherElement[0].time[0].parameter.parameterName
+                var POP = element.weatherElement[1].time[0].parameter.parameterName
+                var MinT = element.weatherElement[2].time[0].parameter.parameterName
+                var MaxT = element.weatherElement[4].time[0].parameter.parameterName
+
+                if (element.locationName == arrayName[i]) {
+                    var img_src
+                    var Suggest
+                    if (POP == 0) {
+                        img_src = "https://www.svgrepo.com/show/381333/weather-sun.svg"
+                        Suggest = '可以出去玩'
+                    } else if (POP < 50) {
+                        img_src = "https://www.svgrepo.com/show/381330/weather-cloud.svg"
+                        Suggest = '建議要攜帶雨具'
+                    } else {
+                        img_src = "https://www.svgrepo.com/show/381331/weather-drops-rain.svg"
+                        Suggest = '記得攜帶雨具'
+                    }
+
+
+                    Card.innerHTML = `
+                                                <div class="card">
+                                                    <img src="${img_src}" alt="">
+                                                    <div class="card-block">
+                                                        <h1>${Name}</h1>
+                                                        <p>氣溫:${MinT}&#8451~${MaxT}&#8451</p>
+                                                        <p>降雨率:${POP}%</p>
+                                                    </div>
+                                                </div>
+                                                `
+
+
+                }
+                $(".weatherArea1").mouseleave(function () {
+                    setTimeout(function () {
+                        i = Math.floor((Math.random() * 13) + 0); if (element.locationName == arrayName[i]) {
+                            var img_src
+                            var Suggest
+                            if (POP == 0) {
+                                img_src = "https://www.svgrepo.com/show/381333/weather-sun.svg"
+                                Suggest = '可以出去玩'
+                            } else if (POP < 50) {
+                                img_src = "https://www.svgrepo.com/show/381330/weather-cloud.svg"
+                                Suggest = '建議要攜帶雨具'
+                            } else {
+                                img_src = "https://www.svgrepo.com/show/381331/weather-drops-rain.svg"
+                                Suggest = '記得攜帶雨具'
+                            }
+
+
+                            Card.innerHTML = `
+                                                <div class="card">
+                                                    <img src="${img_src}" alt="">
+                                                    <div class="card-block">
+                                                        <h1>${Name}</h1>
+                                                        <p>氣溫:${MinT}&#8451~${MaxT}&#8451</p>
+                                                        <p>降雨率:${POP}%</p>
+                                                    </div>
+                                                </div>
+                                                `
+                        }
+                    }, 500);
+                });
+            });
+        });
+
+
+</script>
+
+
+
+<script>
+
+
+    fetch('https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-C0381432-3F43-4477-BD17-A8A71C74F54E')
+        .then(function (response) {
+            return response.json();
+        })
+
+        .then(function (weatherData) {
+            console.log(weatherData);
+            var arrayName = ["臺南市", "高雄市", "嘉義縣", "屏東縣", "宜蘭縣", "花蓮縣", "臺東縣", "澎湖縣", "嘉義市"];
+            var i = Math.floor((Math.random() * 9) + 0);
+            var Card = document.querySelector(".weatherArea3")
+            var Location = weatherData.records.location
+            Location.forEach(element => {
+
+                var Name = element.locationName
+                var sen = element.weatherElement[3].time[0].parameter.parameterName
+                var WX = element.weatherElement[0].time[0].parameter.parameterName
+                var POP = element.weatherElement[1].time[0].parameter.parameterName
+                var MinT = element.weatherElement[2].time[0].parameter.parameterName
+                var MaxT = element.weatherElement[4].time[0].parameter.parameterName
+
+                if (element.locationName == arrayName[i]) {
+                    var img_src
+                    var Suggest
+                    if (POP == 0) {
+                        img_src = "https://www.svgrepo.com/show/381333/weather-sun.svg"
+                        Suggest = '可以出去玩'
+                    } else if (POP < 50) {
+                        img_src = "https://www.svgrepo.com/show/381330/weather-cloud.svg"
+                        Suggest = '建議要攜帶雨具'
+                    } else {
+                        img_src = "https://www.svgrepo.com/show/381331/weather-drops-rain.svg"
+                        Suggest = '記得攜帶雨具'
+                    }
+
+
+                    Card.innerHTML = `
+                                                <div class="card">
+                                                    <img src="${img_src}" alt="">
+                                                    <div class="card-block">
+                                                        <h1>${Name}</h1>
+                                                        <p>氣溫:${MinT}&#8451~${MaxT}&#8451</p>
+                                                        <p>降雨率:${POP}%</p>
+                                                    </div>
+                                                </div>
+                                                `
+
+
+                }
+                $(".weatherArea3").mouseleave(function () {
+                    setTimeout(function () {
+                        i = Math.floor((Math.random() * 9) + 0); if (element.locationName == arrayName[i]) {
+                            var img_src
+                            var Suggest
+                            if (POP == 0) {
+                                img_src = "https://www.svgrepo.com/show/381333/weather-sun.svg"
+                                Suggest = '可以出去玩'
+                            } else if (POP < 50) {
+                                img_src = "https://www.svgrepo.com/show/381330/weather-cloud.svg"
+                                Suggest = '建議要攜帶雨具'
+                            } else {
+                                img_src = "https://www.svgrepo.com/show/381331/weather-drops-rain.svg"
+                                Suggest = '記得攜帶雨具'
+                            }
+
+
+                            Card.innerHTML = `
+                                                <div class="card">
+                                                    <img src="${img_src}" alt="">
+                                                    <div class="card-block">
+                                                        <h1>${Name}</h1>
+                                                        <p>氣溫:${MinT}&#8451~${MaxT}&#8451</p>
+                                                        <p>降雨率:${POP}%</p>
+                                                    </div>
+                                                </div>
+                                                `
+                        }
+                    }, 500);
+                });
+            });
+        });
+
+
 </script>

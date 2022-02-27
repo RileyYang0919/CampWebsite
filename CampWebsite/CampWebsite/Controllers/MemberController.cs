@@ -73,12 +73,22 @@ namespace CampWebsite.Controllers
         public ActionResult Em()
         {
             string fem = Request.QueryString["email"];
+            if(fem == null)
+            {
+                return RedirectToAction("Index","Home"); 
+            }
             var member = db.tMember.Where(i => i.fEmail == fem).FirstOrDefault();
-            if (member.fVerified == false)
+            if (member.fVerified == false) //沒驗證過的會員，會進行驗證
             {
                 member.fVerified = true;
                 db.SaveChanges();
             }
+            else //已經驗證過的會員，直接導回首頁
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            FormsAuthentication.SignOut();
+            Session.Clear();
             return View();
         }
 
