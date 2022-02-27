@@ -31,7 +31,7 @@
         }
         else if (userGroup == "1")
         {
-            
+
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                 <li><h6 class="dropdown-header">一般會員</h6></li>
                 <li><hr class="dropdown-divider" /></li>
@@ -39,14 +39,14 @@
                 <li><a class="dropdown-item" href="/Member/personalProfile" id="linkFavorite">收藏清單</a></li>
                 <li><a class="dropdown-item" href="/Member/personalProfile" id="linkOrder">歷史訂單</a></li>
                 <li><hr class="dropdown-divider" /></li>
-                @if(mailVerify=="True")
+                @if (mailVerify == "True")
                 {
                     <li><a class="dropdown-item" href="/CampOwner/FindMyCampsites">營區管理</a></li>
                 }
                 else
                 {
                     <li><a class="dropdown-item verifyEmailFirst" href="#">營區管理</a></li>
-                }                
+                }
                 <li><hr class="dropdown-divider" /></li>
                 <li><a class="dropdown-item" href="/Member/Logout">登出</a></li>
             </ul>
@@ -67,7 +67,7 @@ else
         <img src='/Images/Members/default.jpg' class="rounded-circle" height="30" alt="" loading="lazy" />
         <a href="/Member/Login">登入</a> / <a href="/Member/Register">註冊</a>
     </div>
-}  
+}
 
 <script>
     $(function () {
@@ -80,3 +80,4 @@ else
         })
     })
 </script>
+

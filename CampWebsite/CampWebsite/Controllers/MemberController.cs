@@ -147,7 +147,7 @@ namespace CampWebsite.Controllers
             string userData = (editMember.fGroup).ToString() + "," + editMember.fName + "," + editMember.fVerified;
             string userID = (editMember.fMemberID).ToString();
             new CAuthenticationFactory().SetAuthenTicket(userData, userID);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("personalProfile", "Member");
         }
         // MyProfile 用戶的個人資料
         public ActionResult MyProfilePartialView()
