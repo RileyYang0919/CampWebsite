@@ -131,7 +131,9 @@ body {
     background-color: #e6e6e6;
 }
 
-
+.mt-6 {
+    margin-top: 6rem
+}
 
 /*月曆*/
 .calendar {
@@ -142,11 +144,25 @@ body {
 .year {
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin: 10px 10px;
+    position: relative;
 }
 
     .year span {
-        margin: 10px 10px;
+        margin: 5px 5px;
     }
+
+    .year button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #b95159
+    }
+
+        .year button:hover {
+            background-color: #007797
+        }
 
 #pre_year,
 #next_year {
@@ -154,16 +170,24 @@ body {
     font-weight: 600
 }
 
+.month button {
+    flex: auto;
+    border-radius: 0;
+    background-color: var(--main-color);
+    text-align: center;
+}
+
+    .month button:hover {
+        background-color: var(--secondary-color)
+    }
+
 .month {
     display: flex;
     justify-content: center;
-    margin-bottom: 5px;
 }
 
     .month select {
-        width: 3rem;
         text-align: center;
-        margin-right: 0.5rem
     }
 
 .day ul {
@@ -197,7 +221,7 @@ body {
         transition: background-color 0.3s ease-in
     }
 
-preMonthText, .thisMonthText, .nextMonthText {
+.preMonthText, .thisMonthText, .nextMonthText {
     color: #b95159;
     text-decoration: underline;
     font-size: larger;
@@ -251,7 +275,7 @@ preMonthText, .thisMonthText, .nextMonthText {
             outline: none;
         }
 
-    .calendar-text a {
+    .calendar-text button {
         background-color: var(--secondary-color);
         color: white;
         letter-spacing: 0.3rem;
@@ -262,7 +286,7 @@ preMonthText, .thisMonthText, .nextMonthText {
         box-shadow: 2px 2px 2px gray;
     }
 
-        .calendar-text a:hover {
+        .calendar-text button:hover {
             background-color: var(--main-color);
             color: white;
         }
@@ -324,7 +348,8 @@ preMonthText, .thisMonthText, .nextMonthText {
     border: var(--main-color) 1px solid;
     border-left: 15px solid var(--main-color);
     margin-bottom: 0.5rem;
-    border-radius: 0.3rem
+    border-radius: 0.3rem;
+    animation: showItem 0.7s
 }
 
 .tent-container-order {
@@ -350,6 +375,19 @@ preMonthText, .thisMonthText, .nextMonthText {
     text-align: center;
     border: 0
 }
+
+#goToReview {
+    color: #0d6efd;
+    padding: 0;
+    letter-spacing: 0;
+    background-color: transparent;
+    text-align: center;
+    border: 0
+}
+
+    #goToReview:hover {
+        color: darkblue
+    }
 
 #orderBtn {
     background-color: #b95159;
@@ -421,19 +459,12 @@ preMonthText, .thisMonthText, .nextMonthText {
     letter-spacing: 0.2rem;
 }
 
-.review-wrapper {
-    height: 18rem;
+.review-container .btn {
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    transform: translateX(-50%);
 }
-
-.review-container {
-}
-
-    .review-container .btn {
-        position: absolute;
-        left: 50%;
-        bottom: 5%;
-        transform: translateX(-50%);
-    }
 
 /* 輪播圖css開始 */
 .carousel {
@@ -683,9 +714,11 @@ preMonthText, .thisMonthText, .nextMonthText {
     }
 
 .favorMsg {
-    bottom: -100px;
+    min-width: 100px;
+    min-height: 70px;
+    bottom: -88px;
     right: -35px;
-    padding: 20px;
+    padding: 10px 10px 10px 10px;
     background-color: white;
     border: 1px solid white;
     color: white;
@@ -716,6 +749,106 @@ preMonthText, .thisMonthText, .nextMonthText {
     border-color: transparent transparent var(--main-color) transparent;
 }
 /*=============入營退營時間css結束*/
+
+@keyframes showItem {
+    from {
+        transform: translateY(50px);
+        opacity: 0
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1
+    }
+}
+/*收藏 loading*/
+@keyframes ldio-jcj4109h5xa {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.ldio-jcj4109h5xa div {
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    border: 5px solid #234a63;
+    border-top-color: transparent;
+    border-radius: 50%;
+}
+
+.ldio-jcj4109h5xa div {
+    animation: ldio-jcj4109h5xa 1.0204081632653061s linear infinite;
+    top: 10px;
+    left: 10px
+}
+
+.loadingio-spinner-rolling-13fkky2gk58 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 25px;
+    overflow: hidden;
+    background: rgba(NaN, NaN, NaN, 0);
+    margin-right: -1.5px
+}
+
+@media screen and (max-width:576px) {
+    .loadingio-spinner-rolling-13fkky2gk58 {
+        position: absolute;
+        top: 45px;
+        right: 0;
+    }
+}
+
+.ldio-jcj4109h5xa {
+    margin-top: 2px;
+    width: 30px;
+    height: 25px;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0;
+}
+
+.search-nothing {
+    height: 100vh;
+    animation: showItem 0.7s
+}
+
+/*置頂*/
+.GoTop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    position: fixed;
+    bottom: 2rem;
+    right: 1rem;
+    background-color: var(--main-color);
+    border-radius: 50%;
+    color: white;
+    letter-spacing: 0.3rem;
+    text-shadow: 2px 2px 2px black;
+    cursor: pointer;
+}
+
+    .GoTop::before {
+        content: '';
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        border: 1.65rem solid var(--main-color);
+        border-color: transparent transparent var(--main-color) transparent;
+        transform: translateX(-50%)
+    }
+
 * {
     /*outline: 1px pink solid;*/
 }

@@ -1,29 +1,16 @@
-﻿     @using CampWebsite.Models
+﻿@using CampWebsite.Models
 @model Tuple<tCampsite, IEnumerable<tComment>, List<CTags>, List<tTentPhoto>>
 @{ ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" href="~/Content/campsite.css">
-<div class="container">
-    <div class="d-md-flex carousel mt-5 w-100">
+@section css{
+    <link rel="stylesheet" href="@Url.Content("~/Content/campsite.css")">
+}
+
+<div class="container mt-6">
+    <div class="d-md-flex carousel w-100">
         <div class="col-md-10 carousel-main pe-md-3">
-            @*預設第一張*@
-            @{
-                if (Model.Item4.Count == 0)
-                {
-                    <img class="w-100 h-100 p-2" id="img_selected" src="~/Images/Campsites/noPic.jpg" alt="">
-                }
-
-                else if (Model.Item4.Count <= 2)
-                {
-                    <img class="w-100 h-100 p-2" id="img_selected" src="@Model.Item4[0].fTentPhotoURL" alt="">
-                }
-                else
-                {
-                    <img class="w-100 h-100 p-2" id="img_selected" src="@Model.Item4[2].fTentPhotoURL" alt="">
-                }
-
-
-}
+            <img class="w-100 h-100 p-2" id="img_selected" src="" alt="">@*預設第一張*@
         </div>
         <div class="col-md-2 carousel-list">
             <div class="img-up fs-3">
@@ -44,14 +31,14 @@
                     @{
                         if (Model.Item4.Count == 0)
                         {
-                            <img class="mb-md-3 me-2 opacity-25" src="~/Images/Campsites/noPic.jpg" alt="">
-                            <img class="mb-md-3 me-2 opacity-25" src="~/Images/Campsites/noPic.jpg" alt="">
-                            <img class="mb-md-3 me-2 opacity-25" src="~/Images/Campsites/noPic.jpg" alt="">
-                            <img class="mb-md-3 me-2 opacity-25" src="~/Images/Campsites/noPic.jpg" alt="">
-                            <img class="mb-md-3 me-2 opacity-25" src="~/Images/Campsites/noPic.jpg" alt="">
-
+                            <img class="mb-md-3 me-2 opacity-25" src="\Images\Campsites\noPic.jpg" alt="">
+                            <img class="mb-md-3 me-2 opacity-25" src="\Images\Campsites\noPic.jpg" alt="">
+                            <img class="mb-md-3 me-2 opacity-25" src="\Images\Campsites\noPic.jpg" alt="">
+                            <img class="mb-md-3 me-2 opacity-25" src="\Images\Campsites\noPic.jpg" alt="">
+                            <img class="mb-md-3 me-2 opacity-25" src="\Images\Campsites\noPic.jpg" alt="">
+                            <img class="mb-md-3 me-2 opacity-25" src="\Images\Campsites\noPic.jpg" alt="">
                         }
-                        else if (Model.Item4.Count <= 2)
+                        else if (Model.Item4.Count <= 2 && Model.Item4.Count > 0)
                         {
                             foreach (tTentPhoto item in Model.Item4)
                             {
@@ -93,7 +80,7 @@
                                 {
                                     <i class="far fa-star"></i> } }
                         </div>
-                        <a href="#Review" class="ms-2">顯示評論</a>
+                        <button class="ms-2" id="goToReview">顯示評論</button>
                     </div>
                 </div>
                 <div class="d-sm-flex align-items-center justify-content-between border-bt position-relative" id="forFavorEvent">
@@ -104,10 +91,15 @@
                             <span>在地圖上顯示</span>
                         </a>
                     </div>
+                    <div class='loadingio-spinner-rolling-13fkky2gk58 d-none' id='favorLoading'>
+                        <div class='ldio-jcj4109h5xa'>
+                            <div></div>
+                        </div>
+                    </div>
                     <div class="text-end" id="FavorIcon">
                         @*<i class="fs-5 fas fa-share-alt"></i>*@
                     </div>
-                    <div tabindex='-1' class='position-absolute favorMsg text-center opacity-0'>
+                    <div tabindex='-1' class='position-absolute favorMsg text-center opacity-0 d-flex align-items-center justify-content-center'>
                         <div id='NoLoginMsg' class='d-none'>
                             <div>尚未登入</div>
                             <div class='text-warning cursor-pointer'><u>點我登入</u></div>
@@ -152,7 +144,7 @@
                         </div>
                         <input type="text" value="於月曆選擇" readonly="readonly" class="input_endDate">
                     </div>
-                    <a href="#tent_wrapper" class="align-self-end ms-3" id="gotoTent">查看方案</a>
+                    <button class="align-self-end ms-3" id="gotoTent">查看方案</button>
                 </div>
 
             </div>
@@ -161,8 +153,10 @@
                     <span id="pre_year">＜</span>
                     <span id="t_year">2022</span>
                     <span id="next_year">＞</span>
+                    <button id="GoToday">跳至今日</button>
                 </div>
                 <div class="month">
+                    <button id="goLastM">上個月</button>
                     <select name="" id="month">
                         <option value="0">1</option>
                         <option value="1">2</option>
@@ -177,7 +171,7 @@
                         <option value="10">11</option>
                         <option value="11">12</option>
                     </select>
-                    <span>月</span>
+                    <button id="goNextM">下個月</button>
                 </div>
                 <div class="day">
                     <ul>
@@ -241,7 +235,7 @@
                         <i class="fas fa-mountain"></i>
                         <p>海拔：</p>
                     </div>
-                    <span>@Html.DisplayFor(model => model.Item1.fCampsiteAltitude)</span>
+                    <span>@Html.DisplayFor(model => model.Item1.fCampsiteAltitude) 公尺</span>
                 </div>
                 <div class="d-flex align-items-center">
                     <div class="d-flex align-items-center notion">
@@ -261,7 +255,7 @@
         </div>
         <!-- 評論 -->
         <p class="letter-spacing-1 fs-3 my-4"><span class="fw-bolder">@Html.DisplayFor(model => model.Item1.fCampsiteName)</span>的評論</p>
-        <div class="review-wrapper" id="Review">
+        <div class="review-wrapper">
             <div class="mb-3  w-100 review-container d-flex justify-content-center">
                 <div class="review-result">
                     <div class="h-100 p-3 lh-lg fs-4 d-flex flex-column align-items-center justify-content-around letter-spacing-1">
@@ -286,7 +280,7 @@
                 <div class="mb-3 review-container  d-flex justify-content-center">
                     <div class="review">
                         <div class="p-3 lh-lg">
-                            <p>旅客名稱：@Html.DisplayFor(model => item.tMember.fName)</p>
+                            <p>旅客：@Html.DisplayFor(model => item.tMember.fName)</p>
                             <p>評論時間：@item.fCommentTime.ToString("yyyy/MM/dd")</p>
                             <div class="d-flex align-items-center star-container fs-5 py-2 border-bt">
                                 @{ int star_count = 0;
@@ -308,13 +302,21 @@
                 </div>}
             <!-- =====用戶評論結束 -->
         </div>
+        <ul class="pagination" id="pageid">
+            @*分頁按鈕*@
+        </ul>
     </div>
 </div>
 <div id="fCampsiteID" class="invisible">@Html.DisplayFor(m => Model.Item1.fCampsiteID)</div>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="~/Scripts/CampSite.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<div class="GoTop">
+    <!--置頂-->
+    Top
+</div>
+@section scriptBody{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="@Url.Content("~/Scripts/CampSite.js")"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+}
 <script>
     //評論看更多
     var reviewWrapper = document.querySelector(".review-wrapper");
@@ -469,7 +471,7 @@
         for (var time in date_array) {
             if (date_array[time] < now.getTime()) {
                 let index = date_array.indexOf(date_array[time]);
-                nowDate.children[index].classList.add("calendar-unavailable");
+                //nowDate.children[index].classList.add("calendar-unavailable");
             }
         }
     }
@@ -590,8 +592,20 @@
     //=====日期選取範圍的點擊事件結束
     // 跳轉到方案的部分，沒選擇完不能跳轉，還要出現驚嘆號
     var gotoTent = document.querySelector("#gotoTent");
-
+    var goToReview = document.querySelector("#goToReview");
+    goToReview.addEventListener("click", () => {
+        window.scrollTo({
+            top: reviewWrapper.offsetTop - 150,
+            behavior: 'smooth'
+        })
+    })
     gotoTent.addEventListener("click", e => {
+        if (IsSelectStart && IsSelectEnd) {
+            window.scrollTo({
+                top: tent_wrapper.offsetTop-150,
+                behavior: 'smooth'
+            })
+        }
         if (!IsSelectStart || !IsSelectEnd) {
             e.preventDefault();
         }
@@ -633,6 +647,7 @@
                 "CheckoutDate": CheckoutDate,
             },
             success: function (data) {
+                //console.log(data);
                 if (!DateIsAdded) {
                     var thisMonthText = document.querySelectorAll(".thisMonthText");
                     var nextMonth = document.querySelectorAll(".nextMonth");
@@ -708,7 +723,10 @@
                     //處理公休日
                     closedayArr = [];
                     for (let i = 0; i < data.tents[0].fCampsiteClosedDay.length; i++) {
-                        if (data.tents[0].fCampsiteClosedDay[i] == "7")
+                        if (data.tents[0].fCampsiteClosedDay[i] == "0") {
+                            closedayArr.push("無")
+                        }
+                        else if (data.tents[0].fCampsiteClosedDay[i] == "7")
                             closedayArr.push("0")
                         else
                             closedayArr.push(data.tents[0].fCampsiteClosedDay.slice(i, i + 1))
@@ -730,9 +748,6 @@
                                 case "5": closeText.textContent += "五、"; break;
                                 case "6": closeText.textContent += "六、"; break;
                                 case "無": closeText.textContent = "無公休日"; break;
-                                case "公": closeText.textContent = "無公休日"; break;
-                                case "休": closeText.textContent = "無公休日"; break;
-                                case "日": closeText.textContent = "無公休日"; break;
                             }
                         })
                         if (closeText.textContent[0] == "星")
@@ -763,7 +778,7 @@
                         }
                         tentsGroupByName.push(array);
                     }
-                    console.log(tentsGroupByName);
+                    //console.log(tentsGroupByName);
 
                     //3.選擇哪幾天?
                     //取得兩日期之間的所有日期方法
@@ -831,7 +846,7 @@
                             }
                         }
                     }
-                    console.log(tentsGroupByName_remain)
+                    //console.log(tentsGroupByName_remain)
                     //5.5處理公休日
                     for (var item in tentsGroupByName_remain) {
                         let day = new Date(tentsGroupByName_remain[item][0]).getDay();
@@ -842,7 +857,7 @@
                                 }
                             }
                         })
-                        console.log(tentsGroupByName_remain)
+                        //console.log(tentsGroupByName_remain)
                     }
 
                     //6.取得這段選擇期間各方案最大可取得數量以及其他資訊
@@ -883,11 +898,11 @@
                             "<select name='' id='tent_select_count' class='col-12'>" + tent_number + "</select>" +
                             "</div>" +
                             "<button class='col-6'>查看照片</button>" +
-                            "<a href='#Reserve' class='col-6' id='selfOrderBtn'>馬上預定<i class='ms-1 fas fa-level-down-alt'></i></a>" +
+                            "<button class='col-6' id='selfOrderBtn'>馬上預定<i class='ms-1 fas fa-level-down-alt'></i></button>" +
                             "</div>";
                     }
                     order_result.innerHTML +=
-                        "<div class='tent-container-order h-100' id='Reserve'>" +
+                        "<div class='tent-container-order h-100' >" +
                         "<div class='d-none' id='tent_result'>" +
                         "<p id='tent_result_text' class='letter-spacing-1'></p>" +
                         "<span id='tent_result_cost' class='c-red fs-5'></span>" +
@@ -929,6 +944,8 @@
                     });
 
                     tent_wrapper.addEventListener("click", function (e) {
+                        //console.log($(window).scrollTop())
+                        //console.log(e.target.parentNode.parentNode.parentNode.nextElementSibling)
                         //跳轉到下面的「馬上預定」按鈕
                         if (e.target.id == "selfOrderBtn") {//點選馬上預定跳轉到下面的結果前先檢查是否選擇數量了
                             if (e.target.previousSibling.previousSibling.firstChild.value == 0) {
@@ -939,8 +956,13 @@
                                     icon: "error"
                                 })
                             }
+                            else {
+                                window.scrollTo({
+                                    top: e.target.parentNode.parentNode.parentNode.nextElementSibling.offsetTop-100,
+                                    behavior: "smooth"
+                                })
+                            }
                         }
-                        console.log(e.target.textContent);
                         //打開查看照片
                         if (e.target.textContent == "查看照片") {
                             e.preventDefault()
@@ -987,8 +1009,8 @@
                             length++;
                         }
                         length = 0;
-                        console.log(orderArray)
-                        console.log(JSON.stringify(orderArray))
+                        //console.log(orderArray)
+                        //console.log(JSON.stringify(orderArray))
                         $.ajax({
                             type: "get",
                             async: false,
@@ -1015,7 +1037,7 @@
                 }
 
                 //收藏功能
-                console.log(data.isFavored)
+                //console.log(data.isFavored)
                 var FavorIcon = document.querySelector("#FavorIcon")
                 if ("@User.Identity.Name" != "") {//先讀取是否有登入是否有收藏
                     if (data.isFavored == false)
@@ -1029,6 +1051,8 @@
                 forFavorEvent.addEventListener("click", (e) => {
                     if (e.target.classList.contains("favorite-icon")) {
                         if ("@User.Identity.Name" != "") {
+                            e.target.classList.add("d-none")//愛心消失
+                            e.target.parentNode.previousElementSibling.classList.remove("d-none");//loading出現
                             let campid = document.querySelector("#fCampsiteID");
                                 $.ajax({
                                     type: "post",
@@ -1037,7 +1061,8 @@
                                     url: "@Url.Action("AddDeleteFavor", "CampSite")",
                                     data: { "campId": campid.textContent },
                                     success: function (data) {
-                                        console.log(data)
+                                        e.target.classList.remove("d-none")//愛心出來
+                                        e.target.parentNode.previousElementSibling.classList.add("d-none");//loading消失
                                         e.target.parentNode.nextElementSibling.classList.remove("opacity-0")//FavorMsg
                                         if (e.target.classList.contains("c-red")) {//取消收藏
                                             e.target.classList.remove("c-red")
@@ -1078,7 +1103,45 @@
         })
     }
 </script>
-
+<script>
+    //上下個月按鈕
+    var goNextM = document.querySelector("#goNextM");
+    var goLastM = document.querySelector("#goLastM");
+    var GoToday = document.querySelector("#GoToday")
+    var GoTop = document.querySelector(".GoTop");
+    goNextM.addEventListener("click", (e) => {
+        if (e.target.previousElementSibling.value == 11) {
+            e.target.previousElementSibling.value = 0;
+        }
+        else {
+            e.target.previousElementSibling.value = parseInt(e.target.previousElementSibling.value) + 1;
+        }
+        DateIsAdded = false;
+        addDates()
+    })
+    goLastM.addEventListener("click", (e) => {
+        if (e.target.nextElementSibling.value == 0) {
+            e.target.nextElementSibling.value = 11
+        }
+        else {
+            e.target.nextElementSibling.value = parseInt(e.target.nextElementSibling.value) - 1;
+        }
+        DateIsAdded = false;
+        addDates()
+    })
+    GoToday.addEventListener("click", e => {
+        t_year.textContent = now.getFullYear();
+        month.value = now.getMonth();
+        DateIsAdded = false;
+        addDates();
+    })
+    GoTop.addEventListener("click", () => {
+        window.scrollTo({
+            top: 5,
+            behavior: "smooth"
+        })
+    })
+</script>
 <!--入營退營時間 -->
 <script>
     var CheckInTime = document.querySelector(".CheckInTime");

@@ -20,10 +20,13 @@
     <script src="~/Scripts/jQuery/jquery-3.6.0.min.js"></script>
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>*@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link href="~/Content/navbar.css" rel="stylesheet" />
+    @RenderSection("css", false)
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand navbar-light p-1 bg-light ">
+        <nav class="navbar navbar-expand bg-333333">
+            @*class="navbar navbar-expand navbar-light p-1 bg-light "*@
             <div class="container">
                 <a class="navbar-brand" href="/Home/Index"><img src="~/images/chicken_logo.png" alt="" height="30" />露過人間</a>
                 <div class="d-flex">
@@ -47,7 +50,7 @@
         @RenderBody()
     </div>
 
-    <footer class="bg-dark text-center text-white">
+    <footer class="bg-333333 text-center text-white ">
         <!-- Grid container -->
         <div class="container p-4">
             <!-- Section: Social media -->

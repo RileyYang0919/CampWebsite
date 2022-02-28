@@ -201,6 +201,7 @@ body {
 
 .order-section {
     width: 900px;
+    margin: auto;
     cursor: pointer;
 }
 
@@ -223,6 +224,7 @@ body {
 
 #resultSection {
     width: 900px;
+    margin: auto
 }
 
 .item {
@@ -230,6 +232,19 @@ body {
     height: 300px;
     border: 1px var(--main-color) solid;
     border-radius: 0.3rem;
+    animation: showItem 0.7s
+}
+
+@keyframes showItem {
+    from {
+        transform: translateY(50px);
+        opacity: 0
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1
+    }
 }
 
 .letter-sp-1 {
@@ -271,7 +286,7 @@ body {
     color: white;
     font-weight: 600;
     background-color: #e5c45b;
-    left: 240px;
+    left: 244.5px;
     top: -50px;
     padding: 5px 8px 8px 5px;
     border-radius: 5px;
@@ -303,10 +318,15 @@ body {
     color: #b95159;
 }
 
+.c-blue {
+    color: #007797
+}
+
 .favorMsg {
+    min-width: 100px;
     top: 50px;
     right: -35px;
-    padding: 20px;
+    padding: 20px 10px 20px 10px;
     background-color: white;
     border: 1px solid white;
     color: white;
@@ -332,7 +352,157 @@ body {
 .cursor-pointer {
     cursor: pointer
 }
+/*收藏 loading*/
+@keyframes ldio-jcj4109h5xa {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.ldio-jcj4109h5xa div {
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    border: 5px solid #234a63;
+    border-top-color: transparent;
+    border-radius: 50%;
+}
+
+.ldio-jcj4109h5xa div {
+    animation: ldio-jcj4109h5xa 1.0204081632653061s linear infinite;
+    top: 10px;
+    left: 10px
+}
+
+.loadingio-spinner-rolling-13fkky2gk58 {
+    width: 30px;
+    height: 25px;
+    overflow: hidden;
+    background: rgba(NaN, NaN, NaN, 0);
+    margin-right: -1.7px
+}
+
+.ldio-jcj4109h5xa {
+    margin-top: 2px;
+    width: 30px;
+    height: 25px;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0;
+}
+
+.search-nothing {
+    height: 100vh;
+    animation: showItem 0.7s
+}
 
 * {
     /*outline: 1px pink solid;*/
 }
+/*loading*/
+.loading-container {
+    /*    height:40vh*/
+    margin-top: 5rem;
+    margin-bottom: 5rem
+}
+
+@keyframes ldio-g1u8om1do8e {
+    0% {
+        transform: translate(2px,2px)
+    }
+
+    33.33% {
+        transform: translate(102px,2px)
+    }
+
+    66.66% {
+        transform: translate(42px,102px)
+    }
+
+    100% {
+        transform: translate(2px,2px)
+    }
+}
+
+
+.ldio-g1u8om1do8e > div {
+    transform: scale(0.8);
+    transform-origin: 100px 100px;
+}
+
+    .ldio-g1u8om1do8e > div > div {
+        animation: ldio-g1u8om1do8e 1.2195121951219512s linear infinite;
+        position: absolute
+    }
+
+        .ldio-g1u8om1do8e > div > div div:nth-child(1) {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            border: 12px solid #234a63;
+            background: #95a59d
+        }
+
+        .ldio-g1u8om1do8e > div > div div:nth-child(2) {
+            width: 17px;
+            height: 51px;
+            transform: rotate(-45deg);
+            background: #234a63;
+            border-radius: 0 0 8px 8px;
+            position: absolute;
+            top: 68px;
+            left: 85px
+        }
+
+.loadingio-spinner-magnify-gbrfs962qfl {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    overflow: hidden;
+    background: rgba(NaN, NaN, NaN, 0);
+}
+
+.ldio-g1u8om1do8e {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0;
+}
+
+    .ldio-g1u8om1do8e div {
+        box-sizing: content-box;
+    }
+/*置頂*/
+.GoTop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    position: fixed;
+    bottom: 2rem;
+    right: 1rem;
+    background-color: var(--main-color);
+    border-radius: 50%;
+    color: white;
+    letter-spacing: 0.3rem;
+    text-shadow: 2px 2px 2px black;
+    cursor: pointer;
+}
+
+    .GoTop::before {
+        content: '';
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        border: 1.65rem solid var(--main-color);
+        border-color: transparent transparent var(--main-color) transparent;
+        transform: translateX(-50%)
+    }

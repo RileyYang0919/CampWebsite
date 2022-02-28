@@ -1,0 +1,49 @@
+﻿html {
+    scroll-behavior: smooth;
+}
+
+header {
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    position: fixed
+}
+
+body {
+    background-color: #e6e6e6
+}
+
+nav {
+    transition: background-color 0.5s ease-in-out
+}
+
+.mb-nav {
+    margin-bottom: 69px;
+}
+
+.bg-333333 {
+    background-color: #333333
+}
+
+.bg-transparent {
+    background-color: transparent;
+}
+
+.nav-link, #title {
+    color: white
+}
+
+    .nav-link:hover, #title:hover {
+        color: white;
+        text-shadow: 2px 2px 2px black
+    }
+
+ul,
+li {
+    list-style: none;
+}
+
+* {
+    /*outline:1px solid pink*/
+}

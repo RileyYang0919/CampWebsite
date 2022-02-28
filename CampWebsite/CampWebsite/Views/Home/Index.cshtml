@@ -1,4 +1,9 @@
-﻿<link rel="stylesheet" href="~/Content/homeindex.css">
+﻿
+@section css{
+    <link href="@Url.Content("~/Content/homeindex.css")" rel="stylesheet" />
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+}
+<link rel="stylesheet" href="~/Content/homeindex.css">
 <!-- 大圖部分 -->
 <div class="main d-flex justify-content-center flex-column align-items-center position-relative">
     <div>
@@ -111,8 +116,11 @@
         </div>
     </div>
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+@section scriptBody{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+}
 <script>
     var north = document.querySelector("#north");
     var central = document.querySelector("#central");
@@ -150,23 +158,47 @@
         location.href = "/Search/Search";
     }
     north.addEventListener("click", function () {
-        addCookie("北")
+        addCookie("北部")
     })
     central.addEventListener("click", function () {
-        addCookie("中")
+        addCookie("中部")
     })
     south.addEventListener("click", function () {
-        addCookie("南")
+        addCookie("南部")
     })
     east.addEventListener("click", function () {
-        addCookie("東")
+        addCookie("東部")
     })
+    //超過大圖navbar置頂
+    var mb_nav = document.querySelector(".mb-nav")
+    var main = $(".main")
+    var nav = document.querySelector(".navbar")
     $(function () {
+        nav.classList.add("bg-transparent")
+        nav.classList.remove("bg-333333")
+        mb_nav.classList.add("d-none")
+    })
+    window.addEventListener("scroll", function () {
+        if (main.innerHeight() <= $(window).scrollTop()) {
+            nav.classList.remove("bg-transparent")
+            nav.classList.add("bg-333333")
+        }
+        else {
+            nav.classList.add("bg-transparent")
+            nav.classList.remove("bg-333333")
+        }
+    })
+    var toHere = document.querySelector("#toHere");
+    toHere.addEventListener("click", function () {
+        window.scrollTo({
+            top: main.innerHeight() + 10,
+            behavior: "smooth"
+        })
+        nav.classList.remove("bg-transparent")
+        nav.classList.add("bg-333333")
     })
 </script>
 
-<script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 <script>
     $(function () {
         $("#from").datepicker({

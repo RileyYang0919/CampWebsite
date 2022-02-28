@@ -7,13 +7,15 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="~/Content/showtentphoto.css">
+
 <div class="container d-flex flex-column align-items-center">
     <h3 class="mt-5">@ViewBag.tentName</h3>
     @{ if (Model.Count > 0)
         {
             foreach (tTentPhoto item in Model)
             {
-                <div class="line">
+                <div class="cat d-flex my-2 justify-content-center">
+                    <i class="fas fa-cat c-green fs-3"></i>
                 </div>
                 <div class="my-3 img-container">
                     <img src="@item.fTentPhotoURL" class="w-100" />
