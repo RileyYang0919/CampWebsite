@@ -13,7 +13,7 @@ namespace CampWebsite.Models
         private SqlConnection ConnectSQL()
         {
             SqlConnection con = new SqlConnection();
-            con.ConnectionString = "Data Source=chicken122two.database.windows.net;Initial Catalog=dbCamp;User ID=chicken;Password=P@sswo0rd;MultipleActiveResultSets=True;Application Name=EntityFramework";
+            con.ConnectionString = "Data Source=chicken122four.database.windows.net;Initial Catalog=dbCamp;User ID=chicken;Password=P@sswo0rd;MultipleActiveResultSets=True;Application Name=EntityFramework";
             con.Open();
             return con;
         }

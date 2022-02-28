@@ -181,8 +181,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdoSample\AdoMemberModelSample.cs" />
-    <Compile Include="Models\AdoSample\AdoQueryFactorySample.cs" />
     <Compile Include="Models\CAuthenticationFactory.cs" />
     <Compile Include="Models\CCampFavoriteFactory.cs" />
     <Compile Include="Models\CMailVerifyFactory.cs" />
@@ -278,15 +276,12 @@
     <Content Include="Views\CampSite\AddNewCampsite.cshtml" />
     <Content Include="Views\Home\weatherTemp.cshtml" />
     <Content Include="Views\CampOrder\GenerateOrder.cshtml" />
-    <Content Include="Views\TempTentList\ListTent.cshtml" />
-    <Content Include="Views\TempTentList\ListOrder.cshtml" />
     <Content Include="Views\Member\Register.cshtml" />
     <Content Include="Views\CampOwner\FindMyCampsites.cshtml" />
     <Content Include="Views\CampOwner\NewCampsite.cshtml" />
     <Content Include="Views\CampOwner\NewPhoto.cshtml" />
     <Content Include="Views\CampOwner\NewTent.cshtml" />
     <Content Include="Views\CampOwner\TentsInCampsite.cshtml" />
-    <Content Include="Views\TempTentList\testUploadPic.cshtml" />
     <Content Include="Views\Search\Search.cshtml" />
     <Content Include="Views\Member\OrderDetail.cshtml" />
     <Content Include="Views\Member\Em.cshtml" />

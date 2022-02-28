@@ -31,7 +31,7 @@ namespace CampWebsite.Models
         {
             List<MyCampFavoriteViewModel> myFavorites = new List<MyCampFavoriteViewModel>();
             SqlConnection con = new SqlConnection();
-            con.ConnectionString = @"Data Source = chicken122two.database.windows.net; Initial Catalog = dbCamp; Persist Security Info = True; User ID = chicken; Password = P@sswo0rd; MultipleActiveResultSets = True; Application Name = EntityFramework";
+            con.ConnectionString = @"Data Source = chicken122four.database.windows.net; Initial Catalog = dbCamp; Persist Security Info = True; User ID = chicken; Password = P@sswo0rd; MultipleActiveResultSets = True; Application Name = EntityFramework";
             con.Open();
             SqlCommand cmd = new SqlCommand(sql, con);
             if (paras != null)
