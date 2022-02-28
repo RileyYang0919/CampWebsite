@@ -119,6 +119,16 @@
     <Content Include="Content\Bootstrap\bootstrap.min.css" />
     <Content Include="Content\navbar.css" />
     <Content Include="Images\chicken_logo.png" />
+    <Content Include="Models\dbCamp.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>dbCamp.Context.cs</LastGenOutput>
+      <DependentUpon>dbCamp.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\dbCamp.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>dbCamp.edmx</DependentUpon>
+      <LastGenOutput>dbCamp.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\Bootstrap\bootstrap.bundle.min.js" />
     <Content Include="Content\AC.css" />
     <Content Include="Content\campsite.css" />
@@ -154,16 +164,6 @@
     <Content Include="Images\main.jpg" />
     <Content Include="Images\Members\default.jpg" />
     <Content Include="Images\user.png" />
-    <Content Include="Models\dbCamp.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>dbCamp.edmx</DependentUpon>
-      <LastGenOutput>dbCamp.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\dbCamp.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>dbCamp.edmx</DependentUpon>
-      <LastGenOutput>dbCamp.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\CampSite.js" />
     <Content Include="Scripts\jQuery\jquery-3.6.0.min.js" />
     <Content Include="Web.config" />
@@ -255,6 +255,8 @@
     <Content Include="Fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\Bootstrap\bootstrap.bundle.min.js.map" />
+    <Content Include="Content\Bootstrap\bootstrap.min.css.map" />
     <EntityDeploy Include="Models\dbCamp.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbCamp.Designer.cs</LastGenOutput>
@@ -262,8 +264,6 @@
     <Content Include="Models\dbCamp.edmx.diagram">
       <DependentUpon>dbCamp.edmx</DependentUpon>
     </Content>
-    <Content Include="Scripts\Bootstrap\bootstrap.bundle.min.js.map" />
-    <Content Include="Content\Bootstrap\bootstrap.min.css.map" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
