@@ -5,7 +5,7 @@
     FormsAuthenticationTicket ticket = id.Ticket;
     var userGroup = ticket.UserData.Split(new char[] { ',' })[0];
     var userName = ticket.UserData.Split(new char[] { ',' })[1];
-    var mailVerify = ticket.UserData.Split(new char[] { ',' })[2];
+    var mailVerify = ticket.UserData.Split(new char[] { ',' })[2]; //須加上null判斷
     var userPhoto = "/Images/Members/user" + User.Identity.Name + ".jpg";
 
     <div class="nav-item dropdown">
