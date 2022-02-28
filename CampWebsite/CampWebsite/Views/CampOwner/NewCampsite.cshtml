@@ -21,6 +21,7 @@
 @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>*@
 
 <div class="container">
+    <div class="mb-5"></div>
     <div class="page-header mb-3">
         <h3>新增你的營區</h3>
         <br />
@@ -163,7 +164,7 @@
                 <span class="form-text" id="coverPhotoMessage">只接受圖檔：jpg   jpeg  png  gif</span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-5">
                 <button type="submit" class="btn btn-success" id="btnSend">新增營區</button>
             </div>
         </div>
@@ -209,9 +210,10 @@
             $(".dayOffCheck").click(function () {
                 if (this.checked == true) {
                     if (this.value == "0") {
-                        console.log("Sunday");
                         $(".dayOffCheck").prop('checked',false);
-                        this.prop('checked', true);
+                        $('.dayOffCheck')[7].checked = true
+
+                    //    $(".無公休").checked = true;
                     }
 
                 }

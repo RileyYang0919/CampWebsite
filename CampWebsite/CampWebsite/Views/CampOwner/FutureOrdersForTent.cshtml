@@ -19,7 +19,7 @@
 <div class="container-xl min-vh-100" style="">
     <div class="mb-5"></div>
     <div class="page-header mb-3">
-        <h2>@ViewBag.tName</h2>
+        <h2>未來訂單</h2>
         <br />
     </div>
 
@@ -28,29 +28,26 @@
         <thead class="">
             <tr>
                 <th class="text-bold">
-                    @Html.DisplayNameFor(model => model.fOrderConfirmCode)
+                    訂單編號
                 </th>
                 <th class="text-bold">
-                    @Html.DisplayNameFor(model => model.fClientName)
+                    下單客戶
                 </th>
                 <th class="text-bold">
-                    @Html.DisplayNameFor(model => model.fClientEmail)
+                    電郵地址
                 </th>
                 <th class="text-bold">
-                    @Html.DisplayNameFor(model => model.fClientPhone)
+                    連絡電話
                 </th>
                 <th class="text-bold">
-                    @Html.DisplayNameFor(model => model.fCheckinDate)
+                    入住日期
                 </th>
                 <th class="text-bold">
-                    @Html.DisplayNameFor(model => model.fOrderPrice)
+                    訂單金額
                 </th>
-                
+
                 <th class="text-bold">
-                    @Html.DisplayNameFor(model => model.fOrderIsPaid)
-                </th>
-                <th class="text-bold">
-                    @Html.DisplayNameFor(model => model.fOrderCreatedTime)
+                    是否付款
                 </th>
                 <th class="text-bold">
                     @Html.DisplayNameFor(model => model.tMember.fName)
@@ -79,27 +76,23 @@
                         @*@Html.DisplayFor(modelItem => item.fCheckinDate.)*@
                     </td>
                     <td>
-                        
+
                         @Html.DisplayFor(modelItem => item.fOrderPrice)
                     </td>
-                    
+
                     <td>
                         <i class="fa-solid fa-check">已付款</i>
-                    </td>
-                    <td>
-                        @item.fOrderCreatedTime.ToShortDateString()
-                        @*@Html.DisplayFor(modelItem => item.fOrderCreatedTime)*@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.tMember.fName)
                     </td>
                     @*<td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.fOrderID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.fOrderID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.fOrderID })
-                </td>*@
+                            @Html.ActionLink("Edit", "Edit", new { id = item.fOrderID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.fOrderID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.fOrderID })
+                        </td>*@
                 </tr>
             }
         </tbody>
     </table>
-    </div>
+</div>

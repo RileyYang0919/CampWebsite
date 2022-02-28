@@ -14,110 +14,120 @@
         text-align: center;
         min-width: 3rem;
     }
+
     body {
-         padding: 5px ;
+        padding: 5px;
     }
 </style>
 
-<div class="container" >
+
+
+<div class="container">
     <div class="mb-5"></div>
     <div class="page-header mb-3">
-        <h2>@ViewBag.cName</h2>
+        <h2>歷史訂單</h2>
         <br />
     </div>
 
     <!--search and filter-->
-    <div class="mb-5">        
+    <div class="mb-5">
         <div class="form-group mb-5">
-            <input class="form-control" type="text" id="phoneFilter" onkeyup="phoneFilter()" placeholder="用電話過濾結果">
-            <input class="form-control" type="text" id="nameFilter" onkeyup="nameFilter()" placeholder="用名字過濾結果">
-        </div>
-        </div>
-
-        <div class="table-responsive" style="user-select:none">
-            <table id="historyTable" class="table table-hover table-striped align-middle" style="user-select:none">
-                <thead class="">
-                    <tr>
-                        <th class="text-bold">
-                            @Html.DisplayNameFor(model => model.fOrderConfirmCode)
-                        </th>
-                        <th class="text-bold">
-                            @Html.DisplayNameFor(model => model.fClientName)
-                        </th>
-                        <th class="text-bold">
-                            @Html.DisplayNameFor(model => model.fClientEmail)
-                        </th>
-                        <th class="text-bold">
-                            @Html.DisplayNameFor(model => model.fClientPhone)
-                        </th>
-                        <th class="text-bold">
-                            @Html.DisplayNameFor(model => model.fCheckinDate)
-                        </th>
-                        <th class="text-bold">
-                            @Html.DisplayNameFor(model => model.fOrderPrice)
-                        </th>
-                        <th class="text-bold">
-                            @Html.DisplayNameFor(model => model.fOrderComment)
-                        </th>
-                        <th class="text-bold">
-                            @Html.DisplayNameFor(model => model.fOrderIsPaid)
-                        </th>
-                        <th class="text-bold">
-                            @Html.DisplayNameFor(model => model.fOrderCreatedTime)
-                        </th>
-                        <th class="text-bold">
-                            @Html.DisplayNameFor(model => model.tMember.fName)
-                        </th>
-                        <th class="text-bold">
-                            @Html.DisplayNameFor(model => model.tTent.fTentName)
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.fOrderConfirmCode)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.fClientName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.fClientEmail)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.fClientPhone)
-                            </td>
-                            <td>
-                                @item.fCheckinDate.ToShortDateString()
-                                @*@Html.DisplayFor(modelItem => item.fCheckinDate)*@
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.fOrderPrice)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.fOrderComment)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.fOrderIsPaid)
-                            </td>
-                            <td>
-                                @item.fOrderCreatedTime.ToShortDateString()
-                                @*@Html.DisplayFor(modelItem => item.fOrderCreatedTime)*@
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.tMember.fName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.tTent.fTentName)
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+            <div class="row">
+                <div class="col">
+                    <input class="form-control" type="text" id="phoneFilter" onkeyup="phoneFilter()" placeholder="用電話過濾結果">
+                </div>
+                <div class="col">
+                    <input class="form-control" type="text" id="nameFilter" onkeyup="nameFilter()" placeholder="用名字過濾結果">
+                </div>
+            </div>
         </div>
     </div>
+
+    <div class="table-responsive" style="user-select:none">
+        <table id="historyTable" class="table table-hover table-striped align-middle" style="user-select:none">
+            <thead class="">
+                <tr>
+                    <th class="text-bold">
+                        訂單編號
+                    </th>
+                    <th class="text-bold">
+                        下單客戶
+                    </th>
+                    <th class="text-bold">
+                        電郵地址
+                    </th>
+                    <th class="text-bold">
+                        連絡電話
+                    </th>
+                    <th class="text-bold">
+                        入住日期
+                    </th>
+                    <th class="text-bold">
+                        訂單金額
+                    </th>
+                    <th class="text-bold">
+                        訂單評價
+                    </th>
+                    @*<th class="text-bold">
+                           是否付款
+                        </th>*@
+                    <th class="text-bold">
+                        @Html.DisplayNameFor(model => model.tMember.fName)
+                    </th>
+                    <th class="text-bold">
+                        @Html.DisplayNameFor(model => model.tTent.fTentName)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fOrderConfirmCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fClientName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fClientEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fClientPhone)
+                        </td>
+                        <td>
+                            @item.fCheckinDate.ToShortDateString()
+                            @*@Html.DisplayFor(modelItem => item.fCheckinDate)*@
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fOrderPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fOrderComment)
+                        </td>
+                        @*<td>
+                                @{ if (item.fOrderIsPaid == true)
+                                {
+                                        <i class="fa-regular fa-check"></i>
+                                }
+                                else
+                                {
+                                        <i class="fa-regular fa-xmark"></i>
+                                }
+                                }
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tMember.fName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tTent.fTentName)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <div class="container-xl d-flex justify-content-center mt-5 disabled">
     <nav aria-label="Page navigation">
@@ -177,7 +187,7 @@
             }
         }
     }
-    
+
 
 
 
