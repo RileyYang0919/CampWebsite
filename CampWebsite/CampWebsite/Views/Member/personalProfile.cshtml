@@ -124,6 +124,8 @@
         $(function () {
             $("#sendMailAgain").click(function () {
 /*                console.log("按下去了")*/
+                $("#sendMailAgain").toggle()
+                $("#sendingMail").toggle()
                 $.ajax({
                     type: "POST",
                     url: "@Url.Action("sendMail", "Member")",
@@ -133,7 +135,9 @@
                     data: null
                 })
                     .done(function (data, textStatus) {
-/*                        console.log("該跳訊息了")*/
+                        /*console.log("該跳訊息了")*/
+                        $("#sendMailAgain").toggle()
+                        $("#sendingMail").toggle()
                         Swal.fire({
                             //position: 'top-end',
                             icon: 'success',

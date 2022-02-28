@@ -119,6 +119,7 @@
     <Content Include="Content\Bootstrap\bootstrap.min.css" />
     <Content Include="Content\navbar.css" />
     <Content Include="Images\chicken_logo.png" />
+    <Content Include="Images\favicon.ico" />
     <Content Include="Models\dbCamp.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>dbCamp.Context.cs</LastGenOutput>
@@ -151,13 +152,6 @@
     <Content Include="Images\Asset 3.png" />
     <Content Include="Images\avatars\01.svg" />
     <Content Include="Images\bell-ring.png" />
-    <Content Include="Images\Campsites\Campsite12\Cover.jpg" />
-    <Content Include="Images\Campsites\Campsite12\碎石區_達官亭123.jpg" />
-    <Content Include="Images\Campsites\Campsite12\碎石區_達官亭456.jpg" />
-    <Content Include="Images\Campsites\Campsite12\碎石區_達官亭789.jpg" />
-    <Content Include="Images\Campsites\Campsite12\草地區-5帳包區_1234567.jpg" />
-    <Content Include="Images\Campsites\Campsite12\草地區-5帳包區_1567.jpg" />
-    <Content Include="Images\Campsites\Campsite12\草地區-5帳包區_227.jpg" />
     <Content Include="Images\Campsites\Cover_default.jpg" />
     <Content Include="Images\Campsites\noPic.jpg" />
     <Content Include="Images\cat.png" />
@@ -300,8 +294,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\Campsites\Campsite101\" />
-    <Folder Include="Images\Test\" />
     <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>

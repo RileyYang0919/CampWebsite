@@ -49,8 +49,12 @@
         {
             <p>
                 <span><i class="fa-solid fa-circle-exclamation"></i>尚未驗證</span>
-                <span class="btn btn-success" id="sendMailAgain">發送驗證信</span>
-            </p>            
+                <span class="btn btn-success" id="sendMailAgain">發送驗證信</span>                
+                <button class="btn btn-secondary" type="button" disabled style="display:none" id="sendingMail">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    發送中...
+                </button>
+            </p>
         }
     }
 </div>
