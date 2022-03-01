@@ -23,7 +23,7 @@
            role="button"
            data-bs-toggle="dropdown"
            aria-expanded="false">
-            <img onerror="this.src='/Images/Members/default.jpg'" src='@(userPhoto)' class="rounded-circle" width="30" height="30" alt="" loading="lazy" id="navUserPic" /> @userName
+            <img onerror="this.src='/Images/Members/default.jpg'" src='@(userPhoto)' class="rounded-circle" width="30" height="30" alt="" loading="lazy" id="navUserPic" /> <span class="ms-2 fw-bolder letter-spacing-1">@userName</span>
         </a>
         @if (userGroup == "0")
         {
@@ -73,7 +73,7 @@ else
 {
     <div class="nav-item d-flex align-items-center">
         <img src='/Images/Members/default.jpg' class="rounded-circle" height="30" alt="" loading="lazy" />
-        <a href="/Member/Login">登入</a> / <a href="/Member/Register">註冊</a>
+        <a href="/Member/Login"class="ms-2 fw-bolder letter-spacing-1">登入/</a><a href="/Member/Register" class="fw-bolder letter-spacing-1">註冊</a>
     </div>
 }
 

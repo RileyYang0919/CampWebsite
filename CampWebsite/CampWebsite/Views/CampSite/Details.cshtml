@@ -886,15 +886,16 @@
                         tent_wrapper.innerHTML +=
                             "<div class='tent-container p-3'>" +
                             `<h5 class='py-2 border-bt letter-spacing-1 fw-bolder'>${tentsGroupByName_remain[length][j][0]}</h5>` +
-                            `<p class='py-2 border-bt'>${tentsGroupByName_remain[length][j][1]}</p>` +
+                            `<p class='py-2 border-bt'>種類：${tentsGroupByName_remain[length][j][1]}</p>` +
                             "<div class='py-2 border-bt'>" + people_icon +
                             `<span class='ms-2'>適合人數：<span class='fw-bolder'>${tentsGroupByName_remain[length][j][2]}</span>人</span>` +
                             "</div>" +
                             "<div class='py-2'>" +
                             "<span class='c-red'> TWD </span > " +
-                            `<span id='tent_select_cost' class='fw-bolder c-red'>${tentsGroupByName_remain[length][j][3] * selectedDateArr.length}</span>` +
+                            `<span id='tent_select_cost' class='fw-bolder c-red fs-5'>${tentsGroupByName_remain[length][j][3] * selectedDateArr.length}</span>` +
                             "</div>" +
                             "<div class='pb-2'>" +
+                            "<span class='me-1 small letter-spacing-1'>請選擇數量</span>" +
                             "<select name='' id='tent_select_count' class='col-12'>" + tent_number + "</select>" +
                             "</div>" +
                             "<button class='col-6'>查看照片</button>" +
@@ -958,7 +959,7 @@
                             }
                             else {
                                 window.scrollTo({
-                                    top: e.target.parentNode.parentNode.parentNode.nextElementSibling.offsetTop-100,
+                                    top: e.target.parentNode.parentNode.parentNode.nextElementSibling.offsetTop - 250,
                                     behavior: "smooth"
                                 })
                             }

@@ -26,21 +26,25 @@
 <body>
     <header>
         <nav class="navbar navbar-expand bg-333333">
-            @*class="navbar navbar-expand navbar-light p-1 bg-light "*@
             <div class="container">
-                <a class="navbar-brand" href="/Home/Index"><img src="~/images/chicken_logo.png" alt="" height="30" />露過人間</a>
+                <div class="d-flex" height="30">
+                    <a class="navbar-brand d-flex align-items-center" href="/Home/Index"><img src="~/Images/chicken_logo.png" height="30" /> </a>
+                    <a class="navbar-brand d-flex align-items-center" href="/Home/Index" id="title"><h1 class="fs-4 fw-bolder mb-0 letter-sp-1">露過人間</h1> </a>
+                </div>
                 <div class="d-flex">
-
                     <ul class="navbar-nav">
-                        <li class="nav-item mx-2">
-                            <a class="nav-link active d-flex flex-column text-center" aria-current="page" href="/Search/search"><i class="fa-solid fa-magnifying-glass-location"></i><span class="small">Search</span></a>
+                        <li class="nav-item mx-md-2">
+                            <a class="nav-link active d-flex flex-column text-center" aria-current="page" href="/Search/search"><i class="fa-solid fa-magnifying-glass-location text-stroke fs-4"></i><span class="fw-bolder">Search</span></a>
                         </li>
 
-                        <li class="nav-item mx-2">
-                            <a class="nav-link active d-flex flex-column text-center" aria-current="page" href="#"><i class="fa-solid fa-circle-info"></i><span class="small">About</span></a>
+                        <li class="nav-item mx-md-2">
+                            <a class="nav-link active d-flex flex-column text-center" aria-current="page" href="#"><i class="fa-solid fa-circle-info text-stroke fs-4"></i><span class="fw-bolder">About</span></a>
                         </li>
                     </ul>
-                    @Html.Partial("_LoginPartial")
+                    <div class="d-flex align-items-center">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+
                 </div>
             </div>
         </nav>

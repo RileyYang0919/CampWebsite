@@ -36,7 +36,7 @@ nav {
 
     .nav-link:hover, #title:hover {
         color: white;
-        text-shadow: 2px 2px 2px black
+        text-shadow: 5px 3px 3px #e5c45b
     }
 
 ul,
@@ -46,4 +46,16 @@ li {
 
 * {
     /*outline:1px solid pink*/
+}
+/*字邊緣class*/
+.text-stroke {
+    -webkit-text-stroke: 1px black;
+}
+
+.letter-spacing-1 {
+    letter-spacing: 0.3rem
+}
+
+.nav-item {
+    color: white
 }
