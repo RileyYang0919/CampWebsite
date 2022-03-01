@@ -145,7 +145,7 @@
                 async: false, //請求是否非同步，預設為非同步
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 data: userComment, //資料
-                type: "get", //請求方式
+                type: "post", //請求方式
                 beforeSend: function () {
                     //請求前的處理
                 },
@@ -154,7 +154,7 @@
                     console.log(this.url);
                     console.log(response);
                     alert("成功");
-                    window.location.replace(this.url);
+                    window.location.replace('@Url.Action("Details", "CampSite")/' + fCampsiteID);
                 },
                 //complete: function () {
                 //    alert("完成");
@@ -163,8 +163,6 @@
                     alert("失敗");
                 }
             });
-
-        });
-
-    })
+        })
+    });
 </script>
