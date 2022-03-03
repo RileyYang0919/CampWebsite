@@ -949,7 +949,7 @@
                         //console.log(e.target.parentNode.parentNode.parentNode.nextElementSibling)
                         //跳轉到下面的「馬上預定」按鈕
                         if (e.target.id == "selfOrderBtn") {//點選馬上預定跳轉到下面的結果前先檢查是否選擇數量了
-                            if (e.target.previousSibling.previousSibling.firstChild.value == 0) {
+                            if (e.target.previousElementSibling.previousElementSibling.lastElementChild.value == 0) {
                                 e.preventDefault();
                                 Swal.fire({
                                     title: "移動失敗",
@@ -959,7 +959,7 @@
                             }
                             else {
                                 window.scrollTo({
-                                    top: e.target.parentNode.parentNode.parentNode.nextElementSibling.offsetTop - 250,
+                                    top: e.target.parentNode.parentNode.parentNode.nextElementSibling.offsetTop -250,
                                     behavior: "smooth"
                                 })
                             }

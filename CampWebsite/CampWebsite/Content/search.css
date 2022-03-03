@@ -322,6 +322,10 @@ body {
     color: #007797
 }
 
+.c-yellow {
+    color: #b3a75d
+}
+
 .favorMsg {
     min-width: 100px;
     top: 50px;

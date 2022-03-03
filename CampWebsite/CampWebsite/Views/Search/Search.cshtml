@@ -11,7 +11,7 @@
         <div class="errorMsg opacity-0">請至少選擇兩天一夜</div>
         <input type="text" id="to" autocomplete="off" placeholder="離開日">
         <button class="ms-3 px-3" id="search_btn"><i class="fas fa-search"><span class="ms-1">搜尋</span></i></button>
-        <button class="ms-3 px-3" id="reset_btn">重置</button>
+        <button class="ms-3 px-3" id="reset_btn">清除搜尋</button>
     </div>
     <p class="fs-4 my-3 letter-sp-1 fw-bolder">透過以下標籤搜尋</p>
     <div class="px-3 mb-1 fs-5">
@@ -429,7 +429,7 @@
         let searchHtml = "";
         if (CheckoutDate != "" && to.value != "") {//如果有搜尋
             for (let k = 0; k < D[i].TentnameQuantity.length; k++) {
-                searchHtml += `<p>${D[i].TentnameQuantity[k][0]}/${D[i].TentnameQuantity[k][2]}人帳/剩餘${D[i].TentnameQuantity[k][1]}間</p>`;
+                searchHtml += `<p>${D[i].TentnameQuantity[k][0]}/<span class='c-yellow'>${D[i].TentnameQuantity[k][2]}</span>人帳/<span class='c-red'>剩餘${D[i].TentnameQuantity[k][1]}間</span></p>`;
             }
         }
         else {
@@ -453,13 +453,13 @@
         //標籤
         let tagHtml = "";
         if (D[i].fTagName.length > 0) {
-            tagHtml = "<div class='d-flex align-items-center'>" +
+            tagHtml = "<div class='d-flex align-items-center small'>" +
                 `<i class='fas fa-tag c-blue'></i>` +
-                `<p class='my-1 mb-1'>${D[i].fTagName.toString().replace(",", "|")}</p>` +
+                `<p class='my-1 mb-1'>${D[i].fTagName.join("|")}|</p>` +
                 "</div>";
         }
         else {
-            tagHtml = "<div class='d-flex align-items-center'>" +
+            tagHtml = "<div class='d-flex align-items-center small'>" +
                 `<i class='fas fa-tag c-blue'></i>` +
                 `<p class='my-1 mb-1'>無</p>` +
                 "</div>";
@@ -493,10 +493,10 @@
         "</div>" +
             //營區訊息
             "<div class='letter-sp-1'>" +
-            `<h4 class='fw-bolder mt-5 mb-3'>${D[i].fCampsiteName}</h4>` +
+            `<h4 class='fw-bolder mt-5 mb-1'>${D[i].fCampsiteName}</h4>` +
         "<div class='mb-1'>" +
         `<i class='fas fa-map-marker-alt text-danger'></i>` +
-        `<span>${D[i].fCampsiteCity}。海拔${D[i].fCampsiteAltitude}</span>` +
+        `<span class='small'>${D[i].fCampsiteCity}。海拔${D[i].fCampsiteAltitude}</span>` +
         "</div>" +
         //tag
         tagHtml+
