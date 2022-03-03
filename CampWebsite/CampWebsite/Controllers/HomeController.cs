@@ -15,9 +15,21 @@ namespace CampWebsite.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            IEnumerable<tCampsite> products = null;
+            string keyword = Request.Form["txtKeyword"];
+            if (string.IsNullOrEmpty(keyword))
+                products = from p in (new dbCampEntities()).tCampsite select p;
+            else
+                products = from p in (new dbCampEntities()).tCampsite where p.fCampsiteName.Contains(keyword) select p;
+            return View(products);
         }
-
+        [HttpPost]
+        public ActionResult subscribe(string userEmail)
+        {
+            string Email = userEmail;
+            new CMailVerifyFactory().SendSubMail(Email);
+            return Json(userEmail, JsonRequestBehavior.AllowGet);
+        }
         //俊長的營區搜尋
         public ActionResult search()
         {
@@ -31,6 +43,7 @@ namespace CampWebsite.Controllers
 
             return View(products);
         }
+
 
         //俊長的天氣API
         public ActionResult weatherTemp()

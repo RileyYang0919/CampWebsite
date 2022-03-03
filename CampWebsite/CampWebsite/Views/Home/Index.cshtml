@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<CampWebsite.Models.tCampsite>
+
 @section css{
     <link href="@Url.Content("~/Content/homeindex.css")" rel="stylesheet" />
     <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
@@ -18,11 +19,14 @@
 <div class="bg-grey" id="here">
     <div class="container pt-5">
         <div class="row">
-            <h1 class="text-center">Dummy Heading</h1>
+            <h3 class="text-center">Night on the Mountain</h3>
             <p class="text-center">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, aliquid
-                minima expedita assumenda saepe, temporibus earum enim iste quasi Lorem
-                ipsum dolor sit amet consectetur adipisicing elit. Est, aliquid
+                <i >
+                    The fog has risen from the sea and crowned<br />
+                    The dark, untrodden summits of the coast,<br />
+                    Where roams a voice, in canyons uttermost,<br />
+                    From mid­night waters vibrant and profound.
+                </i>
             </p>
 
         </div>
@@ -115,7 +119,27 @@
             </div>
         </div>
     </div>
+    @*關鍵字搜尋*@
+    <div class="container search-section">
+        <p class="fs-2 fw-bolder main-color pt-5 letter-sp-1">心有所屬</p>
+        <div class="d-flex justify-content-center my-5">
+            <div class="d-flex letter-sp-1 position-relative" id="search_section">
+                <select id="sel" list="browsers" class="form-control me-2 con " type="search" aria-label="Search" style="width:320px;">
+                    <option value="none" selected disabled hidden>請選擇指定營區</option>
+                    @foreach (var A in Model)
+                    {
+                        <option value="@Html.DisplayFor(modelItem => A.fCampsiteID)">
+                            @Html.DisplayFor(modelItem => A.fCampsiteName)
+                        </option>
+                    }
+                </select>
+
+                <button id="searchBtnn"><i class="fas fa-search"><span class="ms-1">搜尋</span></i></button>
+            </div>
+        </div>
+    </div>
 </div>
+
 @section scriptBody{
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -134,6 +158,12 @@
     gogo.addEventListener("click", function () {
         location.href = "/Search/Search"
     })
+
+    $("#searchBtnn").click(function () {
+        var res = $('#sel').val();
+        location.href = "/CampSite/Details/" + res;
+    })
+
     searchBtn.addEventListener("click", function () {
         if (from.value != "" && to.value != "") {
             if (from.value == to.value) {

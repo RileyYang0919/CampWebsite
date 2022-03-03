@@ -38,7 +38,7 @@
                         </li>
 
                         <li class="nav-item mx-md-2">
-                            <a class="nav-link active d-flex flex-column text-center" aria-current="page" href="#"><i class="fa-solid fa-circle-info text-stroke fs-4"></i><span class="fw-bolder">About</span></a>
+                            <a class="nav-link active d-flex flex-column text-center" aria-current="page" href="https://www.canva.com/design/DAE5oQ3bG7c/x-zuryPQC8iGKzevOGoSRg/view?utm_content=DAE5oQ3bG7c&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton"><i class="fa-solid fa-circle-info text-stroke fs-4"></i><span class="fw-bolder">About</span></a>
                         </li>
                     </ul>
                     <div class="d-flex align-items-center">
@@ -62,31 +62,31 @@
             <!-- Section: Social media -->
             <section class="mb-4">
                 <!-- Facebook -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                <a class="btn btn-outline-light btn-floating m-1" href="https://zh-tw.facebook.com/" role="button">
                     <i class="fab fa-facebook-f"></i>
                 </a>
                 <!-- Twitter -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                <a class="btn btn-outline-light btn-floating m-1" href="https://twitter.com/?lang=zh-Hant" role="button">
                     <i class="fab fa-twitter"></i>
                 </a>
 
                 <!-- Google -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.google.com/" role="button">
                     <i class="fab fa-google"></i>
                 </a>
 
                 <!-- Instagram -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/" role="button">
                     <i class="fab fa-instagram"></i>
                 </a>
 
                 <!-- Linkedin -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                <a class="btn btn-outline-light btn-floating m-1" href="https://tw.linkedin.com/" role="button">
                     <i class="fab fa-linkedin-in"></i>
                 </a>
 
                 <!-- Github -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/" role="button">
                     <i class="fab fa-github"></i>
                 </a>
             </section>
@@ -114,7 +114,7 @@
                         <!--Grid column-->
                         <div class="col-auto">
                             <!-- Submit button -->
-                            <button type="submit" class="btn btn-outline-light mb-4">訂閱</button>
+                            <button type="submit" class="btn btn-outline-light mb-4" id="subb">訂閱</button>
                         </div>
                         <!--Grid column-->
                     </div>
@@ -131,7 +131,7 @@
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
             © 2022 Copyright:
-            <a class="text-white" href="https://">122-one</a>
+            <a class="text-white" href="/Home/Index">122-one</a>
         </div>
         <!-- Copyright -->
     </footer>
@@ -151,6 +151,30 @@
             $("#linkOrder").click(function () {
                 localStorage.setItem("activeTab", "#p3Order");
             });
+        });
+    </script>
+    <script>
+        $("#subb").click(function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("subscribe", "Home")',
+                cache: false,
+                dataType: "json",
+                data: { "userEmail": $("#form5Example2").val() },
+                success: function () {
+                    $("#sendMailAgain").toggle()
+                    $("sendingMail").toggle()
+                    swal.fire({
+                        icon: 'success',
+                        title: '已成功訂閱',
+                        showConfirmButton: false,
+                    })
+                },
+                error: function () {
+                    alert("Found error when using Ajax!!");
+                }
+            })
+            return false;
         });
     </script>
 </body>
