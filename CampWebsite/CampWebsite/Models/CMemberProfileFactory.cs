@@ -53,8 +53,8 @@ namespace CampWebsite.Models
                                      }).ToList();
             DateTime firstDay = myOrderCodeDetail.First().CheckinDate;
             DateTime lastDay = myOrderCodeDetail.Last().CheckinDate.AddDays(1);
-            string scheduleFirst = firstDay.ToShortDateString().ToString();
-            string scheduleLast = lastDay.ToShortDateString().ToString();
+            string scheduleFirst = firstDay.ToString("yyyy/MM/dd");
+            string scheduleLast = lastDay.ToString("yyyy/MM/dd");
             int countDownDays = firstDay.Subtract(DateTime.Today).Days;
             int priceSum = 0;
             int tentSum = 0;
