@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Bootstrap\bootstrap.min.css" />
+    <Content Include="Content\entryAnimation.css" />
     <Content Include="Content\navbar.css" />
     <Content Include="Images\chicken_logo.png" />
     <Content Include="Images\favicon.ico" />

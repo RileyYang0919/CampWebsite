@@ -5,6 +5,51 @@
     <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
 }
 <link rel="stylesheet" href="~/Content/homeindex.css">
+<!--entry animation-->
+<link href="~/Content/entryAnimation.css" rel="stylesheet" />
+
+<div id="preload_body" class="preload_bg" style="margin: 0; padding: 0; box-sizing: border-box; background-color: #eee; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; top: 0;">
+    <div class="preload_container w-100 d-flex justify-content-center">
+        <div class="preload_wrap">
+            <img src="~/Images/chicken_logo.png" id="animatImage" width="270" />
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#animatImage").on("animationend", function () {
+            $("#preload_body").hide();
+            $("#preload_heading").hide();
+        });
+    });
+
+    //function clearHistory() {
+    //    localStorage.removeItem("isFirstTime");
+    //}
+
+    function checkIfFirstTime() {
+        const isFirstTime = sessionStorage.getItem("isFirstTime");
+        if (!isFirstTime) {
+            sessionStorage.setItem("isFirstTime", true);
+            return true;
+        }
+        return false;
+    }
+
+    function checkAnimation() {
+        const isFirstTime = checkIfFirstTime();
+        if (isFirstTime == true) {
+            document.getElementById("preload_body").classList.add("active")
+        } else {
+            $("#preload_body").hide();
+            $("#preload_heading").hide();
+        }
+    }
+
+
+    //clearHistory();
+    checkAnimation();
+</script>
 <!-- 大圖部分 -->
 <div class="main d-flex justify-content-center flex-column align-items-center position-relative">
     <div>
@@ -21,7 +66,7 @@
         <div class="row">
             <h3 class="text-center">Night on the Mountain</h3>
             <p class="text-center">
-                <i >
+                <i>
                     The fog has risen from the sea and crowned<br />
                     The dark, untrodden summits of the coast,<br />
                     Where roams a voice, in canyons uttermost,<br />
