@@ -30,8 +30,8 @@
                     <div class="col-6">
                         <h4 class="text-center">住宿資訊</h4>
                         <hr />
-                        <div class="mb-3">入住日期: @Model.First().fCheckinStart.GetDateTimeFormats('D')[0]</div>
-                        <div class="mb-3">退宿日期: @Model.Last().fCheckinEnd.GetDateTimeFormats('D')[0]</div>
+                        <div class="mb-3">入住日期: @Model.First().fCheckinStart.ToShortDateString().ToString()</div>
+                        <div class="mb-3">退宿日期: @Model.Last().fCheckinEnd.ToShortDateString().ToString()</div>
                         <div class="mb-3">入住 @stayNight 晚 - NT$ @totalPrice 元 </div>
                     </div>
                     <div class="col-6">
