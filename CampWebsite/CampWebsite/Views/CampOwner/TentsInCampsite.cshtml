@@ -23,7 +23,7 @@
     <div class="page-header mb-3">
         <h2>@ViewBag.cName</h2>
         <br />
-        <span>新增住宿要 <a href="javascript:history.back()" class="link-primary">回到上一頁</a></span>
+        <span>新增住宿要 @Html.ActionLink("回到上一頁", "FindMyCampsites")</span>
     </div>
 
     <table class="table table-hover table-striped align-middle" style="user-select:none">
@@ -75,7 +75,15 @@
                         @Html.DisplayFor(modelItem => item.fTentPriceWeekend)
                     </td>
                     <td class="text-secondary">
-                        (有/無)
+                        @{ if (@item.tOrder.Any(i => i.fCheckinDate == DateTime.Now.Date))
+                            {
+                                <i class="fa-solid fa-check">預定</i>
+                            }
+                            else
+                            {
+                                <p>無</p>
+                            }
+                        }
                     </td>
                     <td>
                         @*<a href="#" class="showAllTents link-primary" id="@item.fCampsiteID" value="@item.fCampsiteName">所有帳篷</a>*@

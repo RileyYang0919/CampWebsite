@@ -40,7 +40,7 @@
                 @Html.LabelFor(model => model.tCampsite.fCampsiteName, new { @class = "control-label card-title required" })
                 <br />
                 <span class="form-text">最多12個字唷</span>
-                @Html.EditorFor(model => model.tCampsite.fCampsiteName, new { htmlAttributes = new { @class = "form-control" } })
+                <input class="form-control text-box single-line" data-val="true" data-val-required="The 營區名稱 field is required." id="tCampsite_fCampsiteName" name="campName" type="text" value="">
                 @Html.ValidationMessageFor(model => model.tCampsite.fCampsiteName, "", new { @class = "text-danger" })
             </div>
 
@@ -49,7 +49,7 @@
             <div class="form-group mb-5">
                 @Html.LabelFor(model => model.tCampsite.fCampsiteIntroduction, new { @class = "control-label card-title required" })
                 <br />
-                <textarea class="form-control w-100" cols="20" data-val="true" data-val-required="必填欄位" id="tCampsite_fCampsiteIntroduction" name="tCampsite.fCampsiteIntroduction" rows="5"></textarea>
+                <textarea class="form-control w-100" cols="20" data-val="true" data-val-required="必填欄位" id="tCampsite_fCampsiteIntroduction" name="campIntro" rows="5"></textarea>
                 @Html.ValidationMessageFor(model => model.tCampsite.fCampsiteIntroduction, "", new { @class = "text-danger" })
             </div>
 
@@ -59,12 +59,19 @@
                 <div class="row">
                     <div class="col">
                         @Html.LabelFor(model => model.tCampsite.fCampsiteArea, new { @class = "control-label card-title required" })
-                        @Html.DropDownListFor(model => model.tCampsite.fCampsiteArea, (IEnumerable<SelectListItem>)Model.SelectArea, "請選擇區域", new { @class = "form-select" })
+                        <select class="form-select" id="tCampsite_fCampsiteArea" name="SelectArea">
+                            <option value="">請選擇區域</option>
+                            <option value="北部">北部</option>
+                            <option value="中部">中部</option>
+                            <option value="南部">南部</option>
+                            <option value="東部">東部</option>
+                            <option value="離島">離島</option>
+                        </select>
                         @Html.ValidationMessageFor(model => model.tCampsite.fCampsiteArea, "", new { @class = "text-danger" })
                     </div>
                     <div class="col">
                         @Html.LabelFor(model => model.tCampsite.fCampsiteCity, new { @class = "control-label  card-title required" })
-                        <select htmlattributes="{ class = form-select }" id="tCampsite_fCampsiteCity" name="tCampsite.fCampsiteCity" class="form-select" onchange="appendAddress(event)">
+                        <select htmlattributes="{ class = form-select }" id="tCampsite_fCampsiteCity" name="SelectCity" class="form-select" onchange="appendAddress(event)">
                             <option value="">請選擇縣市</option>
                         </select>
                         @Html.ValidationMessageFor(model => model.tCampsite.fCampsiteCity, "", new { @class = "text-danger" })
@@ -75,14 +82,14 @@
             @*地址*@
             <div class="form-group mb-5">
                 @Html.LabelFor(model => model.tCampsite.fCampsiteAddress, new { @class = "control-label  card-title required" })
-                <input class="form-control text-box single-line" data-val="true" data-val-required="必填欄位" id="tCampsite_fCampsiteAddress" name="tCampsite.fCampsiteAddress" type="text" value="">
+                <input class="form-control text-box single-line" data-val="true" data-val-required="必填欄位" id="tCampsite_fCampsiteAddress" name="campAddress" type="text" value="">
                 @Html.ValidationMessageFor(model => model.tCampsite.fCampsiteAddress, "", new { @class = "text-danger" })
             </div>
 
             @*phone*@
             <div class="form-group mb-5">
                 @Html.LabelFor(model => model.tCampsite.fCampsitePhone, new { @class = "control-label card-title required" })
-                @Html.EditorFor(model => model.tCampsite.fCampsitePhone, new { htmlAttributes = new { @class = "form-control" } })
+                <input class="form-control text-box single-line" id="tCampsite_fCampsitePhone" name="campPhone" type="tel" value="">
                 @Html.ValidationMessageFor(model => model.tCampsite.fCampsitePhone, "", new { @class = "text-danger" })
             </div>
 
@@ -95,7 +102,7 @@
                 <div class="d-flex justify-content-center">
                     <div>0</div>
                     <div class="w-100 px-3">
-                        <input type="range" id="tCampsite_fCampsiteAltitude" name="tCampsite.fCampsiteAltitude" min="0" max="2500" step="100" class="form-range" value="0">
+                        <input type="range" id="tCampsite_fCampsiteAltitude" name="campAltitude" min="0" max="2500" step="100" class="form-range" value="0">
                     </div>
                     <div>2500</div>
                 </div>
@@ -132,7 +139,7 @@
                 @for (int i = 0; i < Model.DayOffs.Count(); i++)
                 {
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input dayOffCheck" type="checkbox" id="@Model.DayOffs[i].Day" name="@Model.DayOffs[i]" value="@Model.DayOffs[i].Value">
+                        <input class="form-check-input dayOffCheck" type="checkbox" id="@Model.DayOffs[i].Day" name="DayOffs" value="@Model.DayOffs[i].Value">
                         <label class="form-check-label" for="@Model.DayOffs[i].Day">@Model.DayOffs[i].Day</label>
                     </div>
                 }
@@ -145,12 +152,12 @@
                     <div class="col">
                         @Html.LabelFor(model => model.tCampsite.fCampsiteCheckInTime, new { @class = "control-label card-title" })
                         <span id="checkinDisplay"></span>
-                        <input class="form-control text-box single-line" id="visibleCheckIn" name="tCampsite.fCampsiteCheckInTime" type="time" value="12:00">
+                        <input class="form-control text-box single-line" id="visibleCheckIn" name="CheckInTime" type="time" value="12:00">
                     </div>
                     <div class="col">
                         @Html.LabelFor(model => model.tCampsite.fCampsiteCheckOutTime, new { @class = "control-label card-title" })
                         <span id="checkoutDisplay"></span>
-                        <input class="form-control text-box single-line" id="visibleCheckOut" name="tCampsite.fCampsiteCheckOutTime" type="time" value="12:00">
+                        <input class="form-control text-box single-line" id="visibleCheckOut" name="CheckOutTime" type="time" value="12:00">
                     </div>
                 </div>
             </div>

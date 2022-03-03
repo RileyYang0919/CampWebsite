@@ -38,6 +38,7 @@ namespace CampWebsite.ViewModels
         public List<SelectListItem> SelectCityNorth = new List<SelectListItem>()
             {
                 new SelectListItem {Text="新北市", Value="新北市" },
+                new SelectListItem {Text="台北市", Value="台北市" },
                 new SelectListItem {Text="桃園市", Value="桃園市" },
                 new SelectListItem {Text="新竹縣", Value="新竹縣" },
             };
@@ -70,17 +71,7 @@ namespace CampWebsite.ViewModels
         };
 
         // DayOff CheckBox
-        public List<DayOff> DayOffs = new List<DayOff>()
-        {
-            new DayOff { Day ="星期一", Value = "1", Checked = false },
-            new DayOff { Day ="星期二", Value = "2", Checked = false },
-            new DayOff { Day ="星期三", Value = "3", Checked = false },
-            new DayOff { Day ="星期四", Value = "4", Checked = false },
-            new DayOff { Day ="星期五", Value = "5", Checked = false },
-            new DayOff { Day ="星期六", Value = "6", Checked = false },
-            new DayOff { Day ="星期七", Value = "7", Checked = false },
-            new DayOff { Day ="無公休日", Value = "0", Checked = false },
-        };
+        public List<DayOff> DayOffs { get; set; }
 
     }
 }
